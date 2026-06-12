@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publi-K-Lo | Branding, Marketing y Soluciones Digitales de Alto Impacto</title>
+    <title>Publi-K-Lo | Soluciones Digitales de Alto Impacto</title>
     
-    <!-- Tailwind CSS para el diseño adaptable responsivo -->
+    <!-- Tailwind CSS para el diseño adaptable responsivo de alto rendimiento -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter y Montserrat para tipografía de élite -->
+    <!-- Google Fonts: Inter y Montserrat para tipografía moderna de alto contraste (WCAG 2.2) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2 family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@200;400;600;700;900&display=swap" rel="stylesheet">
-    <!-- Lucide Icons para soportar una interfaz moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons para soportar una interfaz moderna y pulida -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <script>
@@ -19,11 +19,11 @@
             theme: {
                 extend: {
                     colors: {
-                        brandBg: '#0A0A0A',         /* Negro carbón profundo para mitigar la fatiga visual (WCAG 2.2) */
+                        brandBg: '#0A0A0A',         /* Negro carbón profundo para mitigar la fatiga visual (Normativa WCAG 2.2) */
                         brandCard: '#121212',       /* Gris oscuro elegante para paneles estilo Bento */
-                        brandAccent: '#FF5E1A',     /* Naranja vibrante para llamadas a la acción (CTA) */
-                        brandAccentDark: '#D6450A', /* Naranja profundo para estados activos */
-                        brandText: '#E0E0E0',       /* Gris brillante para lectura sumamente descansada (AAA) */
+                        brandAccent: '#FF5E1A',     /* Naranja vibrante para llamadas a la acción (CTA de alto contraste) */
+                        brandAccentDark: '#D6450A', /* Naranja profundo para estados hover y activos */
+                        brandText: '#E0E0E0',       /* Gris brillante para lectura sumamente descansada (Estándar AAA) */
                         brandMuted: '#94A3B8',      /* Gris medio para descripciones de servicios */
                     },
                     fontFamily: {
@@ -86,17 +86,18 @@
 <body class="bg-brandBg text-brandText font-sans selection:bg-brandAccent selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden relative">
 
     <script>
-        // Inicializar de manera síncrona el portafolio y los precios antes de la carga de scripts externos
+        // Precios iniciales por defecto (Se sobrescriben dinámicamente con Firebase o LocalStorage)
         window.planPrices = {
             plan_1: 199,
             plan_2: 399,
             plan_3: 699
         };
 
+        // Portafolio inicial por defecto (Se sincroniza dinámicamente)
         window.portfolioItems = [
             {
                 id: 'ole-pizza',
-                badge: 'Caso de Estudio: Gastronomía Inteligente',
+                badge: 'Caso de Estudio: Gastronomía',
                 title: 'Sistema de Pedidos y Delivery Inteligente para Olé Pizza',
                 desc: 'Desarrollamos una aplicación web robusta, rápida y optimizada para móviles, que permite al usuario armar su pedido en segundos, enviarlo directo a la cocina y coordinar el delivery de forma automatizada, eliminando las altas comisiones de terceros.',
                 link: 'https://ole-pizza.vercel.app',
@@ -111,20 +112,21 @@
     <header class="sticky top-0 z-50 bg-brandBg/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             
-            <!-- Logotipo Principal (Tu SVG integrado completo y transparente) -->
+            <!-- Logotipo Principal SVG (Transparente y Escalado de alta nitidez) -->
             <a href="#inicio" class="flex items-center group premium-focus p-1" aria-label="Ir al inicio de Publi-K-Lo">
-                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02]">
-                    <svg viewBox="0 80 500 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-14 w-auto">
+                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] h-14">
+                    <!-- SVG nativo adaptado para barra de navegación (Sin recuadros oscuros de fondo) -->
+                    <svg viewBox="140 70 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-14 w-auto">
                         <g fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M 200,95 L 160,150 L 200,205" stroke="#FF5E1A" stroke-width="15" />
                             <path d="M 205,150 L 255,95" stroke="#E0E0E0" stroke-width="15" />
                             <path d="M 205,150 L 255,205" stroke="#E0E0E0" stroke-width="15" />
-                            <path d="M 295,95 L 335,150 L 295,205" stroke="#7A3A1E" stroke-width="15" />
+                            <path d="M 295,95 L 335,150 L 295,205" stroke="#FF5E1A" stroke-width="15" opacity="0.35" />
                         </g>
-                        <text x="250" y="280" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
-                            <tspan font-weight="200" fill="#E0E0E0" font-size="36">Publi</tspan>
-                            <tspan font-weight="900" fill="#FF5E1A" font-size="38">&lt;K&gt;</tspan>
-                            <tspan font-weight="200" fill="#E0E0E0" font-size="36">Lo</tspan>
+                        <text x="250" y="245" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
+                            <tspan font-weight="200" fill="#E0E0E0" font-size="28">Publi</tspan>
+                            <tspan font-weight="900" fill="#FF5E1A" font-size="30">&lt;K&gt;</tspan>
+                            <tspan font-weight="200" fill="#E0E0E0" font-size="28">Lo</tspan>
                         </text>
                     </svg>
                 </div>
@@ -162,7 +164,7 @@
                     </div>
                 </div>
 
-                <!-- Botón de Conversión Comercial (CTA a tu WhatsApp Directo) -->
+                <!-- Botón de Conversión Comercial (Contacto Directo a WhatsApp) -->
                 <div class="hidden sm:block">
                     <a href="https://wa.me/584141255891?text=Hola%20Publi-K-Lo,%20quiero%20conversar%20con%20un%20asesor%20para%20un%20proyecto." 
                        target="_blank"
@@ -210,14 +212,16 @@
             <!-- Luces de fondo decorativas -->
             <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brandAccent/10 rounded-full blur-[140px] -z-10 pointer-events-none animate-pulse-slow"></div>
             
-            <!-- Logotipo de Fondo en Transparencia Absoluta (Detrás del texto) -->
+            <!-- Logotipo de Fondo en Transparencia Absoluta (Detrás del texto, Marca de agua) -->
             <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none opacity-[0.03]">
+                <!-- Código SVG provisto integrado para asegurar exactitud -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" class="w-[650px] h-auto max-w-full">
+                    <rect width="100%" height="100%" fill="none" />
                     <g fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 200,95 L 160,150 L 200,205" stroke="#FF5E1A" stroke-width="15" />
                         <path d="M 205,150 L 255,95" stroke="#E0E0E0" stroke-width="15" />
                         <path d="M 205,150 L 255,205" stroke="#E0E0E0" stroke-width="15" />
-                        <path d="M 295,95 L 335,150 L 295,205" stroke="#7A3A1E" stroke-width="15" />
+                        <path d="M 295,95 L 335,150 L 295,205" stroke="#FF5E1A" stroke-width="15" opacity="0.35" />
                     </g>
                     <text x="250" y="280" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
                         <tspan font-weight="200" fill="#E0E0E0" font-size="36">Publi</tspan>
@@ -230,7 +234,7 @@
                 </svg>
             </div>
             
-            <div class="max-w-5xl mx-auto px-6 text-center space-y-8">
+            <div class="max-w-5xl mx-auto px-6 text-center space-y-8 relative z-10">
                 <h1 data-i18n="hero_title" class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight font-montserrat">
                     No solo creamos marcas.<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500">
@@ -242,7 +246,7 @@
                     Estrategia, diseño de alto impacto y soluciones digitales a la medida para negocios que quieren automatizar sus ventas. Si tu proyecto es grande, ¡PUBLÍCALO!
                 </p>
 
-                <!-- Botón de Conversión Principal -->
+                <!-- Botón de Conversión Principal (CTA) -->
                 <div class="pt-6">
                     <a href="#asistente-ia" 
                        class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-xl font-extrabold px-10 py-5 rounded-xl shadow-2xl shadow-brandAccent/20 transition-all duration-300 transform hover:-translate-y-1 premium-focus"
@@ -344,7 +348,7 @@
                             </div>
                             <h3 data-i18n="service_title_2" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Diseño Digital y Publicitario</h3>
                             <p data-i18n="service_desc_2" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Flyers, catálogos, portafolios comerciales y material para redes sociales que detienen el scroll.
+                                Flyers, catálogos, portafolios comerciales y material publicitario que capturan la atención.
                             </p>
                         </div>
                         <div class="mt-8 border-t border-white/5 pt-5 flex justify-between items-center text-xs font-mono text-brandAccent">
@@ -794,17 +798,17 @@
                 <!-- Identidad y Descripción -->
                 <div class="space-y-6 md:col-span-2">
                     <a href="#inicio" class="flex items-center">
-                        <svg viewBox="0 80 500 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-10 w-auto">
+                        <svg viewBox="140 70 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-10 w-auto">
                             <g fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M 200,95 L 160,150 L 200,205" stroke="#FF5E1A" stroke-width="15" />
                                 <path d="M 205,150 L 255,95" stroke="#E0E0E0" stroke-width="15" />
                                 <path d="M 205,150 L 255,205" stroke="#E0E0E0" stroke-width="15" />
-                                <path d="M 295,95 L 335,150 L 295,205" stroke="#7A3A1E" stroke-width="15" />
+                                <path d="M 295,95 L 335,150 L 295,205" stroke="#FF5E1A" stroke-width="15" opacity="0.35" />
                             </g>
-                            <text x="250" y="280" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
-                                <tspan font-weight="200" fill="#E0E0E0" font-size="36">Publi</tspan>
-                                <tspan font-weight="900" fill="#FF5E1A" font-size="38">&lt;K&gt;</tspan>
-                                <tspan font-weight="200" fill="#E0E0E0" font-size="36">Lo</tspan>
+                            <text x="250" y="245" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
+                                <tspan font-weight="200" fill="#E0E0E0" font-size="28">Publi</tspan>
+                                <tspan font-weight="900" fill="#FF5E1A" font-size="30">&lt;K&gt;</tspan>
+                                <tspan font-weight="200" fill="#E0E0E0" font-size="28">Lo</tspan>
                             </text>
                         </svg>
                     </a>
@@ -891,7 +895,7 @@
                     <input type="password" id="admin-password" required placeholder="••••••••" class="w-full bg-[#070707] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandAccent transition-all placeholder:text-brandMuted/35">
                 </div>
                 <div class="bg-brandAccent/10 border border-brandAccent/20 rounded-xl p-3 text-[10px] text-brandAccent font-mono">
-                    💡 Credenciales por defecto:<br>Usuario: <span class="font-bold underline text-white selection:bg-brandAccent selection:text-white">admin</span> | Clave: <span class="font-bold underline text-white selection:bg-brandAccent selection:text-white">Publiklo2026*</span>
+                    💡 Credenciales por defecto:<br>Usuario: <span class="font-bold underline text-white selection:bg-brandAccent selection:text-white">admin</span> | Clave: <span class="font-bold underline text-white selection:bg-brandAccent selection:text-white">Publiklo2026!</span>
                 </div>
                 <button type="submit" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold py-3.5 rounded-xl transition-all font-mono tracking-widest uppercase">
                     INGRESAR A CONSOLA
@@ -1063,7 +1067,7 @@
                 service_desc_1: "Logotipos, manuales de marca y papelería comercial que imponen respeto y profesionalismo.",
                 service_action_1: "CREACIÓN DE IDENTIDAD POTENTE",
                 service_title_2: "Diseño Digital y Publicitario",
-                service_desc_2: "Flyers, catálogos, portafolios comerciales y material para redes sociales que detienen el scroll.",
+                service_desc_2: "Flyers, catálogos, portafolios comerciales y material publicitario que capturan la atención.",
                 service_action_2: "DISEÑO PUBLICITARIO QUE VENDE",
                 service_title_3: "Producción Audiovisual",
                 service_desc_3: "Videos dinámicos, comerciales y animaciones diseñadas para conectar y vender en plataformas actuales.",
@@ -1154,7 +1158,7 @@
                 service_desc_1: "Logos, brand books, and corporate stationery that command respect and professionalism.",
                 service_action_1: "POWERFUL IDENTITY CREATION",
                 service_title_2: "Digital & Advertising Design",
-                service_desc_2: "Flyers, catalogs, commercial portfolios, and social media graphics that stop the scroll.",
+                service_desc_2: "Flyers, catalogs, commercial portfolios, and eye-catching advertising materials.",
                 service_action_2: "ADVERTISING DESIGN THAT SELLS",
                 service_title_3: "Audiovisual Production",
                 service_desc_3: "Dynamic videos, commercials, and animations designed to connect and sell on modern platforms.",
@@ -1245,12 +1249,12 @@
                 service_desc_1: "Logotipos, manuais de marca e papelaria corporativa que impõem respeito e profissionalismo.",
                 service_action_1: "CRIAÇÃO DE IDENTIDADE PODEROSA",
                 service_title_2: "Design Digital e Publicitário",
-                service_desc_2: "Flyers, catálogos, portfólios comerciais e material de mídia social que param o scroll.",
+                service_desc_2: "Flyers, catálogos, portfólios comerciais e materiais publicitários atraentes.",
                 service_action_2: "DESIGN PUBLICITÁRIO QUE VENDE",
                 service_title_3: "Produção Audiovisual",
                 service_desc_3: "Vídeos dinâmicos, comerciais e animações projetadas para conectar e vender em plataformas atuais.",
                 service_action_3: "CONTEÚDO DE ALTO IMPACTO VISUAL",
-                service_title_4: "Soluciones Digitales y Apps Web",
+                service_title_4: "Soluciones Digitais e Apps Web",
                 service_desc_4: "Projetamos e desenvolvemos plataformas otimizadas (como sistemas de pedidos e delivery automáticos) para que seu negócio receba pedidos directos, sem intermediários ou comissões.",
                 service_action_4: "AUTOMATIZAÇÃO DIRETA",
                 featured_tag: "Solução de Destaque",
@@ -1264,7 +1268,7 @@
                 plan_1_title: "Identidade & Marca",
                 plan_1_desc: "Ideal para novas marcas que precisam parecer altamente profissionais desde o primeiro dia.",
                 plan_1_f1: "Design de Logotipo Comercial",
-                plan_1_f2: "Manual de Identidad Visual",
+                plan_1_f2: "Manual de Identidade Visual",
                 plan_1_f3: "Flyers Publicitários de Alto Tráfego",
                 plan_2_title: "Site Corporativo",
                 plan_2_desc: "A melhor escolha para obter clientes constantes, agendar reuniões e ranquear no Google.",
@@ -1330,13 +1334,13 @@
                 btn_back_home: "Torna alla Home",
                 btn_next_services: "Vedi Servizi",
                 services_tag: "// Portfolio delle Soluzioni",
-                services_title: "Come ti aiutiamo a dominar el mercato?",
+                services_title: "Come ti aiutiamo a dominar il mercato?",
                 services_subtitle: "Strutturiamo le nostre aree di competenza per coprire in modo completo ogni esigenza di comunicazione e conversione della tua attività.",
                 service_title_1: "Branding e Identità Visiva",
                 service_desc_1: "Loghi, manuali di stile e cancelleria aziendale che impongono rispetto e professionalità.",
                 service_action_1: "CREAZIONE DI IDENTITÀ POTENTE",
                 service_title_2: "Design Digitale e Pubblicitario",
-                service_desc_2: "Flyer, cataloghi, portfolio commerciali e materiali per social media che bloccano lo scorrimento.",
+                service_desc_2: "Flyer, cataloghi, portfolio commerciali e materiali pubblicitari accattivanti.",
                 service_action_2: "DESIGN PUBBLICITARIO CHE VENDE",
                 service_title_3: "Produzione Audiovisiva",
                 service_desc_3: "Video dinamici, spot e animazioni progettati per connettere e vendere sulle piattaforme attuali.",
@@ -1347,7 +1351,7 @@
                 featured_tag: "Soluzione in Evidenza",
                 btn_next_portfolio: "Vedi Casi di Successo",
                 portfolio_tag: "// Dimostrazione dei Risultati",
-                portfolio_title: "Storie di Successo: Innovation in Tavola",
+                portfolio_title: "Storie di Successo: Innovazione in Tavola",
                 portfolio_subtitle: "Creiamo prodotti digitali che non solo hanno un aspetto straordinario, ma trasformano anche le operazioni aziendali per massimizzare la redditività.",
                 plans_tag: "// Struttura degli Investimenti",
                 plans_title: "Piani di Design & Sviluppo",
@@ -1355,14 +1359,14 @@
                 plan_1_title: "Identità & Marchio",
                 plan_1_desc: "Ideale per i nuovi marchi che hanno bisogno di apparire altamente professionali fin dal primo giorno.",
                 plan_1_f1: "Design del Logo Commerciale",
-                plan_1_f2: "Manuale de Identidad Visual",
+                plan_1_f2: "Manuale di Identità Visiva",
                 plan_1_f3: "Flyer Pubblicitari ad Alto Traffico",
                 plan_2_title: "Sito Web Aziendale",
                 plan_2_desc: "La scelta migliore per ottenere clienti costanti, prenotare appuntamenti e posizionarsi su Google.",
                 plan_2_f1: "Landing Page / Sito Web Autogestito",
                 plan_2_f2: "Sezione Strategica di IA Integrata",
                 plan_2_f3: "Ottimizzazione SEO Iniziale per Google",
-                plan_3_title: "E-commerce Automatizado",
+                plan_3_title: "E-commerce Automatizzato",
                 plan_3_desc: "Automazione completa: catalogo prodotti, carrello integrato e notifiche dirette.",
                 plan_3_f1: "Negozio Online Completo Autogestito",
                 plan_3_f2: "Sistema Automatizzato di Consegna e Ordini",
@@ -1379,7 +1383,7 @@
                 ia_field_3: "Obiettivo Aziendale Principale",
                 ia_field_4: "Posizione del Cliente",
                 ia_apikey_label: "Usa la tua chiave API di Gemini? (Opzionale)",
-                ia_apikey_desc: "Se lasciato vuoto, il sito chiamerà in modo sicuro il motore neurale attraverso la plataforma.",
+                ia_apikey_desc: "Se lasciato vuoto, il sito chiamerà in modo sicuro il motore neurale attraverso la piattaforma.",
                 ia_btn_generate: "Genera il Mio Piano Strategico IA",
                 ia_empty_title: "Pronto per l'Analisi",
                 ia_empty_desc: "Inserisci il nome e l'obiettivo della tua attività a sinistra. Il nostro motore IA genererà un piano d'azione diretto.",
@@ -1390,7 +1394,7 @@
                 ia_strategies_label: "3 Azioni Chiave Raccomandate dall'IA:",
                 ia_recommended_service: "Servizio Principale Consigliato:",
                 ia_btn_send_whatsapp: "Invia Piano su WhatsApp",
-                error_title: "Errore di Conexión",
+                error_title: "Errore di Conexione",
                 error_desc: "Impossibile connettersi ai server di Google per elaborare la tua strategia. Controlla la tua chiave API di Gemini o riprova più tardi.",
                 btn_schedule_project: "Pianifica Progetto",
                 cta_final_badge: "// Prenota la tua Sessione Strategica",
@@ -1466,7 +1470,7 @@
                 es: "Hola Publi-K-Lo, quiero conversar con un asesor para un proyecto.",
                 en: "Hello Publi-K-Lo, I want to talk to an advisor about a project.",
                 pt: "Olá Publi-K-Lo, gostaria de conversar com um assessor para um projeto.",
-                it: "Ciao Publi-K-Lo, vorrei parlare con un consulente per un projeto."
+                it: "Ciao Publi-K-Lo, vorrei parlare con un consulente per un progetto."
             };
             const currentText = encodeURIComponent(textTemplates[activeLanguage]);
             const waNumber = "584141255891";
@@ -1593,44 +1597,56 @@
     <!-- Firebase script (Cargado en módulo) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // =========================================================================
+        // 🚨 CONFIGURACIÓN DE FIREBASE INTEGRADA (Credenciales Reales de Producción)
+        const myFirebaseConfig = {
+            apiKey: "AIzaSyDIyM_QKSMDSrijxRH1d3DjZzhcaiOJAV4",
+            authDomain: "publiklo-web.firebaseapp.com",
+            projectId: "publiklo-web",
+            storageBucket: "publiklo-web.firebasestorage.app",
+            messagingSenderId: "236778062456",
+            appId: "1:236778062456:web:218caf64858ae1bbd3638d",
+            measurementId: "G-58SHL2HWFZ"
+        };
+        // =========================================================================
 
         let db = null;
         let auth = null;
         
-        // Identificador exclusivo de la app según normas de la plataforma
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'publiklo-app-production-v2';
+        // Identificador único para el espacio de almacenamiento corporativo
+        const appId = 'publiklo-app-production-v2';
+
+        // Comprobación de que se han pegado datos de Firebase válidos
+        const isFirebaseConfigured = myFirebaseConfig.apiKey && !myFirebaseConfig.apiKey.includes("REEMPLAZA_CON_TU");
 
         (async () => {
-            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            if (isFirebaseConfigured) {
                 try {
-                    const firebaseConfig = JSON.parse(__firebase_config);
-                    const app = initializeApp(firebaseConfig);
+                    const app = initializeApp(myFirebaseConfig);
                     db = getFirestore(app);
                     auth = getAuth(app);
 
-                    // Cumplimiento estricto de la regla de Autenticación antes de cualquier consulta (RULE 3)
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
+                    // Inicio de sesión anónimo obligatorio antes de cualquier operación de base de datos
+                    await signInAnonymously(auth);
+                    console.log("Firebase conectado y Autenticado Anónimamente con éxito.");
 
-                    // Sincronización reactiva de Precios (RULE 1: Ruta estructurada obligatoria)
+                    // Sincronización de tarifas en vivo mediante Snapshot
                     const pricesDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'config', 'prices');
                     onSnapshot(pricesDocRef, (docSnap) => {
                         if (docSnap.exists()) {
                             window.planPrices = docSnap.data();
                             updatePricesUI();
                         } else {
-                            // Sembrar valores por defecto
+                            // Si la ruta en la base de datos está vacía, sembramos los precios base iniciales
                             setDoc(pricesDocRef, window.planPrices);
                             updatePricesUI();
                         }
-                    }, (err) => console.log("Error al sincronizar precios:", err));
+                    }, (err) => console.log("Error al sincronizar precios desde la nube:", err));
 
-                    // Sincronización reactiva del Portafolio de Casos de Estudio (RULE 1)
+                    // Sincronización de los proyectos del portafolio en vivo
                     const portfolioColRef = collection(db, 'artifacts', appId, 'public', 'data', 'portfolio');
                     onSnapshot(portfolioColRef, (snapshot) => {
                         const loadedItems = [];
@@ -1640,7 +1656,7 @@
                         if (loadedItems.length > 0) {
                             window.portfolioItems = loadedItems;
                         } else {
-                            // Sembrar proyecto por defecto de Olé Pizza para evitar que cargue vacío
+                            // Sembrar el proyecto inicial de Olé Pizza
                             window.portfolioItems.forEach(item => {
                                 setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio', item.id), item);
                             });
@@ -1649,56 +1665,77 @@
                     }, (err) => console.log("Error al sincronizar portafolio:", err));
 
                 } catch (error) {
-                    console.warn("Entorno sin base de datos activa. Sincronizando en modo Local.");
-                    updatePricesUI();
-                    updatePortfolioUI();
+                    console.error("Fallo de inicialización de Firebase:", error);
+                    fallbackLocalLoad();
                 }
             } else {
-                // Carga local instantánea de contingencia
-                setTimeout(() => {
-                    updatePricesUI();
-                    updatePortfolioUI();
-                }, 50);
+                console.warn("Firebase no está configurado. Operando de forma segura en Modo de Respaldo Local (LocalStorage).");
+                fallbackLocalLoad();
             }
         })();
 
-        // Exponer funciones globales de persistencia conectadas a Firestore
+        // Función de respaldo en local (Memoria del navegador para desarrollo libre)
+        function fallbackLocalLoad() {
+            const savedPrices = localStorage.getItem('local_plan_prices');
+            if (savedPrices) {
+                window.planPrices = JSON.parse(savedPrices);
+            }
+            
+            const savedPortfolio = localStorage.getItem('local_portfolio_items');
+            if (savedPortfolio) {
+                window.portfolioItems = JSON.parse(savedPortfolio);
+            }
+
+            updatePricesUI();
+            updatePortfolioUI();
+        }
+
+        // Exponer funciones globales para que funcionen con la nube o en fallback local
         window.savePricesToCloud = async function(newPrices) {
             window.planPrices = newPrices;
             updatePricesUI();
-            if (db) {
+            
+            if (isFirebaseConfigured && db) {
                 try {
                     const pricesDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'config', 'prices');
                     await setDoc(pricesDocRef, newPrices);
                 } catch (e) {
-                    console.error("Error al persistir precios:", e);
+                    console.error("Error al persistir precios en Firestore:", e);
                 }
+            } else {
+                localStorage.setItem('local_plan_prices', JSON.stringify(newPrices));
             }
         };
 
         window.addPortfolioItemToCloud = async function(newItem) {
             window.portfolioItems.push(newItem);
             updatePortfolioUI();
-            if (db) {
+            
+            if (isFirebaseConfigured && db) {
                 try {
                     const itemDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'portfolio', newItem.id);
                     await setDoc(itemDocRef, newItem);
                 } catch (e) {
-                    console.error("Error al guardar proyecto:", e);
+                    console.error("Error al guardar proyecto en Firestore:", e);
                 }
+            } else {
+                localStorage.setItem('local_portfolio_items', JSON.stringify(window.portfolioItems));
             }
         };
 
         window.deletePortfolioItemFromCloud = async function(id) {
             window.portfolioItems = window.portfolioItems.filter(i => i.id !== id);
             updatePortfolioUI();
-            if (db) {
+            
+            if (isFirebaseConfigured && db) {
                 try {
                     const itemDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'portfolio', id);
                     await deleteDoc(itemDocRef);
                 } catch (e) {
-                    console.error("Error al borrar proyecto:", e);
+                    console.error("Error al borrar proyecto en Firestore:", e);
                 }
+            } else {
+                localStorage.setItem('local_portfolio_items', JSON.stringify(window.portfolioItems));
             }
         };
     </script>
@@ -1789,7 +1826,7 @@
                 container.insertAdjacentHTML('beforeend', cardHTML);
             });
 
-            // 2. Redibujar en la Consola del Administrador (Si existe)
+            // 2. Redibujar en la Consola del Administrador
             if (adminList) {
                 adminList.innerHTML = '';
                 if (window.portfolioItems.length === 0) {
@@ -1868,16 +1905,15 @@
             if (modal) {
                 modal.classList.toggle('hidden', !show);
                 if (show) {
-                    // Cargar valores actuales en los campos
                     document.getElementById('edit-price-1').value = window.planPrices.plan_1;
                     document.getElementById('edit-price-2').value = window.planPrices.plan_2;
                     document.getElementById('edit-price-3').value = window.planPrices.plan_3;
-                    updatePortfolioUI(); // Refrescar portafolio administrativo
+                    updatePortfolioUI();
                 }
             }
         }
 
-        // Lógica de validación de credenciales (Admin local seguro)
+        // Lógica de validación de credenciales
         function handleAdminLogin(event) {
             event.preventDefault();
             const user = document.getElementById('admin-username').value.trim();
@@ -1908,10 +1944,6 @@
             if (window.savePricesToCloud) {
                 await window.savePricesToCloud(newPrices);
                 showPremiumToast("Precios actualizados de forma exitosa.");
-            } else {
-                window.planPrices = newPrices;
-                updatePricesUI();
-                showPremiumToast("Precios actualizados en memoria local.");
             }
         }
 
@@ -1946,10 +1978,6 @@
             if (window.addPortfolioItemToCloud) {
                 await window.addPortfolioItemToCloud(newItem);
                 showPremiumToast("Nuevo proyecto agregado exitosamente al portafolio.");
-            } else {
-                window.portfolioItems.push(newItem);
-                updatePortfolioUI();
-                showPremiumToast("Proyecto guardado en memoria local.");
             }
 
             // Limpiar campos del formulario
@@ -1967,10 +1995,6 @@
             if (window.deletePortfolioItemFromCloud) {
                 await window.deletePortfolioItemFromCloud(id);
                 showPremiumToast("Proyecto eliminado exitosamente del portafolio.");
-            } else {
-                window.portfolioItems = window.portfolioItems.filter(i => i.id !== id);
-                updatePortfolioUI();
-                showPremiumToast("Proyecto removido en memoria local.");
             }
         }
     </script>
