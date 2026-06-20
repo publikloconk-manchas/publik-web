@@ -107,28 +107,35 @@
                 icon: 'pizza'
             }
         ];
+
+        // Función de seguridad en caso de que logo.png falle en cargar
+        function handleLogoError(img, textId) {
+            img.style.display = 'none';
+            const fallback = document.getElementById(textId);
+            if (fallback) {
+                fallback.classList.remove('hidden');
+                fallback.classList.add('flex');
+            }
+        }
     </script>
 
+    <!-- -->
     <header class="sticky top-0 z-50 bg-brandBg/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             
-            <!-- Logotipo Principal SVG (Transparente y Escalado de alta nitidez) -->
+            <!-- Contenedor del Logotipo Principal (Referencia a logo.png con fallback seguro de texto) -->
             <a href="#inicio" class="flex items-center group premium-focus p-1" aria-label="Ir al inicio de Publi-K-Lo">
                 <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] h-14">
-                    <!-- SVG nativo adaptado para barra de navegación (Sin recuadros oscuros de fondo) -->
-                    <svg viewBox="140 70 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-14 w-auto">
-                        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M 200,95 L 160,150 L 200,205" stroke="#FF5E1A" stroke-width="15" />
-                            <path d="M 205,150 L 255,95" stroke="#E0E0E0" stroke-width="15" />
-                            <path d="M 205,150 L 255,205" stroke="#E0E0E0" stroke-width="15" />
-                            <path d="M 295,95 L 335,150 L 295,205" stroke="#FF5E1A" stroke-width="15" opacity="0.35" />
-                        </g>
-                        <text x="250" y="245" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
-                            <tspan font-weight="200" fill="#E0E0E0" font-size="28">Publi</tspan>
-                            <tspan font-weight="900" fill="#FF5E1A" font-size="30">&lt;K&gt;</tspan>
-                            <tspan font-weight="200" fill="#E0E0E0" font-size="28">Lo</tspan>
-                        </text>
-                    </svg>
+                    <!-- Imagen del Logotipo Oficial PNG -->
+                    <img src="logo.png" 
+                         alt="Publi-K-Lo Logo" 
+                         onerror="handleLogoError(this, 'nav-logo-fallback')" 
+                         class="h-14 w-auto object-contain max-w-[200px]">
+                    
+                    <!-- Fallback de texto estilizado en caso de que logo.png no exista en el directorio local -->
+                    <div id="nav-logo-fallback" class="hidden items-center text-2xl font-bold font-montserrat tracking-tight">
+                        <span class="text-white">Publi</span><span class="text-brandAccent">K</span><span class="text-white">lo</span>
+                    </div>
                 </div>
             </a>
 
@@ -207,31 +214,24 @@
 
     <main class="flex-grow">
         
+        <!-- -->
         <!-- SECCIÓN 1: INICIO (Hero) -->
         <section id="inicio" class="relative pt-16 pb-24 lg:py-32 overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-center items-center">
             <!-- Luces de fondo decorativas -->
             <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brandAccent/10 rounded-full blur-[140px] -z-10 pointer-events-none animate-pulse-slow"></div>
             
-            <!-- Logotipo de Fondo en Transparencia Absoluta (Detrás del texto, Marca de agua) -->
-            <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none opacity-[0.03]">
-                <!-- Código SVG provisto integrado para asegurar exactitud -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" class="w-[650px] h-auto max-w-full">
-                    <rect width="100%" height="100%" fill="none" />
-                    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M 200,95 L 160,150 L 200,205" stroke="#FF5E1A" stroke-width="15" />
-                        <path d="M 205,150 L 255,95" stroke="#E0E0E0" stroke-width="15" />
-                        <path d="M 205,150 L 255,205" stroke="#E0E0E0" stroke-width="15" />
-                        <path d="M 295,95 L 335,150 L 295,205" stroke="#FF5E1A" stroke-width="15" opacity="0.35" />
-                    </g>
-                    <text x="250" y="280" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
-                        <tspan font-weight="200" fill="#E0E0E0" font-size="36">Publi</tspan>
-                        <tspan font-weight="900" fill="#FF5E1A" font-size="38">&lt;K&gt;</tspan>
-                        <tspan font-weight="200" fill="#E0E0E0" font-size="36">Lo</tspan>
-                    </text>
-                    <text x="250" y="320" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" font-size="12" font-weight="600" letter-spacing="8" text-anchor="middle" fill="#888888" data-i18n="svg_slogan">
-                        SOLUCIONES DIGITALES
-                    </text>
-                </svg>
+            <!-- Logotipo PNG de Fondo en Transparencia Absoluta (Detrás del texto, Marca de agua gigante) -->
+            <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none overflow-hidden">
+                <!-- Imagen PNG del logo flotante con muy baja opacidad -->
+                <img src="logo.png" 
+                     alt="" 
+                     onerror="this.style.display='none'; document.getElementById('hero-logo-fallback').classList.remove('hidden')" 
+                     class="w-[450px] md:w-[600px] h-auto object-contain opacity-[0.05] transition-opacity duration-300">
+                
+                <!-- Fallback en caso de que no esté logo.png para que no quede un espacio vacío -->
+                <div id="hero-logo-fallback" class="hidden text-9xl font-black text-white/5 tracking-wider font-montserrat uppercase select-none">
+                    PUBLIKLO
+                </div>
             </div>
             
             <div class="max-w-5xl mx-auto px-6 text-center space-y-8 relative z-10">
@@ -266,6 +266,7 @@
             </div>
         </section>
 
+        <!-- -->
         <!-- SECCIÓN 2: PROPUESTA DE VALOR -->
         <section id="propuesta" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="absolute top-1/2 right-1/4 w-[350px] h-[350px] bg-brandAccent/5 rounded-full blur-[130px] -z-10 pointer-events-none"></div>
@@ -306,6 +307,7 @@
             </div>
         </section>
 
+        <!-- -->
         <!-- SECCIÓN 3: SERVICIOS -->
         <section id="servicios" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="max-w-7xl mx-auto px-6 w-full">
@@ -411,6 +413,7 @@
             </div>
         </section>
 
+        <!-- -->
         <!-- SECCIÓN 4: CASOS DE ÉXITO Y PLANES -->
         <section id="portafolio" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="absolute bottom-12 left-10 w-[400px] h-[400px] bg-brandAccent/5 rounded-full blur-[140px] -z-10 pointer-events-none"></div>
@@ -515,6 +518,7 @@
             </div>
         </section>
 
+        <!-- -->
         <!-- SECCIÓN 5: ASISTENTE IA -->
         <section id="asistente-ia" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <!-- Resplandor tecnológico dinámico -->
@@ -540,7 +544,7 @@
                                 <i data-lucide="sparkles" class="text-brandAccent w-5 h-5 animate-pulse"></i> <span data-i18n="ia_form_title">Datos de tu Negocio</span>
                             </h3>
                             <p data-i18n="ia_form_subtitle" class="text-xs text-brandMuted leading-relaxed">
-                                Completa la información solicitada. El motor de Gemini estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.
+                                Completa la información solicitada. El motor estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.
                             </p>
 
                             <!-- Campos de Entrada -->
@@ -628,7 +632,7 @@
                             <div class="space-y-2 max-w-sm">
                                 <h4 id="ai-loader-text" data-i18n="ia_loading_title" class="font-bold text-white text-base font-mono">Conectando con el motor neural...</h4>
                                 <p data-i18n="ia_loading_desc" class="text-xs text-brandMuted animate-pulse">
-                                    Gemini está estructurando tu embudo de ventas y propuestas de diseño...
+                                    La Inteligencia Artificial está estructurando tu embudo de ventas y propuestas de diseño...
                                 </p>
                             </div>
                         </div>
@@ -703,7 +707,7 @@
                             <div class="space-y-2 max-w-sm">
                                 <h4 data-i18n="error_title" class="font-bold text-white text-base">Error de Conexión</h4>
                                 <p id="ai-error-message" data-i18n="error_desc" class="text-xs text-brandMuted">
-                                    No pudimos conectar con los servidores de Google para procesar tu estrategia. Verifica tu clave de API de Gemini o inténtalo más tarde.
+                                    No pudimos procesar tu estrategia. Verifica tu conexión, clave de API de Gemini o inténtalo más tarde.
                                 </p>
                             </div>
                             <button onclick="resetearAsistente()" class="text-xs font-mono text-brandAccent hover:underline">Intentar de nuevo</button>
@@ -791,26 +795,22 @@
         </button>
     </div>
 
+    <!-- -->
     <footer class="bg-[#070707] border-t border-white/5 py-16">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 
-                <!-- Identidad y Descripción -->
+                <!-- Identidad y Descripción (NUEVO LOGO PNG) -->
                 <div class="space-y-6 md:col-span-2">
                     <a href="#inicio" class="flex items-center">
-                        <svg viewBox="140 70 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-10 w-auto">
-                            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 200,95 L 160,150 L 200,205" stroke="#FF5E1A" stroke-width="15" />
-                                <path d="M 205,150 L 255,95" stroke="#E0E0E0" stroke-width="15" />
-                                <path d="M 205,150 L 255,205" stroke="#E0E0E0" stroke-width="15" />
-                                <path d="M 295,95 L 335,150 L 295,205" stroke="#FF5E1A" stroke-width="15" opacity="0.35" />
-                            </g>
-                            <text x="250" y="245" font-family="'Montserrat', 'Inter', 'Segoe UI', sans-serif" text-anchor="middle">
-                                <tspan font-weight="200" fill="#E0E0E0" font-size="28">Publi</tspan>
-                                <tspan font-weight="900" fill="#FF5E1A" font-size="30">&lt;K&gt;</tspan>
-                                <tspan font-weight="200" fill="#E0E0E0" font-size="28">Lo</tspan>
-                            </text>
-                        </svg>
+                        <img src="logo.png" 
+                             alt="Publi-K-Lo Logo" 
+                             onerror="handleLogoError(this, 'footer-logo-fallback')" 
+                             class="h-12 w-auto object-contain max-w-[180px]">
+                        
+                        <div id="footer-logo-fallback" class="hidden items-center text-xl font-bold font-montserrat tracking-tight">
+                            <span class="text-white">Publi</span><span class="text-brandAccent">K</span><span class="text-white">lo</span>
+                        </div>
                     </a>
                     <p data-i18n="footer_desc" class="text-xs text-brandMuted max-w-sm leading-relaxed font-light">
                         Agencia boutique especializada en consultoría de branding estratégico, marketing digital enfocado a conversión y desarrollo de plataformas web de alta disponibilidad.
@@ -883,7 +883,7 @@
                     <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white font-montserrat">Consola de Autenticación</h3>
-                <p class="text-xs text-brandMuted">Introduce tus credenciales administrativas para modificar los precios de los planes y actualizar el portafolio.</p>
+                <p class="text-xs text-brandMuted">Introduce tus credenciales administrativas para modificar los precios de los planes and actualizar el portafolio.</p>
             </div>
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
@@ -1041,6 +1041,7 @@
         </div>
     </div>
 
+    <!-- -->
     <script>
         // Diccionario completo de traducciones
         const dictionary = {
@@ -1271,7 +1272,7 @@
                 plan_1_f2: "Manual de Identidade Visual",
                 plan_1_f3: "Flyers Publicitários de Alto Tráfego",
                 plan_2_title: "Site Corporativo",
-                plan_2_desc: "A melhor escolha para obter clientes constantes, agendar reuniões e ranquear no Google.",
+                plan_2_desc: "A mejor escolha para obter clientes constantes, agendar reuniões e ranquear no Google.",
                 plan_2_f1: "Landing Page / Site Autogerenciável",
                 plan_2_f2: "Seção de Estratégia de IA Integrada",
                 plan_2_f3: "Otimização de SEO Inicial para o Google",
@@ -1366,7 +1367,7 @@
                 plan_2_f1: "Landing Page / Sito Web Autogestito",
                 plan_2_f2: "Sezione Strategica di IA Integrata",
                 plan_2_f3: "Ottimizzazione SEO Iniziale per Google",
-                plan_3_title: "E-commerce Automatizzato",
+                plan_3_title: "E-commerce Automatizado",
                 plan_3_desc: "Automazione completa: catalogo prodotti, carrello integrato e notifiche dirette.",
                 plan_3_f1: "Negozio Online Completo Autogestito",
                 plan_3_f2: "Sistema Automatizzato di Consegna e Ordini",
@@ -1485,6 +1486,7 @@
         }
     </script>
 
+    <!-- -->
     <script>
         // Inicialización básica de iconos Lucide
         lucide.createIcons();
@@ -1594,6 +1596,7 @@
         });
     </script>
 
+    <!-- -->
     <!-- Firebase script (Cargado en módulo) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -1740,6 +1743,7 @@
         };
     </script>
 
+    <!-- -->
     <script>
         // Actualiza las etiquetas de precio de los planes
         function updatePricesUI() {
@@ -1999,6 +2003,7 @@
         }
     </script>
 
+    <!-- -->
     <script>
         // Restablecer panel de carga del Asistente IA
         function resetearAsistente() {
@@ -2070,8 +2075,9 @@ Generate a strictly structured JSON response with the following keys:
   "gancho_comercial": "One short hook sentence inviting them to book a meeting with Publi-K-Lo to execute this plan."
 }`;
 
-            const apiKey = manualApiKey;
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            // Si el usuario introduce su clave manual la usamos; de lo contrario, la plataforma inyectará la de cortesía automáticamente.
+            const apiKey = manualApiKey || "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
@@ -2090,13 +2096,13 @@ Generate a strictly structured JSON response with the following keys:
                             },
                             gancho_comercial: { type: "STRING" }
                         },
-                        required: ["eslogan", "propuesta_valor", "servicio_recomendado", "estrategias", "gancho_comercial"]
+                        required: ["eslogan", "propuesta_valor", "servicio_recommended", "estrategias", "gancho_comercial"]
                     }
                 }
             };
 
             let delay = 1000;
-            const maxRetries = 3;
+            const maxRetries = 5;
             let success = false;
             let resultJson = null;
 
@@ -2134,13 +2140,17 @@ Generate a strictly structured JSON response with the following keys:
                 document.getElementById('ai-target-business').innerText = businessName;
                 document.getElementById('ai-output-slogan').innerText = `"${resultJson.eslogan}"`;
                 document.getElementById('ai-output-value-prop').innerText = resultJson.propuesta_valor;
-                document.getElementById('ai-output-service-tag').innerText = resultJson.servicio_recomendado || 'Soluciones Digitales & Apps Web';
+                
+                // Mapear servicio recomendado si es diferente o traducido
+                let servRecomendado = resultJson.servicio_recomendado || resultJson.servicio_recommended || 'Soluciones Digitales & Apps Web';
+                document.getElementById('ai-output-service-tag').innerText = servRecomendado;
                 document.getElementById('ai-output-closing-hook').innerText = resultJson.gancho_comercial;
 
                 // Estructurar las acciones estratégicas
                 const strategyList = document.getElementById('ai-output-strategies');
                 strategyList.innerHTML = '';
-                resultJson.estrategias.forEach(strat => {
+                const estrategiasArr = resultJson.estrategias || [];
+                estrategiasArr.forEach(strat => {
                     const li = document.createElement('li');
                     li.className = 'flex items-start gap-2';
                     li.innerHTML = `<span class="text-brandAccent mt-0.5">•</span><span>${strat}</span>`;
