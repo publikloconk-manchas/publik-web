@@ -99,9 +99,9 @@
         window.portfolioItems = [
             {
                 id: 'ole-pizza',
-                badge: 'Caso de Estudio: Gastronomía',
+                badge: 'Caso de Éxito: Gastronomía',
                 title: 'Sistema de Pedidos y Delivery Inteligente para Olé Pizza',
-                desc: 'Desarrollamos una aplicación web robusta, rápida y optimizada para móviles, que permite al usuario armar su pedido en segundos, enviarlo directo a la cocina y coordinar el delivery de forma automatizada, eliminando las altas comisiones de terceros.',
+                desc: 'Una plataforma web robusta, rápida y optimizada que permite a tus clientes ordenar en segundos desde sus celulares, enviando el pedido directamente a tu cocina de forma automatizada por WhatsApp. Retienes el 100% de tus ingresos sin pagar comisiones a terceros.',
                 link: 'https://ole-pizza.vercel.app',
                 linkText: 'Ver App en Vivo',
                 mockupTitle: 'Olé Pizza App',
@@ -117,17 +117,36 @@
             hoverSynth: null,
             clickSynth: null
         };
+
+        // Sistema inteligente para controlar errores de carga de logo en móviles
+        function handleLogoError() {
+            const img = document.getElementById('logo-img');
+            const fallback = document.getElementById('logo-fallback-text');
+            if (img) img.style.display = 'none';
+            if (fallback) fallback.classList.remove('hidden');
+        }
+
+        function handleFooterLogoError() {
+            const img = document.getElementById('logo-footer');
+            const fallback = document.getElementById('logo-footer-fallback');
+            if (img) img.style.display = 'none';
+            if (fallback) fallback.classList.remove('hidden');
+        }
     </script>
 
     <header class="sticky top-0 z-50 bg-brandBg/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 md:h-24 h-20 flex items-center justify-between">
             
-            <!-- Logotipo Principal PNG en Blanco - Tamaño optimizado a excelente proporción -->
+            <!-- Logotipo Principal PNG en Blanco con Failsafe de texto inteligente -->
             <a href="#inicio" class="flex items-center group premium-focus p-1" aria-label="Ir al inicio de Publi-K-Lo">
-                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] md:h-20 h-16">
-                    <img src="logo.png" 
+                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] md:h-20 h-16 relative">
+                    <img id="logo-img" src="logo.png" 
                          alt="Publi-K-Lo Logo" 
-                         class="md:h-20 h-16 w-auto object-contain max-w-[250px]">
+                         class="md:h-20 h-16 w-auto object-contain max-w-[250px] block"
+                         onerror="handleLogoError()">
+                    <span id="logo-fallback-text" class="hidden text-xl md:text-2xl font-black text-white font-montserrat tracking-tight">
+                        Publi<span class="text-brandAccent">K</span>lo
+                    </span>
                 </div>
             </a>
 
@@ -197,7 +216,7 @@
             <a href="#propuesta" data-i18n="nav_propuesta" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Nuestra Propuesta</a>
             <a href="#servicios" data-i18n="nav_servicios" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Servicios de la Agencia</a>
             <a href="#portafolio" data-i18n="nav_case" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Casos de Éxito</a>
-            <a href="#asistente-ia" data-i18n="nav_ia" class="block text-base font-semibold text-brandAccent hover:text-white py-3 border-b border-white/5">Estrategia IA Personalizada</a>
+            <a href="#asistente-ia" data-i18n="nav_ia" class="block text-base font-semibold text-brandAccent hover:text-white py-3 border-b border-white/5">Estrategia IA</a>
             <div class="pt-4 border-t border-white/5">
                 <a href="https://wa.me/584141255891?text=Hola%20Publi-K-Lo,%20quiero%20conversar%20con%20un%20asesor%20para%20un%20proyecto." 
                    target="_blank"
@@ -213,34 +232,39 @@
 
     <main class="flex-grow">
         
-        <!-- SECCIÓN 1: INICIO (Hero) - Logo de fondo con 5% de opacidad para una marca de agua inmersiva -->
-        <section id="inicio" class="relative pt-16 pb-24 lg:py-32 overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-center items-center">
+        <!-- SECCIÓN 1: INICIO (Hero) - Alineada para conectar con el empresario y resolver su problema de gestión -->
+        <section id="inicio" class="relative pt-12 pb-24 lg:py-28 overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-center items-center">
             <!-- Luces de fondo decorativas -->
             <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brandAccent/10 rounded-full blur-[140px] -z-10 pointer-events-none animate-pulse-slow"></div>
             
             <!-- Logotipo PNG de Fondo en Transparencia Absoluta (Detrás del texto, Marca de agua) -->
-            <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none opacity-[0.05] overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none opacity-[0.03] overflow-hidden">
                 <img src="logo.png" 
                      alt="" 
-                     class="w-[450px] md:w-[600px] h-auto object-contain transition-opacity duration-300">
+                     class="w-[450px] md:w-[600px] h-auto object-contain transition-opacity duration-300"
+                     onerror="this.style.display='none'">
             </div>
             
             <div class="max-w-5xl mx-auto px-6 text-center space-y-8 relative z-10">
-                <h1 data-i18n="hero_title" class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight font-montserrat">
-                    No solo creamos marcas.<br>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brandAccent/10 border border-brandAccent/20 text-brandAccent text-xs font-mono font-bold animate-pulse">
+                    <span class="w-2 h-2 rounded-full bg-brandAccent"></span>
+                    <span>¿CANSADO DE PERDER CLIENTES POR WHATSAPP?</span>
+                </div>
+                <h1 data-i18n="hero_title" class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight font-montserrat">
+                    Automatiza tu operación diaria.<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500">
-                        Hacemos que el mundo hable de ellas.
+                        Vende en piloto automático.
                     </span>
                 </h1>
                 
-                <p data-i18n="hero_desc" class="text-lg sm:text-xl text-brandMuted leading-relaxed max-w-3xl mx-auto font-light">
-                    Estrategia, diseño de alto impacto y soluciones digitales a la medida para negocios que quieren automatizar sus ventas. Si tu proyecto es grande, ¡PUBLÍCALO!
+                <p data-i18n="hero_desc" class="text-base sm:text-xl text-brandMuted leading-relaxed max-w-3xl mx-auto font-light">
+                    Menos chats manuales agotadores, cero comisiones abusivas a terceros y más tiempo para crecer. Creamos sistemas interactivos a medida que atienden a tus clientes las 24 horas del día. Si tu proyecto es grande, ¡PUBLÍCALO!
                 </p>
 
                 <!-- Botón de Conversión Principal (CTA) -->
                 <div class="pt-6">
                     <a href="#asistente-ia" 
-                       class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-xl font-extrabold px-10 py-5 rounded-xl shadow-2xl shadow-brandAccent/20 transition-all duration-300 transform hover:-translate-y-1 premium-focus"
+                       class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-lg sm:text-xl font-extrabold px-10 py-5 rounded-xl shadow-2xl shadow-brandAccent/20 transition-all duration-300 transform hover:-translate-y-1 premium-focus"
                        role="button">
                         <i data-lucide="sparkles" class="w-5 h-5 mr-3 fill-current animate-bounce"></i>
                         <span data-i18n="hero_cta">Impulsa tu Marca Aquí</span>
@@ -266,9 +290,9 @@
                     
                     <!-- Lado izquierdo: Titular fuerte -->
                     <div class="lg:col-span-5 space-y-4">
-                        <span data-i18n="section_prop_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Nuestra Visión</span>
+                        <span data-i18n="section_prop_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Alivio Operativo</span>
                         <h2 data-i18n="prop_title" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight font-montserrat">
-                            ¿Tu marca comunica lo que realmente vale?
+                            ¿Tu negocio sigue atrapado en Excel y cuadernos?
                         </h2>
                         <div class="h-1.5 w-20 bg-brandAccent rounded-full"></div>
                     </div>
@@ -276,16 +300,16 @@
                     <!-- Lado derecho: Cuerpo de texto comercial -->
                     <div class="lg:col-span-7 space-y-6">
                         <p data-i18n="prop_desc_1" class="text-lg sm:text-xl text-brandText leading-relaxed font-light">
-                            En el mercado actual, el que no se muestra, no existe. En Publi-K-Lo transformamos ideas en identidades visuales potentes, campañas digitales atractivas y contenido audiovisual que capta la atención desde el primer segundo.
+                            Sabemos el dolor que causa responder manualmente el mismo mensaje 50 veces al día por WhatsApp, cuadrar agendas médicas a mano, o ver cómo las aplicaciones de entrega se quedan con una tajada del 30% de tus ventas. 
                         </p>
                         <p data-i18n="prop_desc_2" class="text-base text-brandMuted leading-relaxed font-light">
-                            No hacemos diseño genérico; creamos herramientas de venta visual pensadas exclusivamente para elevar el posicionamiento de tu empresa y convertir espectadores en clientes potenciales de alto valor.
+                            En Publi-K-Lo no te vendemos solo "código" o páginas web bonitas. Te construimos herramientas y flujos de automatización estratégica diseñadas específicamente para liberar tus horas de trabajo, retener el 100% de tus ingresos y dar una experiencia instantánea y sin fricción a tus clientes.
                         </p>
                     </div>
 
                 </div>
 
-                <!-- Navegación Sublime entre Secciones -->
+                <!-- Navegación de sección -->
                 <div class="flex justify-between items-center gap-6 mt-20 border-t border-white/5 pt-8">
                     <button onclick="scrollToSection('inicio')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-xs font-mono tracking-wider text-brandMuted hover:text-white hover:border-white/10 transition-all">
                         <i data-lucide="chevron-up" class="w-4 h-4 text-brandAccent"></i> <span data-i18n="btn_back_home">Volver al Inicio</span>
@@ -302,10 +326,10 @@
             <div class="max-w-7xl mx-auto px-6 w-full">
                 
                 <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                    <span data-i18n="services_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Portafolio de Soluciones</span>
-                    <h2 data-i18n="services_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">¿Cómo te ayudamos a dominar el mercado?</h2>
+                    <span data-i18n="services_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Herramientas de Crecimiento</span>
+                    <h2 data-i18n="services_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">¿Cómo te devolvemos el control de tu tiempo?</h2>
                     <p data-i18n="services_subtitle" class="text-brandMuted text-base sm:text-lg font-light">
-                        Estructuramos nuestras áreas de experiencia para cubrir de forma integral cada necesidad de comunicación y conversión que requiera tu negocio.
+                        Diseñamos soluciones integrales pensadas para empresarios ocupados que necesitan agilizar la captación, conversión y retención de sus clientes.
                     </p>
                 </div>
 
@@ -319,13 +343,13 @@
                             <div class="w-14 h-14 rounded-2xl bg-brandAccent/10 flex items-center justify-center text-brandAccent border border-brandAccent/20">
                                 <i data-lucide="palette" class="w-7 h-7"></i>
                             </div>
-                            <h3 data-i18n="service_title_1" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Branding e Identidad Visual</h3>
+                            <h3 data-i18n="service_title_1" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Branding Estratégico</h3>
                             <p data-i18n="service_desc_1" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Logotipos, manuales de marca y papelería comercial que imponen respeto y profesionalismo.
+                                No solo diseñamos logotipos. Construimos manuales de identidad comercial, papelería y pautas visuales que imponen autoridad y transmiten que eres la opción número uno en tu rubro.
                             </p>
                         </div>
                         <div class="mt-8 border-t border-white/5 pt-5 flex justify-between items-center text-xs font-mono text-brandAccent">
-                            <span data-i18n="service_action_1" class="font-semibold tracking-wider">CREACIÓN DE IDENTIDAD POTENTE</span>
+                            <span data-i18n="service_action_1" class="font-semibold tracking-wider">CREACIÓN DE MARCAS DE ALTO IMPACTO</span>
                             <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
                         </div>
                     </div>
@@ -339,11 +363,11 @@
                             </div>
                             <h3 data-i18n="service_title_2" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Diseño Digital y Publicitario</h3>
                             <p data-i18n="service_desc_2" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Flyers, catálogos, portafolios comerciales y material publicitario que capturan la atención.
+                                Catálogos interactivos de productos, portafolios de servicios comerciales y material publicitario persuasivo enfocado en capturar leads en redes sociales.
                             </p>
                         </div>
                         <div class="mt-8 border-t border-white/5 pt-5 flex justify-between items-center text-xs font-mono text-brandAccent">
-                            <span data-i18n="service_action_2" class="font-semibold tracking-wider">DISEÑO PUBLICITARIO QUE VENDE</span>
+                            <span data-i18n="service_action_2" class="font-semibold tracking-wider">DISEÑO PUBLICITARIO ENFOCADO EN CONVERSIÓN</span>
                             <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
                         </div>
                     </div>
@@ -355,13 +379,13 @@
                             <div class="w-14 h-14 rounded-2xl bg-brandAccent/10 flex items-center justify-center text-brandAccent border border-brandAccent/20">
                                 <i data-lucide="play-circle" class="w-7 h-7"></i>
                             </div>
-                            <h3 data-i18n="service_title_3" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Producción Audiovisual</h3>
+                            <h3 data-i18n="service_title_3" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Producción Audiovisual Persuasiva</h3>
                             <p data-i18n="service_desc_3" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Videos dinámicos, comerciales y animaciones diseñadas para conectar y vender en plataformas actuales.
+                                Comerciales dinámicos, videos de presentación corporativa y animaciones cortas para redes sociales con alto gancho visual, diseñados para retener la atención del cliente desde el primer segundo.
                             </p>
                         </div>
                         <div class="mt-8 border-t border-white/5 pt-5 flex justify-between items-center text-xs font-mono text-brandAccent">
-                            <span data-i18n="service_action_3" class="font-semibold tracking-wider">CONTENIDO DE ALTO IMPACTO VISUAL</span>
+                            <span data-i18n="service_action_3" class="font-semibold tracking-wider">CONTENIDO DINÁMICO QUE CAPTA ATENCIÓN</span>
                             <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
                         </div>
                     </div>
@@ -370,64 +394,199 @@
                     <div class="bg-brandCard border-2 border-brandAccent p-8 sm:p-10 rounded-3xl transition-all duration-300 flex flex-col justify-between group neon-glow-orange relative overflow-hidden">
                         <div class="absolute -right-12 -top-12 w-44 h-44 bg-brandAccent/10 rounded-full blur-3xl"></div>
                         <div class="absolute top-4 right-4 bg-brandAccent/10 text-brandAccent text-[10px] font-mono font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-brandAccent/20 z-20">
-                            ★ <span data-i18n="featured_tag">Solución Destacada</span>
+                            ★ <span data-i18n="featured_tag">Automatización de Ventas</span>
                         </div>
                         
                         <div class="space-y-6 relative z-10">
                             <div class="w-14 h-14 rounded-2xl bg-brandAccent text-white flex items-center justify-center border border-brandAccent/30 shadow-lg shadow-brandAccent/10">
                                 <i data-lucide="code-2" class="w-7 h-7"></i>
                             </div>
-                            <h3 data-i18n="service_title_4" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Soluciones Digitales y Apps Web</h3>
+                            <h3 data-i18n="service_title_4" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Soluciones Digitales & Automatización</h3>
                             <p data-i18n="service_desc_4" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Diseñamos y desarrollamos plataformas optimizadas (como sistemas de pedidos y delivery automáticos) para que tu negocio reciba pedidos directos, sin intermediarios ni comisiones.
+                                Diseñamos sistemas interactivos (como menús para comida o reservas médicas) donde tus clientes se auto-atienden en segundos. Olvídate de responder tarde. Tus pedidos llegan pre-armados, pagados y listos directamente a tu WhatsApp.
                             </p>
                         </div>
                         <div class="mt-8 border-t border-white/10 pt-5 flex justify-between items-center text-xs font-mono text-brandAccent">
-                            <span data-i18n="service_action_4" class="font-bold tracking-wider">AUTOMATIZACIÓN DIRECTA</span>
+                            <span data-i18n="service_action_4" class="font-bold tracking-wider">CERO COMISIONES, MÁS CONTROL</span>
                             <i data-lucide="chevron-right" class="w-5 h-5 transition-transform group-hover:translate-x-1.5"></i>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- Navegación Sublime entre Secciones -->
+                <!-- Navegación de sección -->
                 <div class="flex justify-between items-center gap-6 mt-20 border-t border-white/5 pt-8">
                     <button onclick="scrollToSection('propuesta')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-xs font-mono tracking-wider text-brandMuted hover:text-white hover:border-white/10 transition-all">
                         <i data-lucide="chevron-up" class="w-4 h-4 text-brandAccent"></i> <span data-i18n="nav_propuesta">Nuestra Propuesta</span>
                     </button>
                     <button onclick="scrollToSection('portafolio')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-xs font-mono tracking-wider text-brandMuted hover:text-white hover:border-white/10 transition-all">
-                        <span data-i18n="btn_next_portfolio">Ver Casos de Éxito</span> <i data-lucide="chevron-down" class="w-4 h-4 text-brandAccent"></i>
+                        <span data-i18n="btn_next_portfolio">Probar Demos en Vivo</span> <i data-lucide="chevron-down" class="w-4 h-4 text-brandAccent"></i>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 4: CASOS DE ÉXITO Y PLANES -->
+        <!-- SECCIÓN 4: CASOS DE ÉXITO E INTERACTIVIDAD DE DEMOS -->
         <section id="portafolio" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="absolute bottom-12 left-10 w-[400px] h-[400px] bg-brandAccent/5 rounded-full blur-[140px] -z-10 pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-6 w-full">
                 
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                    <span data-i18n="portfolio_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Demostración de Resultados</span>
-                    <h2 data-i18n="portfolio_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">Casos de Éxito: Innovación sobre la Mesa</h2>
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                    <span data-i18n="portfolio_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Demostración de Resultados en Vivo</span>
+                    <h2 data-i18n="portfolio_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">Menos Palabras, Más Acción. Pruébalo Tú Mismo:</h2>
                     <p data-i18n="portfolio_subtitle" class="text-brandMuted text-base sm:text-lg font-light">
-                        Creamos productos digitales que no solo lucen extraordinarios, sino que transforman los flujos operativos de las empresas para maximizar su rentabilidad.
+                        Simula cómo interactuarían tus clientes reales en nuestros sistemas integrados. Elige una de nuestras demos interactivas en el celular inteligente de la derecha.
                     </p>
                 </div>
 
-                <!-- Contenedor dinámico de proyectos del portafolio (actualizable desde el panel) -->
-                <div id="portfolio-items-container" class="space-y-12">
-                    <!-- Se inyecta dinámicamente con JS (Olé Pizza por defecto en primer plano) -->
+                <!-- Grid de Caso de Éxito y Simulador Táctil -->
+                <div class="grid lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Lado Izquierdo: Caso de Éxito Real y Métricas -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2 bg-brandAccent/10 border border-brandAccent/20 px-4 py-1.5 rounded-full text-xs font-mono font-bold text-brandAccent uppercase">
+                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> <span>Métricas de Negocio Reales</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight font-montserrat">
+                            Caso de Estudio: Olé Pizza & Delivery
+                        </h3>
+                        <p class="text-brandText text-sm sm:text-base leading-relaxed font-light">
+                            Olé Pizza sufría de saturación de chat en horas pico, perdiendo hasta un 25% de ventas potenciales por demoras al enviar el menú y tomar notas manuales. Desarrollamos un flujo optimizado donde los comensales configuran su pedido de forma visual en segundos.
+                        </p>
+                        
+                        <!-- Mini Bento de Métricas del Caso (Hablando el idioma del empresario) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                            <div class="bg-[#121212] border border-white/5 p-4 rounded-2xl">
+                                <div class="text-xs font-mono text-brandMuted mb-1">VENTAS EXTRAS</div>
+                                <div class="text-2xl font-black text-brandAccent font-mono">+35%</div>
+                                <div class="text-[10px] text-brandMuted leading-normal">Pedidos recurrentes desde la app.</div>
+                            </div>
+                            <div class="bg-[#121212] border border-white/5 p-4 rounded-2xl">
+                                <div class="text-xs font-mono text-brandMuted mb-1">TIEMPO LIBERADO</div>
+                                <div class="text-2xl font-black text-white font-mono">15 Horas</div>
+                                <div class="text-[10px] text-brandMuted leading-normal">Semanales de atención manual ahorradas.</div>
+                            </div>
+                            <div class="bg-[#121212] border border-white/5 p-4 rounded-2xl">
+                                <div class="text-xs font-mono text-brandMuted mb-1">COMISIONES</div>
+                                <div class="text-2xl font-black text-brandAccent font-mono">0%</div>
+                                <div class="text-[10px] text-brandMuted leading-normal">Independencia total de intermediarios.</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 pt-2">
+                            <a href="https://ole-pizza.vercel.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-sm font-extrabold px-6 py-3.5 rounded-xl shadow-xl shadow-brandAccent/10 transition-all duration-300 transform hover:-translate-y-0.5 premium-focus">
+                                <i data-lucide="external-link" class="w-4 h-4 mr-2"></i>
+                                <span>Ver App de Olé Pizza Completa</span>
+                            </a>
+                            <span class="text-xs font-mono text-brandMuted tracking-wider hidden sm:inline">ole-pizza.vercel.app</span>
+                        </div>
+                    </div>
+
+                    <!-- Lado Derecho: Celular Mockup TOTALMENTE INTERACTIVO -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-full max-w-sm bg-[#070707] border-4 border-white/10 p-3 rounded-[36px] shadow-2xl overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brandAccent/5 via-transparent to-transparent opacity-40"></div>
+                            
+                            <!-- Barra superior del teléfono (Parlante y botones) -->
+                            <div class="flex items-center justify-between pb-3 px-3 mb-2 border-b border-white/5 relative z-10">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-green-500/60"></span>
+                                </div>
+                                <div class="w-16 h-3 bg-white/10 rounded-full mx-auto"></div>
+                                <i data-lucide="lock" class="w-3.5 h-3.5 text-brandAccent/60"></i>
+                            </div>
+
+                            <!-- Pantalla Interactiva del Teléfono -->
+                            <div class="relative min-h-[380px] rounded-2xl bg-brandCard border border-white/5 p-4 flex flex-col justify-between overflow-hidden">
+                                
+                                <!-- Selectores de pestaña de Demo -->
+                                <div class="flex bg-black/40 p-1 rounded-xl border border-white/5 gap-1 mb-3">
+                                    <button onclick="switchMobileDemo('pizza')" id="demo-tab-pizza" class="flex-1 text-[10px] font-bold py-2 rounded-lg transition-all bg-brandAccent text-white">
+                                        🍕 Olé Pizza
+                                    </button>
+                                    <button onclick="switchMobileDemo('clinic')" id="demo-tab-clinic" class="flex-1 text-[10px] font-bold py-2 rounded-lg transition-all text-brandMuted hover:text-white">
+                                        📅 Dr. Clinic
+                                    </button>
+                                </div>
+
+                                <!-- CONTENIDO DEMO 1: OLÉ PIZZA -->
+                                <div id="demo-content-pizza" class="flex-grow flex flex-col justify-between space-y-4">
+                                    <div class="space-y-2 text-center">
+                                        <h4 class="font-extrabold text-white text-base font-montserrat">Menú de Pedidos Rápido</h4>
+                                        <p class="text-[10px] text-brandMuted max-w-[220px] mx-auto">Toca para agregar una pizza a tu pedido simulación.</p>
+                                    </div>
+
+                                    <!-- Botones de Items -->
+                                    <div class="space-y-2">
+                                        <button onclick="addPizzaDemoItem('Pizza Margarita Premium ($12)')" class="w-full flex items-center justify-between p-2.5 bg-white/[0.03] hover:bg-brandAccent/10 border border-white/5 hover:border-brandAccent/20 rounded-xl text-left text-xs transition-all">
+                                            <span class="font-medium text-white">🍕 Pizza Margarita</span>
+                                            <span class="text-brandAccent font-bold font-mono">$12</span>
+                                        </button>
+                                        <button onclick="addPizzaDemoItem('Pizza Pepperoni Suprema ($15)')" class="w-full flex items-center justify-between p-2.5 bg-white/[0.03] hover:bg-brandAccent/10 border border-white/5 hover:border-brandAccent/20 rounded-xl text-left text-xs transition-all">
+                                            <span class="font-medium text-white">🍕 Pizza Pepperoni</span>
+                                            <span class="text-brandAccent font-bold font-mono">$15</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Carrito de Simulación -->
+                                    <div class="bg-black/40 border border-white/5 rounded-xl p-2.5 text-center">
+                                        <div class="text-[9px] font-mono tracking-wider text-brandMuted uppercase">CARRITO DE SIMULACIÓN</div>
+                                        <div id="pizza-cart-text" class="text-[11px] text-white font-medium mt-1 italic">Vacío. Selecciona una opción arriba</div>
+                                    </div>
+
+                                    <button onclick="simulatePizzaOrder()" id="pizza-submit-btn" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold py-3 rounded-xl transition-all shadow-md shadow-brandAccent/10 disabled:opacity-50" disabled>
+                                        🛒 SIMULAR PEDIDO POR WHATSAPP
+                                    </button>
+                                </div>
+
+                                <!-- CONTENIDO DEMO 2: DR. CLINIC (MEDICINA) -->
+                                <div id="demo-content-clinic" class="hidden flex-grow flex flex-col justify-between space-y-4">
+                                    <div class="space-y-2 text-center">
+                                        <h4 class="font-extrabold text-white text-base font-montserrat">Agenda tu Cita Médica</h4>
+                                        <p class="text-[10px] text-brandMuted max-w-[220px] mx-auto">Selecciona tu especialista y horario para simular la cita.</p>
+                                    </div>
+
+                                    <!-- Formulario de Selección -->
+                                    <div class="space-y-2">
+                                        <select id="clinic-specialist" class="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-xs text-white outline-none focus:border-brandAccent">
+                                            <option value="Dr. Alfredo G. (Odontología)">Dr. Alfredo G. (Odontología)</option>
+                                            <option value="Dra. María V. (Pediatría)">Dra. María V. (Pediatría)</option>
+                                        </select>
+                                        
+                                        <!-- Botones de Horario -->
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <button onclick="selectClinicTime('09:00 AM')" id="time-btn-1" class="time-slot-btn py-2 bg-white/[0.03] hover:bg-brandAccent/15 border border-white/5 rounded-xl text-center text-[10px] text-white font-mono transition-all">09:00 AM</button>
+                                            <button onclick="selectClinicTime('02:00 PM')" id="time-btn-2" class="time-slot-btn py-2 bg-white/[0.03] hover:bg-brandAccent/15 border border-white/5 rounded-xl text-center text-[10px] text-white font-mono transition-all">02:00 PM</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Resultado del Agendamiento -->
+                                    <div class="bg-black/40 border border-white/5 rounded-xl p-2.5 text-center">
+                                        <div class="text-[9px] font-mono tracking-wider text-brandMuted uppercase">RESUMEN DE CITA</div>
+                                        <div id="clinic-summary-text" class="text-[11px] text-white font-medium mt-1 italic">Elige tu horario favorito arriba</div>
+                                    </div>
+
+                                    <button onclick="simulateClinicBooking()" id="clinic-submit-btn" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold py-3 rounded-xl transition-all shadow-md shadow-brandAccent/10 disabled:opacity-50" disabled>
+                                        📅 CONFIRMAR CITA DE SIMULACIÓN
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Sección: Planes de Inversión Premium -->
-                <div class="mt-24 space-y-8">
+                <div class="mt-28 space-y-8">
                     <div class="text-center max-w-2xl mx-auto space-y-3">
-                        <span data-i18n="plans_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Estructura de Inversión</span>
+                        <span data-i18n="plans_tag" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Estructura de Inversión Transparente</span>
                         <h3 data-i18n="plans_title" class="text-2xl sm:text-4xl font-extrabold text-white font-montserrat">Planes de Desarrollo y Diseño</h3>
                         <p data-i18n="plans_subtitle" class="text-sm text-brandMuted font-light">
-                            Selecciona la solución que mejor se adapte a los objetivos de tu empresa y comencemos a trabajar de inmediato.
+                            Precios claros desde el primer día. Sin sorpresas, cobros ocultos ni dependencias de por vida.
                         </p>
                     </div>
 
@@ -492,9 +651,31 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Garantía de Tranquilidad (Pilar 5: Cero Fricción) -->
+                    <div class="mt-8 bg-brandCard border border-white/5 rounded-3xl p-6 sm:p-8">
+                        <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-brandAccent mb-4 flex items-center gap-2">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i> Garantía de Tranquilidad Publi-K-Lo
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed text-brandMuted">
+                            <div class="space-y-2">
+                                <h5 class="font-bold text-white flex items-center gap-1.5"><i data-lucide="key-round" class="w-4 h-4 text-brandAccent"></i> Propiedad Absoluta</h5>
+                                <p>La web y todo el sistema son 100% de tu propiedad. No te encadenamos a alquileres eternos ni dependencias de servicio.</p>
+                            </div>
+                            <div class="space-y-2">
+                                <h5 class="font-bold text-white flex items-center gap-1.5"><i data-lucide="server" class="w-4 h-4 text-brandAccent"></i> Primer Año Incluido</h5>
+                                <p>Hosting de alta disponibilidad, certificado de seguridad SSL y tu propio dominio corporativo (.com) están cubiertos sin coste adicional.</p>
+                            </div>
+                            <div class="space-y-2">
+                                <h5 class="font-bold text-white flex items-center gap-1.5"><i data-lucide="help-circle" class="w-4 h-4 text-brandAccent"></i> Mantenimiento y Soporte</h5>
+                                <p>Cero estrés técnico. Si tu web tiene cualquier caída o tienes dudas sobre el panel de control, cuentas con nuestro soporte prioritario mensual.</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Navegación Sublime entre Secciones -->
+                <!-- Navegación de sección -->
                 <div class="flex justify-between items-center gap-6 mt-20 border-t border-white/5 pt-8">
                     <button onclick="scrollToSection('servicios')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-xs font-mono tracking-wider text-brandMuted hover:text-white hover:border-white/10 transition-all">
                         <i data-lucide="chevron-up" class="w-4 h-4 text-brandAccent"></i> <span data-i18n="nav_servicios">Servicios Clave</span>
@@ -531,7 +712,7 @@
                                 <i data-lucide="sparkles" class="text-brandAccent w-5 h-5 animate-pulse"></i> <span data-i18n="ia_form_title">Datos de tu Negocio</span>
                             </h3>
                             <p data-i18n="ia_form_subtitle" class="text-xs text-brandMuted leading-relaxed">
-                                Completa la información solicitada. El motor de Gemini estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.
+                                Completa la información solicitada. El motor estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.
                             </p>
 
                             <!-- Campos de Entrada -->
@@ -545,7 +726,7 @@
                                     <label data-i18n="ia_field_2" class="block text-xs font-bold uppercase tracking-wider text-white mb-2 font-mono">Sector o Rubro Comercial</label>
                                     <select id="ai-business-sector" class="w-full bg-[#070707] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandAccent transition-all">
                                         <option value="Restaurantes y Gastronomía">Restaurantes y Gastronomía</option>
-                                        <option value="Salul, Clínicas y Medicina">Salud, Clínicas y Medicina</option>
+                                        <option value="Salud, Clínicas y Medicina">Salud, Clínicas y Medicina</option>
                                         <option value="Tiendas de Moda y E-commerce">Tiendas de Moda y E-commerce</option>
                                         <option value="Servicios Profesionales (Consultoría/Leyes)">Servicios Profesionales (Consultoría/Leyes)</option>
                                         <option value="Gimnasios y Bienestar">Gimnasios y Bienestar</option>
@@ -704,6 +885,65 @@
 
                 </div>
 
+                <!-- NUEVA SECCIÓN: PREGUNTAS FRECUENTES (FAQ - Pilar 6: Romper Objeciones) -->
+                <div class="mt-28 space-y-8">
+                    <div class="text-center max-w-2xl mx-auto space-y-3">
+                        <span class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Objeciones Resueltas</span>
+                        <h3 class="text-2xl sm:text-4xl font-extrabold text-white font-montserrat">Preguntas Frecuentes</h3>
+                        <p class="text-sm text-brandMuted font-light">
+                            Todo lo que necesitas saber antes de iniciar el desarrollo tecnológico de tu negocio.
+                        </p>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto space-y-4">
+                        
+                        <!-- FAQ 1 -->
+                        <div class="bg-brandCard border border-white/5 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-sm sm:text-base font-bold text-white">¿Necesito saber de programación o tecnología para administrar mi web?</span>
+                                <i data-lucide="plus" id="faq-icon-1" class="w-5 h-5 text-brandAccent transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-ans-1" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-white/5 pt-4">
+                                Absolutamente **no**. El panel de control y administración que diseñamos es tan amigable e intuitivo como usar tus redes sociales o subir una foto a Instagram. Además, te capacitamos de manera totalmente personalizada a ti y a tu equipo de trabajo para que manejes el sistema en menos de una hora.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 2 -->
+                        <div class="bg-brandCard border border-white/5 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-sm sm:text-base font-bold text-white">¿Cómo se conecta mi menú o agenda con mi número de WhatsApp?</span>
+                                <i data-lucide="plus" id="faq-icon-2" class="w-5 h-5 text-brandAccent transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-ans-2" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-white/5 pt-4">
+                                Integramos una pasarela inteligente de Checkout que compila todo el pedido o cita del cliente en un formato legible. Al confirmar, la web genera un enlace directo que abre el WhatsApp de tu negocio con todos los datos ordenados (Nombre, teléfono, dirección, items y monto total) listos para que solo confirmes el cobro.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 3 -->
+                        <div class="bg-brandCard border border-white/5 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-sm sm:text-base font-bold text-white">¿Cuánto tiempo tardan en entregar la web terminada?</span>
+                                <i data-lucide="plus" id="faq-icon-3" class="w-5 h-5 text-brandAccent transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-ans-3" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-white/5 pt-4">
+                                Para los planes **Identidad & Marca** y **Web Corporativa**, el tiempo promedio de entrega es de **7 a 12 días laborables**. Para proyectos completos de **E-commerce Automatizados**, el tiempo estimado de despliegue y pruebas es de **15 a 22 días laborables**, dependiendo de la cantidad de productos de tu catálogo.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 4 -->
+                        <div class="bg-brandCard border border-white/5 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="toggleFaq(4)" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-sm sm:text-base font-bold text-white">¿Tengo que pagar un alquiler obligatorio para mantener mi web activa?</span>
+                                <i data-lucide="plus" id="faq-icon-4" class="w-5 h-5 text-brandAccent transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-ans-4" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-white/5 pt-4">
+                                No. Al finalizar el desarrollo, el código, el dominio y las credenciales te pertenecen al **100%**. No cobramos cuotas mensuales de alquiler de software de por vida. El único costo recurrente que tiene cualquier web en el mundo es el alojamiento (hosting) y renovación de dominio, los cuales van totalmente gratis el primer año y luego tú decides si los renuevas por tu cuenta o con nosotros de manera libre.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <!-- Navegación Sublime entre Secciones -->
                 <div class="flex justify-between items-center gap-6 mt-20 border-t border-white/5 pt-8">
                     <button onclick="scrollToSection('portafolio')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] text-xs font-mono tracking-wider text-brandMuted hover:text-white hover:border-white/10 transition-all">
@@ -725,12 +965,12 @@
                 <span data-i18n="cta_final_badge" class="text-xs font-bold tracking-widest text-brandAccent uppercase block font-mono">// Agenda tu Sesión Estratégica</span>
                 
                 <h2 data-i18n="cta_final_title" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight font-montserrat">
-                    ¿Listo para llevar tu negocio<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500">al siguiente nivel?</span>
+                    ¿Listo para quitarte de encima<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500">el dolor de cabeza operativo?</span>
                 </h2>
                 
                 <p data-i18n="cta_final_desc" class="text-base sm:text-lg text-brandMuted max-w-xl mx-auto font-light leading-relaxed">
-                    Deja de ser el secreto mejor guardado de tu industria. Es hora de que todos te conozcan. ¡Demos marcha a tus ideas con impacto real hoy mismo!
+                    Deja de responder mensajes tarde y perder valiosos clientes todos los días. Demos marcha a tus ideas con impacto real hoy mismo con sistemas automatizados.
                 </p>
 
                 <!-- Botón de Conversión CTA Final -->
@@ -787,12 +1027,18 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 
-                <!-- Identidad y Descripción (PNG con letras blancas para visibilidad perfecta) -->
+                <!-- Identidad y Descripción (PNG con letras blancas con fallback a texto) -->
                 <div class="space-y-6 md:col-span-2">
                     <a href="#inicio" class="flex items-center">
-                        <img src="logo.png" 
-                             alt="Publi-K-Lo Logo" 
-                             class="md:h-18 h-14 w-auto object-contain max-w-[220px]">
+                        <div class="relative flex items-center h-12">
+                            <img id="logo-footer" src="logo.png" 
+                                 alt="Publi-K-Lo Logo" 
+                                 class="h-12 w-auto object-contain max-w-[180px] block"
+                                 onerror="handleFooterLogoError()">
+                            <span id="logo-footer-fallback" class="hidden text-lg font-black text-white font-montserrat tracking-tight">
+                                Publi<span class="text-brandAccent">K</span>lo
+                            </span>
+                        </div>
                     </a>
                     <p data-i18n="footer_desc" class="text-xs text-brandMuted max-w-sm leading-relaxed font-light">
                         Agencia boutique especializada en consultoría de branding estratégico, marketing digital enfocado a conversión y desarrollo de plataformas web de alta disponibilidad.
@@ -1033,38 +1279,38 @@
                 nav_case: "Casos de Éxito",
                 nav_ia: "Estrategia IA",
                 cta_direct: "Contacto Directo",
-                hero_title: "No solo creamos marcas.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500'>Hacemos que el mundo hable de ellas.</span>",
-                hero_desc: "Estrategia, diseño de alto impacto y soluciones digitales a la medida para negocios que quieren automatizar sus ventas. Si tu proyecto es grande, ¡PUBLÍCALO!",
+                hero_title: "Automatiza tu operación diaria.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500'>Vende en piloto automático.</span>",
+                hero_desc: "Menos chats manuales agotadores, cero comisiones abusivas a terceros y más tiempo para crecer. Creamos sistemas interactivos a medida que atienden a tus clientes las 24 horas del día. Si tu proyecto es grande, ¡PUBLÍCALO!",
                 hero_cta: "Impulsa tu Marca Aquí",
-                section_prop_tag: "// Nuestra Visión",
-                prop_title: "¿Tu marca comunica lo que realmente vale?",
-                prop_desc_1: "En el mercado actual, el que no se muestra, no existe. En Publi-K-Lo transformamos ideas en identidades visuales potentes, campañas digitales atractivas y contenido audiovisual que capta la atención desde el primer segundo.",
-                prop_desc_2: "No hacemos diseño genérico; creamos herramientas de venta visual pensadas exclusivamente para elevar el posicionamiento de tu empresa y convertir espectadores en clientes potenciales de alto valor.",
+                section_prop_tag: "// Alivio Operativo",
+                prop_title: "¿Tu negocio sigue atrapado en Excel y cuadernos?",
+                prop_desc_1: "Sabemos el dolor que causa responder manualmente el mismo mensaje 50 veces al día por WhatsApp, cuadrar agendas médicas a mano, o ver cómo las aplicaciones de entrega se quedan con una tajada del 30% de tus ventas.",
+                prop_desc_2: "En Publi-K-Lo no te vendemos solo 'código' o páginas web bonitas. Te construimos herramientas y flujos de automatización estratégica diseñadas específicamente para liberar tus horas de trabajo, retener el 100% de tus ingresos y dar una experiencia instantánea y sin fricción a tus clientes.",
                 btn_back_home: "Volver al Inicio",
                 btn_next_services: "Ver Servicios",
-                services_tag: "// Portafolio de Soluciones",
-                services_title: "¿Cómo te ayudamos a dominar el mercado?",
-                services_subtitle: "Estructuramos nuestras áreas de experiencia para cubrir de forma integral cada necesidad de comunicación y conversión que requiera tu negocio.",
-                service_title_1: "Branding e Identidad Visual",
-                service_desc_1: "Logotipos, manuales de marca y papelería comercial que imponen respeto y profesionalismo.",
-                service_action_1: "CREACIÓN DE IDENTIDAD POTENTE",
+                services_tag: "// Herramientas de Crecimiento",
+                services_title: "¿Cómo te devolvemos el control de tu tiempo?",
+                services_subtitle: "Diseñamos soluciones integrales pensadas para empresarios ocupados que necesitan agilizar la captación, conversión y retención de sus clientes.",
+                service_title_1: "Branding Estratégico",
+                service_desc_1: "No solo diseñamos logotipos. Construimos manuales de identidad comercial, papelería y pautas visuales que imponen autoridad y transmiten que eres la opción número uno en tu rubro.",
+                service_action_1: "CREACIÓN DE MARCAS DE ALTO IMPACTO",
                 service_title_2: "Diseño Digital y Publicitario",
-                service_desc_2: "Flyers, catálogos, portafolios comerciales y material publicitario que capturan la atención.",
-                service_action_2: "DISEÑO PUBLICITARIO QUE VENDE",
-                service_title_3: "Producción Audiovisual",
-                service_desc_3: "Videos dinámicos, comerciales y animaciones diseñadas para conectar y vender en plataformas actuales.",
-                service_action_3: "CONTENIDO DE ALTO IMPACTO VISUAL",
-                service_title_4: "Soluciones Digitales y Apps Web",
-                service_desc_4: "Diseñamos y desarrollamos plataformas optimizadas (como sistemas de pedidos y delivery automáticos) para que tu negocio reciba pedidos directos, sin intermediarios ni comisiones.",
-                service_action_4: "AUTOMATIZACIÓN DIRECTA",
-                featured_tag: "Solución Destacada",
-                btn_next_portfolio: "Ver Casos de Éxito",
-                portfolio_tag: "// Demostración de Resultados",
-                portfolio_title: "Casos de Éxito: Innovación sobre la Mesa",
-                portfolio_subtitle: "Creamos productos digitales que no solo lucen extraordinarios, sino que transforman los flujos operativos de las empresas para maximizar su rentabilidad.",
-                plans_tag: "// Estructura de Inversión",
+                service_desc_2: "Catálogos interactivos de productos, portafolios de servicios comerciales y material publicitario persuasivo enfocado en capturar leads en redes sociales.",
+                service_action_2: "DISEÑO PUBLICITARIO ENFOCADO EN CONVERSIÓN",
+                service_title_3: "Producción Audiovisual Persuasiva",
+                service_desc_3: "Comerciales dinámicos, videos de presentación corporativa y animaciones cortas para redes sociales con alto gancho visual, diseñados para retener la atención del cliente desde el primer segundo.",
+                service_action_3: "CONTENIDO DINÁMICO QUE CAPTA ATENCIÓN",
+                service_title_4: "Soluciones Digitales & Automatización",
+                service_desc_4: "Diseñamos sistemas interactivos (como menús para comida o reservas médicas) donde tus clientes se auto-atienden en segundos. Olvídate de responder tarde. Tus pedidos llegan pre-armados, pagados y listos directamente a tu WhatsApp.",
+                service_action_4: "CERO COMISIONES, MÁS CONTROL",
+                featured_tag: "Automatización de Ventas",
+                btn_next_portfolio: "Probar Demos en Vivo",
+                portfolio_tag: "// Demostración de Resultados en Vivo",
+                portfolio_title: "Menos Palabras, Más Acción. Pruébalo Tú Mismo:",
+                portfolio_subtitle: "Simula cómo interactuarían tus clientes reales en nuestros sistemas integrados. Elige una de nuestras demos interactivas en el celular inteligente de la derecha.",
+                plans_tag: "// Estructura de Inversión Transparente",
                 plans_title: "Planes de Desarrollo y Diseño",
-                plans_subtitle: "Selecciona la solución que mejor se adapte a los objetivos de tu empresa y comencemos a trabajar de inmediato.",
+                plans_subtitle: "Precios claros desde el primer día. Sin sorpresas, cobros ocultos ni dependencias de por vida.",
                 plan_1_title: "Identidad & Marca",
                 plan_1_desc: "Ideal para marcas que nacen y necesitan verse sumamente profesionales desde el día uno.",
                 plan_1_f1: "Diseño de Logotipo Comercial",
@@ -1086,7 +1332,7 @@
                 ia_title: "Crea tu Ruta de Crecimiento con IA",
                 ia_subtitle: "¿No sabes exactamente qué necesita tu negocio? Nuestra Inteligencia Artificial analizará tus datos y diseñará una propuesta estratégica de marca inmediata.",
                 ia_form_title: "Datos de tu Negocio",
-                ia_form_subtitle: "Completa la información solicitada. El motor de Gemini estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.",
+                ia_form_subtitle: "Completa la información solicitada. El motor estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.",
                 ia_field_1: "Nombre de tu Empresa / Proyecto",
                 ia_field_2: "Sector o Rubro Comercial",
                 ia_field_3: "Principal Objetivo de Negocio",
@@ -1097,7 +1343,7 @@
                 ia_empty_title: "Listo para Analizar",
                 ia_empty_desc: "Introduce el nombre y objetivo de tu negocio a la izquierda. Nuestro motor IA generará un plan de acción directo de Publi-K-Lo.",
                 ia_loading_title: "Conectando con el motor neural...",
-                ia_loading_desc: "Gemini está estructurando tu embudo de ventas y propuestas de diseño...",
+                ia_loading_desc: "La Inteligencia Artificial está estructurando tu embudo de ventas y propuestas de diseño...",
                 ia_success_badge: "Propuesta IA de Crecimiento",
                 ia_val_prop_label: "Propuesta de Valor Sugerida:",
                 ia_strategies_label: "3 Acciones Clave Recomendadas por la IA:",
@@ -1107,8 +1353,8 @@
                 error_desc: "No pudimos procesar tu estrategia. Verifica tu conexión, clave de API de Gemini o inténtalo más tarde.",
                 btn_schedule_project: "Agendar Proyecto",
                 cta_final_badge: "// Agenda tu Sesión Estratégica",
-                cta_final_title: "La Web es la puerta al crecimiento.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>¿La abrimos hoy?</span>",
-                cta_final_desc: "Deja de ser el secreto mejor guardado de tu industria. Es hora de que todos te conozcan. ¡Demos marcha a tus ideas con impacto real hoy mismo!",
+                cta_final_title: "¿Listo para quitarte de encima<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>el dolor de cabeza operativo?</span>",
+                cta_final_desc: "Deja de responder mensajes tarde y perder valiosos clientes todos los días. Demos marcha a tus ideas con impacto real hoy mismo con sistemas automatizados.",
                 cta_final_btn: "Iniciar un Proyecto Juntos",
                 footer_desc: "Agencia boutique especializada en consultoría de branding estratégico, marketing digital enfocado a conversión y desarrollo de plataformas web de alta disponibilidad.",
                 footer_nav_header: "Navegación",
@@ -1124,38 +1370,38 @@
                 nav_case: "Case Studies",
                 nav_ia: "AI Strategy",
                 cta_direct: "Direct Contact",
-                hero_title: "We don't just create brands.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500'>We make the world talk about them.</span>",
-                hero_desc: "Strategy, high-impact design, and custom digital solutions for businesses wanting to automate sales. If your project is big, PUBLISH IT!",
+                hero_title: "Automate your daily operations.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500'>Sell on autopilot.</span>",
+                hero_desc: "Fewer exhausting manual chats, zero third-party commissions, and more time to scale. We build custom interactive systems that support your clients 24/7.",
                 hero_cta: "Boost Your Brand Here",
-                section_prop_tag: "// Our Vision",
-                prop_title: "Does your brand communicate its real value?",
-                prop_desc_1: "In today's market, those who don't show up, don't exist. At Publi-K-Lo we transform ideas into powerful visual identities, attractive digital campaigns, and audiovisual content that grabs attention from the first second.",
-                prop_desc_2: "We don't do generic design; we create visual selling tools built exclusively to elevate your company's positioning and turn viewers into high-value leads.",
+                section_prop_tag: "// Operational Relief",
+                prop_title: "Is your business still trapped in Excel and notebooks?",
+                prop_desc_1: "We know the pain of responding manually to the same WhatsApp message 50 times a day, organizing clinical schedules by hand, or seeing delivery apps take a 30% cut of your sales.",
+                prop_desc_2: "At Publi-K-Lo, we don't just sell 'code' or beautiful websites. We build strategic automation workflows designed to free your working hours, keep 100% of your revenue, and deliver friction-free experiences.",
                 btn_back_home: "Back to Home",
                 btn_next_services: "View Services",
-                services_tag: "// Portfolio of Solutions",
-                services_title: "How do we help you dominate the market?",
-                services_subtitle: "We structure our areas of expertise to fully cover every communication and conversion need of your business.",
-                service_title_1: "Branding & Visual Identity",
-                service_desc_1: "Logos, brand books, and corporate stationery that command respect and professionalism.",
-                service_action_1: "POWERFUL IDENTITY CREATION",
+                services_tag: "// Growth Tools",
+                services_title: "How do we give you back control of your time?",
+                services_subtitle: "We design custom comprehensive solutions for busy business owners who need to speed up customer acquisition and operational workflow.",
+                service_title_1: "Strategic Branding",
+                service_desc_1: "We don't just design logos. We build comprehensive visual identity manuals and marketing rules that impose authority and convey you are the top choice in your field.",
+                service_action_1: "HIGH-IMPACT BRAND CREATION",
                 service_title_2: "Digital & Advertising Design",
-                service_desc_2: "Flyers, catalogs, commercial portfolios, and eye-catching advertising materials.",
-                service_action_2: "ADVERTISING DESIGN THAT SELLS",
-                service_title_3: "Audiovisual Production",
-                service_desc_3: "Dynamic videos, commercials, and animations designed to connect and sell on modern platforms.",
-                service_action_3: "HIGH IMPACT VISUAL CONTENT",
-                service_title_4: "Digital Solutions & Web Apps",
-                service_desc_4: "We design and develop optimized platforms (like automated ordering and delivery systems) so your business receives direct orders with no middlemen or commissions.",
-                service_action_4: "DIRECT AUTOMATION",
-                featured_tag: "Featured Solution",
-                btn_next_portfolio: "View Case Studies",
-                portfolio_tag: "// Results Demonstration",
-                portfolio_title: "Success Stories: Innovation on the Table",
-                portfolio_subtitle: "We build digital products that not only look outstanding but also transform business operations to maximize profitability.",
-                plans_tag: "// Investment Structure",
+                service_desc_2: "Interactive product catalogs, commercial services booklets, and highly persuasive graphic assets designed to capture leads on social media.",
+                service_action_2: "ADVERTISING DESIGN FOCUSED ON CONVERSION",
+                service_title_3: "Persuasive Audiovisual Production",
+                service_desc_3: "Dynamic ads, company pitch videos, and short social media clips with high visual hooks, engineered to capture user attention within the first seconds.",
+                service_action_3: "DYNAMIC CONTENT THAT GRABS ATTENTION",
+                service_title_4: "Digital Solutions & Automation",
+                service_desc_4: "We design custom interactive ordering menus or medical schedulers where your clients self-serve in seconds. Orders land pre-assembled, paid, and ready directly on your WhatsApp.",
+                service_action_4: "ZERO COMMISSIONS, MORE CONTROL",
+                featured_tag: "Sales Automation",
+                btn_next_portfolio: "Try Live Demos",
+                portfolio_tag: "// Live Results Demonstration",
+                portfolio_title: "Less Talking, More Action. Try It Yourself:",
+                portfolio_subtitle: "Simulate how your real clients would interact with our built systems. Choose an interactive demo on the smartphone mockup on the right.",
+                plans_tag: "// Transparent Investment Structure",
                 plans_title: "Design & Development Plans",
-                plans_subtitle: "Select the solution that best fits your business goals and let's start working immediately.",
+                plans_subtitle: "Clear pricing from day one. No surprises, hidden fees, or lifelong software rentals.",
                 plan_1_title: "Identity & Brand",
                 plan_1_desc: "Ideal for newborn brands needing to look highly professional from day one.",
                 plan_1_f1: "Commercial Logo Design",
@@ -1177,7 +1423,7 @@
                 ia_title: "Create your Growth Roadmap with AI",
                 ia_subtitle: "Don't know exactly what your business needs? Our Artificial Intelligence will analyze your data and design an immediate strategic brand proposal.",
                 ia_form_title: "Your Business Data",
-                ia_form_subtitle: "Fill in the requested information. The Gemini engine will structure a proposal focused on your industry's success.",
+                ia_form_subtitle: "Fill in the requested information. The engine will structure a proposal focused on your industry's success.",
                 ia_field_1: "Business / Project Name",
                 ia_field_2: "Industry or Sector",
                 ia_field_3: "Main Business Goal",
@@ -1188,18 +1434,18 @@
                 ia_empty_title: "Ready to Analyze",
                 ia_empty_desc: "Enter your business name and goal on the left. Our AI engine will generate a direct action plan.",
                 ia_loading_title: "Connecting to neural engine...",
-                ia_loading_desc: "Gemini is structuring your sales funnel and design proposals...",
+                ia_loading_desc: "The AI is structuring your sales funnel and design proposals...",
                 ia_success_badge: "AI Growth Proposal",
                 ia_val_prop_label: "Suggested Value Proposition:",
                 ia_strategies_label: "3 Key Actions Recommended by AI:",
                 ia_recommended_service: "Recommended Core Service:",
                 ia_btn_send_whatsapp: "Send Plan to WhatsApp",
                 error_title: "Connection Error",
-                error_desc: "We couldn't connect to Google servers to process your strategy. Check your Gemini API Key or try again later.",
+                error_desc: "We couldn't connect to servers to process your strategy. Check your connection or try again later.",
                 btn_schedule_project: "Schedule Project",
                 cta_final_badge: "// Book Your Strategic Session",
-                cta_final_title: "The Web is the gate to real growth.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>Should we open it today?</span>",
-                cta_final_desc: "Stop being your industry's best-kept secret. It's time for everyone to know you. Let's make your ideas happen with real impact today!",
+                cta_final_title: "Ready to get rid of<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>operational headache?</span>",
+                cta_final_desc: "Stop responding late and losing valuable leads. Let's make your ideas happen today with automated systems.",
                 cta_final_btn: "Start a Project Together",
                 footer_desc: "Boutique agency specialized in strategic branding consultancy, conversion-oriented digital marketing, and high-availability web platform development.",
                 footer_nav_header: "Navigation",
@@ -1207,188 +1453,6 @@
                 footer_rights: "All rights reserved.",
                 footer_tagline: "Designed for Conversion and Visual Accessibility",
                 svg_slogan: "DIGITAL SOLUTIONS"
-            },
-            pt: {
-                nav_home: "Início",
-                nav_propuesta: "Proposta",
-                nav_servicios: "Serviços",
-                nav_case: "Casos de Sucesso",
-                nav_ia: "Estratégia IA",
-                cta_direct: "Contato Direto",
-                hero_title: "Não apenas criamos marcas.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500'>Fazemos o mundo falar delas.</span>",
-                hero_desc: "Estratégia, design de alto impacto e soluções digitais sob medida para negócios que desejam automatizar suas vendas. Se o seu projeto é grande, PUBLIQUE-O!",
-                hero_cta: "Impulsione sua Marca Aqui",
-                section_prop_tag: "// Nossa Visão",
-                prop_title: "Sua marca comunica o que realmente vale?",
-                prop_desc_1: "No mercado atual, quem não se mostra, não existe. Na Publi-K-Lo transformamos ideias em identidades visuais poderosas, campanhas digitais atraentes e conteúdo audiovisual que capta a atenção desde o primeiro segundo.",
-                prop_desc_2: "Não fazemos design genérico; criamos ferramentas de vendas visuais projetadas exclusivamente para elevar o posicionamento da sua empresa e converter espectadores em clientes de alto valor.",
-                btn_back_home: "Voltar ao Início",
-                btn_next_services: "Ver Serviços",
-                services_tag: "// Portfólio de Soluções",
-                services_title: "Como te ajudamos a dominar o mercado?",
-                services_subtitle: "Estruturamos nossas áreas de especialidade para cobrir de forma integral cada necessidade de comunicação e conversão que o seu negócio exija.",
-                service_title_1: "Branding e Identidade Visual",
-                service_desc_1: "Logotipos, manuais de marca e papelaria corporativa que impõem respeito e profissionalismo.",
-                service_action_1: "CRIAÇÃO DE IDENTIDADE PODEROSA",
-                service_title_2: "Design Digital e Publicitário",
-                service_desc_2: "Flyers, catálogos, portfólios comerciais e materiais publicitários atraentes.",
-                service_action_2: "DESIGN PUBLICITÁRIO QUE VENDE",
-                service_title_3: "Produção Audiovisual",
-                service_desc_3: "Vídeos dinâmicos, comerciais e animações projetadas para conectar e vender em plataformas atuais.",
-                service_action_3: "CONTEÚDO DE ALTO IMPACTO VISUAL",
-                service_title_4: "Soluciones Digitais e Apps Web",
-                service_desc_4: "Projetamos e desenvolvemos plataformas otimizadas (como sistemas de pedidos e delivery automáticos) para que seu negócio receba pedidos directos, sem intermediários ou comissões.",
-                service_action_4: "AUTOMATIZAÇÃO DIRETA",
-                featured_tag: "Solução de Destaque",
-                btn_next_portfolio: "Ver Casos de Sucesso",
-                portfolio_tag: "// Demonstração de Resultados",
-                portfolio_title: "Casos de Sucesso: Inovação na Mesa",
-                portfolio_subtitle: "Criamos produtos digitais que não apenas parecem extraordinários, mas também transformam as operações comerciais para maximizar a rentabilidade.",
-                plans_tag: "// Estrutura de Investimento",
-                plans_title: "Planos de Design e Desenvolvimento",
-                plans_subtitle: "Selecione a solução que melhor se adapta aos objetivos do seu negócio e comecemos a trabalhar imediatamente.",
-                plan_1_title: "Identidade & Marca",
-                plan_1_desc: "Ideal para novas marcas que precisam parecer altamente profissionais desde o primeiro dia.",
-                plan_1_f1: "Design de Logotipo Comercial",
-                plan_1_f2: "Manual de Identidade Visual",
-                plan_1_f3: "Flyers Publicitários de Alto Tráfego",
-                plan_2_title: "Site Corporativo",
-                plan_2_desc: "A mejor escolha para obter clientes constantes, agendar reuniões e ranquear no Google.",
-                plan_2_f1: "Landing Page / Site Autogerenciável",
-                plan_2_f2: "Seção de Estratégia de IA Integrada",
-                plan_2_f3: "Otimização de SEO Inicial para o Google",
-                plan_3_title: "E-commerce Automatizado",
-                plan_3_desc: "Automação total: catálogo de produtos, carrinho de compras integrado e notificações diretas.",
-                plan_3_f1: "Loja Online Completa Autogerenciável",
-                plan_3_f2: "Sistema Automatizado de Entregas e Pedidos",
-                plan_3_f3: "Suporte Técnico Mensal e Backups",
-                btn_choose_plan: "SOLICITAR PLANO",
-                btn_try_ia: "Testar Assistente IA",
-                ia_tag: "// Motor Neural Publi-K-Lo",
-                ia_title: "Crie o seu Roteiro de Crescimento com IA",
-                ia_subtitle: "Não sabe exatamente do que o seu negócio precisa? Nossa Inteligência Artificial analisará seus dados e desenhará uma proposta de marca estratégica imediata.",
-                ia_form_title: "Dados do seu Negócio",
-                ia_form_subtitle: "Preencha as informações solicitadas. O motor do Gemini estruturará uma proposta focada no sucesso do seu setor.",
-                ia_field_1: "Nome da Empresa / Projeto",
-                ia_field_2: "Setor Comercial ou Indústria",
-                ia_field_3: "Principal Objetivo de Negócio",
-                ia_field_4: "Localização do Cliente",
-                ia_apikey_label: "Usar sua própria chave de API do Gemini? (Opcional)",
-                ia_apikey_desc: "Se deixado em branco, o site chamará com segurança o motor neural através da plataforma.",
-                ia_btn_generate: "Gerar Meu Plano Estratégico de IA",
-                ia_empty_title: "Pronto para Analisar",
-                ia_empty_desc: "Insira o nome e o objetivo do seu negócio à esquerda. Nosso motor de IA gerará um plano de ação direta.",
-                ia_loading_title: "Conectando ao motor neural...",
-                ia_loading_desc: "O Gemini está estruturando o seu funil de vendas e propostas de design...",
-                ia_success_badge: "Proposta de Crescimento IA",
-                ia_val_prop_label: "Proposta de Valor Sugerida:",
-                ia_strategies_label: "3 Ações Principais Recomendadas pela IA:",
-                ia_recommended_service: "Servício Principal Recomendado:",
-                ia_btn_send_whatsapp: "Enviar Plano para o WhatsApp",
-                error_title: "Erro de Conexão",
-                error_desc: "Não conseguimos nos conectar aos servidores do Google para processar sua estratégia. Verifique sua chave de API do Gemini ou tente novamente mais tarde.",
-                btn_schedule_project: "Agendar Projeto",
-                cta_final_badge: "// Agende sua Sessão Estratégica",
-                cta_final_title: "A Web é a porta de entrada para o sucesso.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>Vamos abri-la hoje?</span>",
-                cta_final_desc: "Deixe de ser o segredo mais bem guardado do seu setor. É hora de todos conhecerem você. Vamos colocar suas ideias em prática com impacto real hoje!",
-                cta_final_btn: "Iniciar um Projeto Juntos",
-                footer_desc: "Agência boutique especializada em consultoria de branding estratégico, marketing digital voltado para conversão e desenvolvimento de plataformas web de alta disponibilidade.",
-                footer_nav_header: "Navegação",
-                footer_contact_header: "Contato Oficial",
-                footer_rights: "Todos os direitos reservados.",
-                footer_tagline: "Projetado para Conversão e Acessibilidade Visual",
-                svg_slogan: "SOLUÇÕES DIGITAIS"
-            },
-            it: {
-                nav_home: "Inizio",
-                nav_propuesta: "Proposta",
-                nav_servicios: "Servizi",
-                nav_case: "Casi di Successo",
-                nav_ia: "Strategia IA",
-                cta_direct: "Contatto Diretto",
-                hero_title: "Non creiamo solo marchi.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500'>Facciamo in modo che il mondo ne parli.</span>",
-                hero_desc: "Strategia, design di alto impatto e soluzioni digitali su misura per le aziende che vogliono automatizzare le vendite. Se il tuo progetto è grande, PUBBLICALO!",
-                hero_cta: "Dai Spinta al Tuo Marchio Qui",
-                section_prop_tag: "// La Nostra Visione",
-                prop_title: "Il tuo marchio comunica il suo vero valore?",
-                prop_desc_1: "Nel mercato odierno, chi non si mostra, non esiste. In Publi-K-Lo trasformiamo le idee in identità visive potenti, campagne digitali accattivanti e contenuti audiovisivi che catturano l'attenzione fin dal primo secondo.",
-                prop_desc_2: "Non facciamo design generico; creiamo strumenti di vendita visiva progettati esclusivamente per elevare il posizionamento della tua azienda e convertire gli spettatori in contatti ad alto valore.",
-                btn_back_home: "Torna alla Home",
-                btn_next_services: "Vedi Servizi",
-                services_tag: "// Portfolio delle Soluzioni",
-                services_title: "Come ti aiutiamo a dominar il mercato?",
-                services_subtitle: "Strutturiamo le nostre aree di competenza per coprire in modo completo ogni esigenza di comunicazione e conversione della tua attività.",
-                service_title_1: "Branding e Identità Visiva",
-                service_desc_1: "Loghi, manuali di stile e cancelleria aziendale che impongono rispetto e professionalità.",
-                service_action_1: "CREAZIONE DI IDENTITÀ POTENTE",
-                service_title_2: "Design Digitale e Pubblicitario",
-                service_desc_2: "Flyer, cataloghi, portfolio commerciali e materiali pubblicitari accattivanti.",
-                service_action_2: "DESIGN PUBBLICITARIO CHE VENDE",
-                service_title_3: "Produzione Audiovisiva",
-                service_desc_3: "Video dinamici, spot e animazioni progettati per connettere e vendere sulle piattaforme attuali.",
-                service_action_3: "CONTENUTO AD ALTO IMPATTO VISIVO",
-                service_title_4: "Soluzioni Digitali e App Web",
-                service_desc_4: "Progettiamo e sviluppiamo piattaforme ottimizzate (come sistemi di ordinazione e consegna automatici) per consentire alla tua attività di ricevere ordini diretti senza intermediari né commissioni.",
-                service_action_4: "AUTOMAZIONE DIRETTA",
-                featured_tag: "Soluzione in Evidenza",
-                btn_next_portfolio: "Vedi Casi di Successo",
-                portfolio_tag: "// Dimostrazione dei Risultati",
-                portfolio_title: "Storie di Successo: Innovazione in Tavola",
-                portfolio_subtitle: "Creiamo prodotti digitali che non solo hanno un aspetto straordinario, ma trasformano anche le operazioni aziendali per massimizzare la redditività.",
-                plans_tag: "// Struttura degli Investimenti",
-                plans_title: "Piani di Design & Sviluppo",
-                plans_subtitle: "Seleziona la soluzione que meglio si adatta agli obiettivi della tua attività e iniziamo a lavorare immediatamente.",
-                plan_1_title: "Identità & Marchio",
-                plan_1_desc: "Ideale per i nuovi marchi che hanno bisogno di apparire altamente professionali fin dal primo giorno.",
-                plan_1_f1: "Design del Logo Commerciale",
-                plan_1_f2: "Manuale di Identità Visiva",
-                plan_1_f3: "Flyer Pubblicitari ad Alto Traffico",
-                plan_2_title: "Sito Web Aziendale",
-                plan_2_desc: "La scelta migliore per ottenere clienti costanti, prenotare appuntamenti e posizionarsi su Google.",
-                plan_2_f1: "Landing Page / Sito Web Autogestito",
-                plan_2_f2: "Sezione Strategica di IA Integrata",
-                plan_2_f3: "Ottimizzazione SEO Iniziale per Google",
-                plan_3_title: "E-commerce Automatizzato",
-                plan_3_desc: "Automazione completa: catalogo prodotti, carrello integrato e notifiche dirette.",
-                plan_3_f1: "Negozio Online Completo Autogestito",
-                plan_3_f2: "Sistema Automatizzato di Consegna e Ordini",
-                plan_3_f3: "Supporto Tecnico Mensile e Backup",
-                btn_choose_plan: "RICHIEDI PIANO",
-                btn_try_ia: "Prova Assistente IA",
-                ia_tag: "// Motore Neurale Publi-K-Lo",
-                ia_title: "Crea la tua Tabella di Marcia per la Crescita con l'IA",
-                ia_subtitle: "Non sai esattamente di cosa ha bisogno la tua attività? La nostra Intelligenza Artificiale analizzerà i tuoi dati e progetterà una proposta di marchio strategica immediata.",
-                ia_form_title: "Dati della tua Attività",
-                ia_form_subtitle: "Compila le informazioni richieste. Il motore Gemini strutturerà una proposta focalizzata sul successo del tuo settore.",
-                ia_field_1: "Nome dell'Azienda / Progetto",
-                ia_field_2: "Settore o Industria",
-                ia_field_3: "Obiettivo Aziendale Principale",
-                ia_field_4: "Posizione del Cliente",
-                ia_apikey_label: "Usa la tua chiave API di Gemini? (Opzionale)",
-                ia_apikey_desc: "Se lasciato vuoto, il sito chiamerà in modo sicuro il motore neurale attraverso la piattaforma.",
-                ia_btn_generate: "Genera il Mio Piano Strategico IA",
-                ia_empty_title: "Pronto per l'Analisi",
-                ia_empty_desc: "Inserisci il nome e l'obiettivo della tua attività a sinistra. Il nostro motore IA genererà un piano d'azione diretto.",
-                ia_loading_title: "Connessione al motore neurale...",
-                ia_loading_desc: "Gemini sta strutturando il tuo funnel di vendita e le proposte di design...",
-                ia_success_badge: "Proposta di Crescita IA",
-                ia_val_prop_label: "Proposta di Valore Sugerita:",
-                ia_strategies_label: "3 Azioni Chiave Raccomandate dall'IA:",
-                ia_recommended_service: "Servizio Principale Consigliato:",
-                ia_btn_send_whatsapp: "Invia Piano su WhatsApp",
-                error_title: "Errore di Conesistenza",
-                error_desc: "Impossibile connettersi ai server di Google per elaborare la tua strategia. Controlla la tua chiave API di Gemini o riprova più tardi.",
-                btn_schedule_project: "Pianifica Progetto",
-                cta_final_badge: "// Prenota la tua Sessione Strategica",
-                cta_final_title: "Il Web è la chiave per una crescita reale.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>Vogliamo usarla oggi?</span>",
-                cta_final_desc: "Smetti di essere il segreto meglio custodito del tuo settore. È ora che tutti ti conoscano. Diamo vita alle tue idee con un impatto reale oggi stesso!",
-                cta_final_btn: "Iniziamo un Progetto Insieme",
-                footer_desc: "Boutique agency specializzata nella consulenza di branding strategico, marketing digitale orientato alla conversione e sviluppo di piattaforme web ad alta disponibilità.",
-                footer_nav_header: "Navigazione",
-                footer_contact_header: "Contatto Ufficiale",
-                footer_rights: "Tutti i diritti riservati.",
-                footer_tagline: "Progettato per la Conversione e l'Accessibilità Visiva",
-                svg_slogan: "SOLUÇÕES DIGITAIS"
             }
         };
 
@@ -1414,9 +1478,7 @@
             // Traducir dinámicamente los placeholders de los inputs
             const placeholders = {
                 es: { name: "Ej. Pizzería Don Giovanni", loc: "Ej. Caracas, Venezuela" },
-                en: { name: "e.g. Don Giovanni Pizzeria", loc: "e.g. Caracas, Venezuela" },
-                pt: { name: "Ex. Pizzaria Don Giovanni", loc: "Ex. Caracas, Venezuela" },
-                it: { name: "Es. Pizzeria Don Giovanni", loc: "Es. Caracas, Venezuela" }
+                en: { name: "e.g. Don Giovanni Pizzeria", loc: "e.g. Caracas, Venezuela" }
             };
             
             const nameInput = document.getElementById('ai-business-name');
@@ -1450,11 +1512,9 @@
         function actualizarEnlacesWhatsapp() {
             const textTemplates = {
                 es: "Hola Publi-K-Lo, quiero conversar con un asesor para un proyecto.",
-                en: "Hello Publi-K-Lo, I want to talk to an advisor about a project.",
-                pt: "Olá Publi-K-Lo, gostaria de conversar com um assessor para um projeto.",
-                it: "Ciao Publi-K-Lo, vorrei parlare con un consulente per un progetto."
+                en: "Hello Publi-K-Lo, I want to talk to an advisor about a project."
             };
-            const currentText = encodeURIComponent(textTemplates[activeLanguage]);
+            const currentText = encodeURIComponent(textTemplates[activeLanguage] || textTemplates.es);
             const waNumber = "584141255891";
 
             const hCta = document.getElementById('header-cta');
@@ -1475,14 +1535,14 @@
                 // Iniciar el contexto de audio del navegador
                 Tone.start();
 
-                // Sintetizador ultra sutil para efectos hover (desplazamientos)
+                // Sintetizador para efectos hover
                 window.publikloAudio.hoverSynth = new Tone.Synth({
                     oscillator: { type: "sine" },
                     envelope: { attack: 0.002, decay: 0.04, sustain: 0, release: 0.04 }
                 }).toDestination();
-                window.publikloAudio.hoverSynth.volume.value = -22; // Nivel de decibelios sumamente bajo y elegante
+                window.publikloAudio.hoverSynth.volume.value = -22; 
 
-                // Sintetizador para efectos de clics (respuestas de acción táctil/física)
+                // Sintetizador para clics
                 window.publikloAudio.clickSynth = new Tone.Synth({
                     oscillator: { type: "triangle" },
                     envelope: { attack: 0.001, decay: 0.08, sustain: 0, release: 0.08 }
@@ -1505,7 +1565,6 @@
                     Tone.context.resume();
                 }
                 if (window.publikloAudio.hoverSynth) {
-                    // Nota muy aguda pero cortísima para un efecto "pop/burbuja" tecnológico
                     window.publikloAudio.hoverSynth.triggerAttackRelease("E6", "32n");
                 }
             } catch (e) {}
@@ -1520,7 +1579,6 @@
                     Tone.context.resume();
                 }
                 if (window.publikloAudio.clickSynth) {
-                    // Nota sólida y limpia de respuesta rápida
                     window.publikloAudio.clickSynth.triggerAttackRelease("B5", "16n");
                 }
             } catch (e) {}
@@ -1550,7 +1608,6 @@
         function bindSoundToInteractiveElements() {
             const selectors = 'a, button, select, input, [role="button"], .neon-glow-card';
             document.querySelectorAll(selectors).forEach(el => {
-                // Evitar duplicaciones de escuchadores
                 if (el.dataset.soundBound) return;
                 
                 el.addEventListener('mouseenter', playHoverSound);
@@ -1559,7 +1616,7 @@
             });
         }
 
-        // Forzar inicialización de audio con el primer toque en pantalla (Regla de oro de los navegadores)
+        // Forzar inicialización de audio con el primer toque en pantalla
         window.addEventListener('click', () => {
             if (!window.publikloAudio.init) {
                 initAudioEngine();
@@ -1571,6 +1628,109 @@
                 initAudioEngine();
             }
         }, { once: true });
+    </script>
+
+    <script>
+        // --- LÓGICA DE LA DEMO INTERACTIVA DEL TELÉFONO MOCKUP ---
+        let selectedPizzaItem = "";
+        let selectedClinicTimeSlot = "";
+
+        function switchMobileDemo(type) {
+            playClickSound();
+            const tabPizza = document.getElementById('demo-tab-pizza');
+            const tabClinic = document.getElementById('demo-tab-clinic');
+            const contentPizza = document.getElementById('demo-content-pizza');
+            const contentClinic = document.getElementById('demo-content-clinic');
+
+            if (type === 'pizza') {
+                tabPizza.className = "flex-1 text-[10px] font-bold py-2 rounded-lg transition-all bg-brandAccent text-white";
+                tabClinic.className = "flex-1 text-[10px] font-bold py-2 rounded-lg transition-all text-brandMuted hover:text-white";
+                contentPizza.classList.remove('hidden');
+                contentClinic.classList.add('hidden');
+            } else {
+                tabClinic.className = "flex-1 text-[10px] font-bold py-2 rounded-lg transition-all bg-brandAccent text-white";
+                tabPizza.className = "flex-1 text-[10px] font-bold py-2 rounded-lg transition-all text-brandMuted hover:text-white";
+                contentClinic.classList.remove('hidden');
+                contentPizza.classList.add('hidden');
+            }
+        }
+
+        function addPizzaDemoItem(itemName) {
+            playClickSound();
+            selectedPizzaItem = itemName;
+            document.getElementById('pizza-cart-text').innerText = `🛒 ${itemName} añadido`;
+            document.getElementById('pizza-cart-text').classList.remove('italic', 'text-brandMuted');
+            document.getElementById('pizza-cart-text').classList.add('text-brandAccent', 'font-bold');
+            document.getElementById('pizza-submit-btn').removeAttribute('disabled');
+        }
+
+        function simulatePizzaOrder() {
+            playClickSound();
+            showPremiumToast(`¡Simulación de pedido enviada! El sistema generó el mensaje de WhatsApp para el restaurante.`);
+            
+            // Restablecer estado de la demo
+            selectedPizzaItem = "";
+            document.getElementById('pizza-cart-text').innerText = "Vacío. Selecciona una opción arriba";
+            document.getElementById('pizza-cart-text').className = "text-[11px] text-white font-medium mt-1 italic";
+            document.getElementById('pizza-submit-btn').setAttribute('disabled', 'true');
+        }
+
+        function selectClinicTime(timeSlot) {
+            playClickSound();
+            selectedClinicTimeSlot = timeSlot;
+            
+            // Toggle de estilo activo para botones
+            document.querySelectorAll('.time-slot-btn').forEach(btn => {
+                btn.classList.remove('bg-brandAccent', 'border-brandAccent');
+                btn.classList.add('bg-white/[0.03]', 'border-white/5');
+            });
+            
+            if (timeSlot === '09:00 AM') {
+                document.getElementById('time-btn-1').classList.replace('bg-white/[0.03]', 'bg-brandAccent');
+                document.getElementById('time-btn-1').classList.replace('border-white/5', 'border-brandAccent');
+            } else {
+                document.getElementById('time-btn-2').classList.replace('bg-white/[0.03]', 'bg-brandAccent');
+                document.getElementById('time-btn-2').classList.replace('border-white/5', 'border-brandAccent');
+            }
+
+            const specialist = document.getElementById('clinic-specialist').value;
+            document.getElementById('clinic-summary-text').innerText = `📅 Con ${specialist.split(' ')[1]} a las ${timeSlot}`;
+            document.getElementById('clinic-summary-text').classList.remove('italic', 'text-brandMuted');
+            document.getElementById('clinic-summary-text').classList.add('text-brandAccent', 'font-bold');
+            document.getElementById('clinic-submit-btn').removeAttribute('disabled');
+        }
+
+        function simulateClinicBooking() {
+            playClickSound();
+            showPremiumToast(`¡Cita agendada! Simulando envío de recordatorio automático por correo/WhatsApp.`);
+            
+            // Restablecer estado de la demo de clínica
+            selectedClinicTimeSlot = "";
+            document.querySelectorAll('.time-slot-btn').forEach(btn => {
+                btn.classList.remove('bg-brandAccent', 'border-brandAccent');
+                btn.classList.add('bg-white/[0.03]', 'border-white/5');
+            });
+            document.getElementById('clinic-summary-text').innerText = "Elige tu horario favorito arriba";
+            document.getElementById('clinic-summary-text').className = "text-[11px] text-white font-medium mt-1 italic";
+            document.getElementById('clinic-submit-btn').setAttribute('disabled', 'true');
+        }
+    </script>
+
+    <script>
+        // Lógica de FAQ interactiva (Pilar 6)
+        function toggleFaq(id) {
+            playClickSound();
+            const faqAns = document.getElementById(`faq-ans-${id}`);
+            const faqIcon = document.getElementById(`faq-icon-${id}`);
+
+            if (faqAns.classList.contains('hidden')) {
+                faqAns.classList.remove('hidden');
+                faqIcon.style.transform = "rotate(45deg)";
+            } else {
+                faqAns.classList.add('hidden');
+                faqIcon.style.transform = "rotate(0deg)";
+            }
+        }
     </script>
 
     <script>
@@ -1945,39 +2105,6 @@
             bindSoundToInteractiveElements();
         }
 
-        // Función personalizada para mostrar alertas sofisticadas (Evitando alert nativos)
-        function showPremiumToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            if (!container) return;
-
-            const toast = document.createElement('div');
-            toast.className = `flex items-center gap-3 px-5 py-4 rounded-2xl border backdrop-blur-md shadow-2xl transition-all duration-300 transform translate-x-12 opacity-0 pointer-events-auto ${
-                type === 'success' 
-                    ? 'bg-green-950/90 border-green-500/30 text-green-200' 
-                    : 'bg-red-950/90 border-red-500/30 text-red-200'
-            }`;
-            
-            const icon = type === 'success' ? 'check-circle' : 'alert-triangle';
-            toast.innerHTML = `
-                <i data-lucide="${icon}" class="w-5 h-5 shrink-0 ${type === 'success' ? 'text-green-400' : 'text-red-400'}"></i>
-                <span class="text-xs font-medium">${message}</span>
-            `;
-
-            container.appendChild(toast);
-            if (window.lucide) window.lucide.createIcons();
-
-            // Animación de entrada
-            setTimeout(() => {
-                toast.classList.remove('translate-x-12', 'opacity-0');
-            }, 10);
-
-            // Desvanecimiento y remoción
-            setTimeout(() => {
-                toast.classList.add('translate-x-12', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
-
         // Controladores de visibilidad de modales
         function toggleAdminLoginModal(show) {
             const modal = document.getElementById('admin-login-modal');
@@ -2121,9 +2248,7 @@
             const loaderTextEl = document.getElementById('ai-loader-text');
             const loaderStages = {
                 es: ["Conectando con el motor neural de Publi-K-Lo...", "Estructurando tu embudo de ventas...", "Optimizando la propuesta de diseño..."],
-                en: ["Connecting to Publi-K-Lo's neural engine...", "Structuring your sales funnel...", "Optimizing the design proposal..."],
-                pt: ["Conectando com o motor neural da Publi-K-Lo...", "Estruturando o seu funil de vendas...", "Otimizando a proposta de design..."],
-                it: ["Connessione al motore neurale di Publi-K-Lo...", "Strutturazione del funnel di vendita...", "Ottimizzazione della proposta di design..."]
+                en: ["Connecting to Publi-K-Lo's neural engine...", "Structuring your sales funnel...", "Optimizing the design proposal..."]
             };
             const stages = loaderStages[activeLanguage] || loaderStages.es;
             let stageIdx = 0;
@@ -2160,7 +2285,7 @@ Generate a strictly structured JSON response with the following keys:
   "gancho_comercial": "One short hook sentence inviting them to book a meeting with Publi-K-Lo to execute this plan."
 }`;
 
-            // Si el usuario introduce su clave manual la usamos; de lo contrario, dejamos vacío para que la plataforma inyecte la clave automáticamente en tiempo de ejecución.
+            // Si el usuario introduce su clave manual la usamos; de lo contrario, dejamos vacío para que se use la por defecto en producción de Vercel
             const apiKey = manualApiKey || "";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
@@ -2245,15 +2370,11 @@ Generate a strictly structured JSON response with the following keys:
                 // Formatear mensaje para WhatsApp en base al idioma seleccionado
                 const waIntro = {
                     es: "¡Hola Publi-K-Lo! Acabo de generar mi Plan de Crecimiento con su IA y me encantaría cotizarlo:",
-                    en: "Hello Publi-K-Lo! I just generated my Growth Plan with your AI and would love to get a quote:",
-                    pt: "Olá Publi-K-Lo! Acabo de gerar meu Plano de Crescimento com sua IA e adoraria receber um orçamento:",
-                    it: "Ciao Publi-K-Lo! Ho appena generato il mio Piano di Crescita con la vostra IA e mi piacerebbe ricevere un preventivo:"
+                    en: "Hello Publi-K-Lo! I just generated my Growth Plan with your AI and would love to get a quote:"
                 };
                 const waFoot = {
                     es: "¿Cuándo podemos agendar nuestra llamada de cortesía?",
-                    en: "When can we schedule our courtesy call?",
-                    pt: "Quando podemos agendar nossa ligação de cortesia?",
-                    it: "Quando possiamo pianificare la nostra chiamata di cortesia?"
+                    en: "When can we schedule our courtesy call?"
                 };
 
                 const formattedMessage = encodeURIComponent(
