@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@200;400;600;700;900&display=swap" rel="stylesheet">
     <!-- Lucide Icons para soportar una interfaz moderna y pulida -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tone.js para síntesis de audio interactiva premium en tiempo real sin archivos externos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     
     <script>
         tailwind.config = {
@@ -108,34 +110,24 @@
             }
         ];
 
-        // Función de seguridad en caso de que logo.png falle en cargar
-        function handleLogoError(img, textId) {
-            img.style.display = 'none';
-            const fallback = document.getElementById(textId);
-            if (fallback) {
-                fallback.classList.remove('hidden');
-                fallback.classList.add('flex');
-            }
-        }
+        // Objeto de gestión de efectos de sonido interactivos
+        window.publikloAudio = {
+            muted: false,
+            init: false,
+            hoverSynth: null,
+            clickSynth: null
+        };
     </script>
 
-    <!-- -->
     <header class="sticky top-0 z-50 bg-brandBg/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 md:h-24 h-20 flex items-center justify-between">
             
-            <!-- Contenedor del Logotipo Principal (Referencia a logo.png con fallback seguro de texto) -->
+            <!-- Logotipo Principal PNG en Blanco - Tamaño optimizado a excelente proporción -->
             <a href="#inicio" class="flex items-center group premium-focus p-1" aria-label="Ir al inicio de Publi-K-Lo">
-                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] h-14">
-                    <!-- Imagen del Logotipo Oficial PNG -->
+                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] md:h-20 h-16">
                     <img src="logo.png" 
                          alt="Publi-K-Lo Logo" 
-                         onerror="handleLogoError(this, 'nav-logo-fallback')" 
-                         class="h-14 w-auto object-contain max-w-[200px]">
-                    
-                    <!-- Fallback de texto estilizado en caso de que logo.png no exista en el directorio local -->
-                    <div id="nav-logo-fallback" class="hidden items-center text-2xl font-bold font-montserrat tracking-tight">
-                        <span class="text-white">Publi</span><span class="text-brandAccent">K</span><span class="text-white">lo</span>
-                    </div>
+                         class="md:h-20 h-16 w-auto object-contain max-w-[250px]">
                 </div>
             </a>
 
@@ -151,8 +143,15 @@
                 </a>
             </nav>
 
-            <!-- Selector de Idioma Estilizado y Botón de Conversión -->
+            <!-- Selector de Idioma, Interruptor de Sonido y Botón de Conversión -->
             <div class="flex items-center gap-4">
+                
+                <!-- Botón de Audio Interactivo (Silenciar / Activar) -->
+                <button type="button" onclick="toggleAudioMute()" id="sound-toggle-btn" class="inline-flex justify-center items-center rounded-xl border border-white/10 bg-white/[0.03] p-2.5 text-brandText hover:bg-white/[0.08] transition-all premium-focus" title="Control de audio premium">
+                    <i data-lucide="volume-2" id="sound-icon-on" class="w-4 h-4 text-brandAccent"></i>
+                    <i data-lucide="volume-x" id="sound-icon-off" class="w-4 h-4 text-brandMuted hidden"></i>
+                </button>
+
                 <!-- Dropdown de Idioma -->
                 <div class="relative inline-block text-left" id="language-switcher-container">
                     <button type="button" onclick="toggleLangDropdown()" class="inline-flex justify-center items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-brandText hover:bg-white/[0.08] transition-all premium-focus" aria-expanded="true" aria-haspopup="true">
@@ -214,24 +213,16 @@
 
     <main class="flex-grow">
         
-        <!-- -->
-        <!-- SECCIÓN 1: INICIO (Hero) -->
+        <!-- SECCIÓN 1: INICIO (Hero) - Logo de fondo con 5% de opacidad para una marca de agua inmersiva -->
         <section id="inicio" class="relative pt-16 pb-24 lg:py-32 overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-center items-center">
             <!-- Luces de fondo decorativas -->
             <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brandAccent/10 rounded-full blur-[140px] -z-10 pointer-events-none animate-pulse-slow"></div>
             
-            <!-- Logotipo PNG de Fondo en Transparencia Absoluta (Detrás del texto, Marca de agua gigante) -->
-            <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none overflow-hidden">
-                <!-- Imagen PNG del logo flotante con muy baja opacidad -->
+            <!-- Logotipo PNG de Fondo en Transparencia Absoluta (Detrás del texto, Marca de agua) -->
+            <div class="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none select-none opacity-[0.05] overflow-hidden">
                 <img src="logo.png" 
                      alt="" 
-                     onerror="this.style.display='none'; document.getElementById('hero-logo-fallback').classList.remove('hidden')" 
-                     class="w-[450px] md:w-[600px] h-auto object-contain opacity-[0.05] transition-opacity duration-300">
-                
-                <!-- Fallback en caso de que no esté logo.png para que no quede un espacio vacío -->
-                <div id="hero-logo-fallback" class="hidden text-9xl font-black text-white/5 tracking-wider font-montserrat uppercase select-none">
-                    PUBLIKLO
-                </div>
+                     class="w-[450px] md:w-[600px] h-auto object-contain transition-opacity duration-300">
             </div>
             
             <div class="max-w-5xl mx-auto px-6 text-center space-y-8 relative z-10">
@@ -266,7 +257,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- SECCIÓN 2: PROPUESTA DE VALOR -->
         <section id="propuesta" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="absolute top-1/2 right-1/4 w-[350px] h-[350px] bg-brandAccent/5 rounded-full blur-[130px] -z-10 pointer-events-none"></div>
@@ -307,7 +297,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- SECCIÓN 3: SERVICIOS -->
         <section id="servicios" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="max-w-7xl mx-auto px-6 w-full">
@@ -413,7 +402,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- SECCIÓN 4: CASOS DE ÉXITO Y PLANES -->
         <section id="portafolio" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <div class="absolute bottom-12 left-10 w-[400px] h-[400px] bg-brandAccent/5 rounded-full blur-[140px] -z-10 pointer-events-none"></div>
@@ -518,7 +506,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- SECCIÓN 5: ASISTENTE IA -->
         <section id="asistente-ia" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center min-h-screen">
             <!-- Resplandor tecnológico dinámico -->
@@ -544,7 +531,7 @@
                                 <i data-lucide="sparkles" class="text-brandAccent w-5 h-5 animate-pulse"></i> <span data-i18n="ia_form_title">Datos de tu Negocio</span>
                             </h3>
                             <p data-i18n="ia_form_subtitle" class="text-xs text-brandMuted leading-relaxed">
-                                Completa la información solicitada. El motor estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.
+                                Completa la información solicitada. El motor de Gemini estructurará una propuesta enfocada en la conversión y el éxito de tu rubro.
                             </p>
 
                             <!-- Campos de Entrada -->
@@ -558,7 +545,7 @@
                                     <label data-i18n="ia_field_2" class="block text-xs font-bold uppercase tracking-wider text-white mb-2 font-mono">Sector o Rubro Comercial</label>
                                     <select id="ai-business-sector" class="w-full bg-[#070707] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandAccent transition-all">
                                         <option value="Restaurantes y Gastronomía">Restaurantes y Gastronomía</option>
-                                        <option value="Salud, Clínicas y Medicina">Salud, Clínicas y Medicina</option>
+                                        <option value="Salul, Clínicas y Medicina">Salud, Clínicas y Medicina</option>
                                         <option value="Tiendas de Moda y E-commerce">Tiendas de Moda y E-commerce</option>
                                         <option value="Servicios Profesionales (Consultoría/Leyes)">Servicios Profesionales (Consultoría/Leyes)</option>
                                         <option value="Gimnasios y Bienestar">Gimnasios y Bienestar</option>
@@ -795,22 +782,17 @@
         </button>
     </div>
 
-    <!-- -->
+    <!-- Pie de página con el logotipo de Publiklo -->
     <footer class="bg-[#070707] border-t border-white/5 py-16">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 
-                <!-- Identidad y Descripción (NUEVO LOGO PNG) -->
+                <!-- Identidad y Descripción (PNG con letras blancas para visibilidad perfecta) -->
                 <div class="space-y-6 md:col-span-2">
                     <a href="#inicio" class="flex items-center">
                         <img src="logo.png" 
                              alt="Publi-K-Lo Logo" 
-                             onerror="handleLogoError(this, 'footer-logo-fallback')" 
-                             class="h-12 w-auto object-contain max-w-[180px]">
-                        
-                        <div id="footer-logo-fallback" class="hidden items-center text-xl font-bold font-montserrat tracking-tight">
-                            <span class="text-white">Publi</span><span class="text-brandAccent">K</span><span class="text-white">lo</span>
-                        </div>
+                             class="md:h-18 h-14 w-auto object-contain max-w-[220px]">
                     </a>
                     <p data-i18n="footer_desc" class="text-xs text-brandMuted max-w-sm leading-relaxed font-light">
                         Agencia boutique especializada en consultoría de branding estratégico, marketing digital enfocado a conversión y desarrollo de plataformas web de alta disponibilidad.
@@ -883,7 +865,7 @@
                     <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white font-montserrat">Consola de Autenticación</h3>
-                <p class="text-xs text-brandMuted">Introduce tus credenciales administrativas para modificar los precios de los planes and actualizar el portafolio.</p>
+                <p class="text-xs text-brandMuted">Introduce tus credenciales administrativas para modificar los precios de los planes y actualizar el portafolio.</p>
             </div>
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
@@ -1041,7 +1023,6 @@
         </div>
     </div>
 
-    <!-- -->
     <script>
         // Diccionario completo de traducciones
         const dictionary = {
@@ -1123,10 +1104,10 @@
                 ia_recommended_service: "Servicio Clave Sugerido:",
                 ia_btn_send_whatsapp: "Enviar Plan a WhatsApp",
                 error_title: "Error de Conexión",
-                error_desc: "No pudimos conectar con los servidores de Google para procesar tu estrategia. Verifica tu clave de API de Gemini o inténtalo más tarde.",
+                error_desc: "No pudimos procesar tu estrategia. Verifica tu conexión, clave de API de Gemini o inténtalo más tarde.",
                 btn_schedule_project: "Agendar Proyecto",
                 cta_final_badge: "// Agenda tu Sesión Estratégica",
-                cta_final_title: "¿Listo para llevar tu negocio<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>al siguiente nivel?</span>",
+                cta_final_title: "La Web es la puerta al crecimiento.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>¿La abrimos hoy?</span>",
                 cta_final_desc: "Deja de ser el secreto mejor guardado de tu industria. Es hora de que todos te conozcan. ¡Demos marcha a tus ideas con impacto real hoy mismo!",
                 cta_final_btn: "Iniciar un Proyecto Juntos",
                 footer_desc: "Agencia boutique especializada en consultoría de branding estratégico, marketing digital enfocado a conversión y desarrollo de plataformas web de alta disponibilidad.",
@@ -1217,7 +1198,7 @@
                 error_desc: "We couldn't connect to Google servers to process your strategy. Check your Gemini API Key or try again later.",
                 btn_schedule_project: "Schedule Project",
                 cta_final_badge: "// Book Your Strategic Session",
-                cta_final_title: "Ready to take your business<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>to the next level?</span>",
+                cta_final_title: "The Web is the gate to real growth.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>Should we open it today?</span>",
                 cta_final_desc: "Stop being your industry's best-kept secret. It's time for everyone to know you. Let's make your ideas happen with real impact today!",
                 cta_final_btn: "Start a Project Together",
                 footer_desc: "Boutique agency specialized in strategic branding consultancy, conversion-oriented digital marketing, and high-availability web platform development.",
@@ -1308,7 +1289,7 @@
                 error_desc: "Não conseguimos nos conectar aos servidores do Google para processar sua estratégia. Verifique sua chave de API do Gemini ou tente novamente mais tarde.",
                 btn_schedule_project: "Agendar Projeto",
                 cta_final_badge: "// Agende sua Sessão Estratégica",
-                cta_final_title: "Pronto para levar seu negócio<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>ao próximo nível?</span>",
+                cta_final_title: "A Web é a porta de entrada para o sucesso.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>Vamos abri-la hoje?</span>",
                 cta_final_desc: "Deixe de ser o segredo mais bem guardado do seu setor. É hora de todos conhecerem você. Vamos colocar suas ideias em prática com impacto real hoje!",
                 cta_final_btn: "Iniciar um Projeto Juntos",
                 footer_desc: "Agência boutique especializada em consultoria de branding estratégico, marketing digital voltado para conversão e desenvolvimento de plataformas web de alta disponibilidade.",
@@ -1367,7 +1348,7 @@
                 plan_2_f1: "Landing Page / Sito Web Autogestito",
                 plan_2_f2: "Sezione Strategica di IA Integrata",
                 plan_2_f3: "Ottimizzazione SEO Iniziale per Google",
-                plan_3_title: "E-commerce Automatizado",
+                plan_3_title: "E-commerce Automatizzato",
                 plan_3_desc: "Automazione completa: catalogo prodotti, carrello integrato e notifiche dirette.",
                 plan_3_f1: "Negozio Online Completo Autogestito",
                 plan_3_f2: "Sistema Automatizzato di Consegna e Ordini",
@@ -1395,11 +1376,11 @@
                 ia_strategies_label: "3 Azioni Chiave Raccomandate dall'IA:",
                 ia_recommended_service: "Servizio Principale Consigliato:",
                 ia_btn_send_whatsapp: "Invia Piano su WhatsApp",
-                error_title: "Errore di Conexione",
+                error_title: "Errore di Conesistenza",
                 error_desc: "Impossibile connettersi ai server di Google per elaborare la tua strategia. Controlla la tua chiave API di Gemini o riprova più tardi.",
                 btn_schedule_project: "Pianifica Progetto",
                 cta_final_badge: "// Prenota la tua Sessione Strategica",
-                cta_final_title: "Pronto a portare la tua attività<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>al livello successivo?</span>",
+                cta_final_title: "Il Web è la chiave per una crescita reale.<br><span class='text-transparent bg-clip-text bg-gradient-to-r from-brandAccent to-amber-500'>Vogliamo usarla oggi?</span>",
                 cta_final_desc: "Smetti di essere il segreto meglio custodito del tuo settore. È ora che tutti ti conoscano. Diamo vita alle tue idee con un impatto reale oggi stesso!",
                 cta_final_btn: "Iniziamo un Progetto Insieme",
                 footer_desc: "Boutique agency specializzata nella consulenza di branding strategico, marketing digitale orientato alla conversione e sviluppo di piattaforme web ad alta disponibilità.",
@@ -1486,7 +1467,112 @@
         }
     </script>
 
-    <!-- -->
+    <script>
+        // Inicialización del motor de síntesis de audio de Tone.js
+        function initAudioEngine() {
+            if (window.publikloAudio.init) return;
+            try {
+                // Iniciar el contexto de audio del navegador
+                Tone.start();
+
+                // Sintetizador ultra sutil para efectos hover (desplazamientos)
+                window.publikloAudio.hoverSynth = new Tone.Synth({
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 0.002, decay: 0.04, sustain: 0, release: 0.04 }
+                }).toDestination();
+                window.publikloAudio.hoverSynth.volume.value = -22; // Nivel de decibelios sumamente bajo y elegante
+
+                // Sintetizador para efectos de clics (respuestas de acción táctil/física)
+                window.publikloAudio.clickSynth = new Tone.Synth({
+                    oscillator: { type: "triangle" },
+                    envelope: { attack: 0.001, decay: 0.08, sustain: 0, release: 0.08 }
+                }).toDestination();
+                window.publikloAudio.clickSynth.volume.value = -14;
+
+                window.publikloAudio.init = true;
+                console.log("Motor de sonido de Publi-K-Lo iniciado correctamente.");
+            } catch (e) {
+                console.warn("No se pudo iniciar el sintetizador de audio:", e);
+            }
+        }
+
+        // Reproducir sonido de desplazamiento (Hover)
+        function playHoverSound() {
+            if (window.publikloAudio.muted) return;
+            try {
+                if (!window.publikloAudio.init) initAudioEngine();
+                if (Tone.context.state === 'suspended') {
+                    Tone.context.resume();
+                }
+                if (window.publikloAudio.hoverSynth) {
+                    // Nota muy aguda pero cortísima para un efecto "pop/burbuja" tecnológico
+                    window.publikloAudio.hoverSynth.triggerAttackRelease("E6", "32n");
+                }
+            } catch (e) {}
+        }
+
+        // Reproducir sonido de confirmación (Click)
+        function playClickSound() {
+            if (window.publikloAudio.muted) return;
+            try {
+                if (!window.publikloAudio.init) initAudioEngine();
+                if (Tone.context.state === 'suspended') {
+                    Tone.context.resume();
+                }
+                if (window.publikloAudio.clickSynth) {
+                    // Nota sólida y limpia de respuesta rápida
+                    window.publikloAudio.clickSynth.triggerAttackRelease("B5", "16n");
+                }
+            } catch (e) {}
+        }
+
+        // Silenciar o activar el audio del sitio
+        function toggleAudioMute() {
+            window.publikloAudio.muted = !window.publikloAudio.muted;
+            
+            const iconOn = document.getElementById('sound-icon-on');
+            const iconOff = document.getElementById('sound-icon-off');
+            
+            if (window.publikloAudio.muted) {
+                if (iconOn) iconOn.classList.add('hidden');
+                if (iconOff) iconOff.classList.remove('hidden');
+                showPremiumToast("Efectos de sonido desactivados.", "error");
+            } else {
+                if (iconOn) iconOn.classList.remove('hidden');
+                if (iconOff) iconOff.classList.add('hidden');
+                initAudioEngine();
+                playClickSound(); // Confirmación sonora instantánea al activar
+                showPremiumToast("Efectos de sonido activados.");
+            }
+        }
+
+        // Enlazar dinámicamente los sonidos a todos los elementos interactivos del DOM
+        function bindSoundToInteractiveElements() {
+            const selectors = 'a, button, select, input, [role="button"], .neon-glow-card';
+            document.querySelectorAll(selectors).forEach(el => {
+                // Evitar duplicaciones de escuchadores
+                if (el.dataset.soundBound) return;
+                
+                el.addEventListener('mouseenter', playHoverSound);
+                el.addEventListener('click', playClickSound);
+                el.dataset.soundBound = "true";
+            });
+        }
+
+        // Forzar inicialización de audio con el primer toque en pantalla (Regla de oro de los navegadores)
+        window.addEventListener('click', () => {
+            if (!window.publikloAudio.init) {
+                initAudioEngine();
+            }
+        }, { once: true });
+
+        window.addEventListener('touchstart', () => {
+            if (!window.publikloAudio.init) {
+                initAudioEngine();
+            }
+        }, { once: true });
+    </script>
+
     <script>
         // Inicialización básica de iconos Lucide
         lucide.createIcons();
@@ -1593,10 +1679,10 @@
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage('es');
             updateFloatingDots('inicio');
+            bindSoundToInteractiveElements();
         });
     </script>
 
-    <!-- -->
     <!-- Firebase script (Cargado en módulo) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -1743,7 +1829,6 @@
         };
     </script>
 
-    <!-- -->
     <script>
         // Actualiza las etiquetas de precio de los planes
         function updatePricesUI() {
@@ -1853,10 +1938,11 @@
                 }
             }
 
-            // Actualizar iconos dinámicos
+            // Actualizar iconos y enlazar sonidos a nuevos elementos interactivos
             if (window.lucide) {
                 window.lucide.createIcons();
             }
+            bindSoundToInteractiveElements();
         }
 
         // Función personalizada para mostrar alertas sofisticadas (Evitando alert nativos)
@@ -2003,7 +2089,6 @@
         }
     </script>
 
-    <!-- -->
     <script>
         // Restablecer panel de carga del Asistente IA
         function resetearAsistente() {
@@ -2075,7 +2160,7 @@ Generate a strictly structured JSON response with the following keys:
   "gancho_comercial": "One short hook sentence inviting them to book a meeting with Publi-K-Lo to execute this plan."
 }`;
 
-            // Si el usuario introduce su clave manual la usamos; de lo contrario, la plataforma inyectará la de cortesía automáticamente.
+            // Si el usuario introduce su clave manual la usamos; de lo contrario, dejamos vacío para que la plataforma inyecte la clave automáticamente en tiempo de ejecución.
             const apiKey = manualApiKey || "";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
@@ -2185,6 +2270,7 @@ Generate a strictly structured JSON response with the following keys:
                 // Mostrar el panel de éxito
                 document.getElementById('ai-output-success').classList.remove('hidden');
                 lucide.createIcons();
+                bindSoundToInteractiveElements(); // Asegurar sonidos en los nuevos botones
             } else {
                 document.getElementById('ai-output-error').classList.remove('hidden');
             }
