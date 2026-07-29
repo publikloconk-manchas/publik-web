@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publi-K-Lo | Soluciones Digitales de Alto Impacto</title>
+    <title>Publi-K-Lo | Soluciones Digitales & Automatización de Ventas</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS para diseño adaptable de alto rendimiento -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    
+    <!-- Google Fonts: Plus Jakarta Sans, Inter y Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Tone.js para síntesis de audio -->
+    
+    <!-- Tone.js para efectos de sonido e interactividad -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     
     <script>
@@ -21,20 +24,16 @@
             theme: {
                 extend: {
                     colors: {
-                        brandBg: '#0A0A0A',
-                        brandCard: '#121212',
-                        brandAccent: '#FF5E1A',
-                        brandAccentDark: '#D6450A',
-                        brandText: '#E0E0E0',
-                        brandMuted: '#94A3B8',
+                        brandBg: '#09090B',         /* Negro carbón mate anti-fatiga */
+                        brandCard: '#121215',       /* Tarjetas estilo Bento Box */
+                        brandAccent: '#FF5E1A',     /* Naranja acento vibrante */
+                        brandAccentDark: '#D6450A', /* Naranja profundo para hovers */
+                        brandText: '#E4E4E7',       /* Texto lectura descansada */
+                        brandMuted: '#94A3B8',      /* Gris subtítulos */
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
                         montserrat: ['Montserrat', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fadeIn': 'fadeIn 0.5s ease-out forwards',
                     }
                 }
             }
@@ -42,25 +41,10 @@
     </script>
     
     <style>
-        .premium-focus:focus-visible {
-            outline: 2px solid #FF5E1A;
-            outline-offset: 4px;
-            border-radius: 8px;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0A0A0A;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #222222;
-            border-radius: 99px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #FF5E1A;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090B; }
+        ::-webkit-scrollbar-thumb { background: #222225; border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF5E1A; }
 
         .neon-glow-orange {
             box-shadow: 0 0 50px -10px rgba(255, 94, 26, 0.15);
@@ -69,704 +53,416 @@
             box-shadow: 0 0 40px -15px rgba(255, 94, 26, 0.25);
             border-color: rgba(255, 94, 26, 0.3);
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dot-navigation-active {
-            background-color: #FF5E1A !important;
-            transform: scale(1.3);
-        }
     </style>
 </head>
 <body class="bg-brandBg text-brandText font-sans selection:bg-brandAccent selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden relative">
 
     <script>
-        // Inicialización segura del estado global de Publiklo
-        window.PublikloState = window.PublikloState || {
-            lang: 'es',
-            muted: false,
-            prices: { plan_1: 199, plan_2: 399, plan_3: 699 },
+        window.PublikloState = {
+            prices: {
+                plan_1: 199,
+                plan_2: 399,
+                plan_3: 699
+            },
             portfolio: [
                 {
                     id: 'ole-pizza',
-                    badge: 'Caso Gastronómico',
-                    title: 'Sistema de Pedidos Olé Pizza',
-                    desc: 'Plataforma de auto-atención para pedidos inmediatos por WhatsApp sin comisiones.',
+                    badge: 'Caso de Éxito: Gastronomía',
+                    title: 'Sistema de Pedidos y Delivery Inteligente para Olé Pizza',
+                    desc: 'Una plataforma web interactiva y fluida que permite a los clientes ordenar desde sus celulares en segundos, enviando la comanda estructurada directamente a la cocina por WhatsApp sin comisiones.',
                     link: 'https://ole-pizza.vercel.app',
-                    linkText: 'Ver App en Vivo',
-                    mockupTitle: 'Olé Pizza App',
-                    mockupDesc: 'Selecciona tus ingredientes, arma tu pedido y recíbelo al instante.',
-                    icon: 'pizza'
+                    linkText: 'Ver App en Vivo'
                 }
             ]
         };
 
         function sanitizeText(str) {
-            if (typeof str !== 'string') return '';
-            return str.replace(/[&<>"']/g, function(m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-            });
+            if (!str) return '';
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
         }
 
-        function handleLogoError() {
-            const img = document.getElementById('logo-img');
-            const fallback = document.getElementById('logo-fallback-text');
-            if (img) img.style.display = 'none';
-            if (fallback) fallback.classList.remove('hidden');
-        }
-
-        function handleFooterLogoError() {
-            const img = document.getElementById('logo-footer');
-            const fallback = document.getElementById('logo-footer-fallback');
+        function handleLogoError(imgId, fallbackId) {
+            const img = document.getElementById(imgId);
+            const fallback = document.getElementById(fallbackId);
             if (img) img.style.display = 'none';
             if (fallback) fallback.classList.remove('hidden');
         }
     </script>
 
-    <header class="sticky top-0 z-50 bg-brandBg/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 md:h-24 h-20 flex items-center justify-between">
+    <header class="sticky top-0 z-50 bg-brandBg/90 backdrop-blur-md border-b border-white/5 transition-all">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             
-            <a href="#inicio" class="flex items-center group premium-focus p-1" aria-label="Ir al inicio de Publi-K-Lo">
-                <div class="flex items-center transition-transform duration-300 group-hover:scale-[1.02] md:h-20 h-16 relative">
-                    <img id="logo-img" src="logo.png" 
-                         alt="Publi-K-Lo Logo" 
-                         class="md:h-20 h-16 w-auto object-contain max-w-[250px] block"
-                         onerror="handleLogoError()">
-                    <span id="logo-fallback-text" class="hidden text-xl md:text-2xl font-black text-white font-montserrat tracking-tight">
+            <!-- Logotipo con Fallback de texto -->
+            <a href="#inicio" class="flex items-center group">
+                <div class="flex items-center h-14 relative">
+                    <img id="logo-img" src="logo.png" alt="Publi-K-Lo Logo" class="h-12 w-auto object-contain block" onerror="handleLogoError('logo-img', 'logo-fallback')">
+                    <span id="logo-fallback" class="hidden text-2xl font-black text-white font-montserrat tracking-tight">
                         Publi<span class="text-brandAccent">K</span>lo
                     </span>
                 </div>
             </a>
 
-            <nav class="hidden md:flex items-center gap-6" aria-label="Navegación principal">
-                <a href="#inicio" data-i18n="nav_home" class="text-xs font-medium text-brandMuted hover:text-white hover:underline hover:underline-offset-8 decoration-brandAccent decoration-2 transition-all duration-200 premium-focus py-2">Inicio</a>
-                <a href="#propuesta" data-i18n="nav_propuesta" class="text-xs font-medium text-brandMuted hover:text-white hover:underline hover:underline-offset-8 decoration-brandAccent decoration-2 transition-all duration-200 premium-focus py-2">Propuesta</a>
-                <a href="#servicios" data-i18n="nav_servicios" class="text-xs font-medium text-brandMuted hover:text-white hover:underline hover:underline-offset-8 decoration-brandAccent decoration-2 transition-all duration-200 premium-focus py-2">Servicios</a>
-                <a href="#portafolio" data-i18n="nav_case" class="text-xs font-medium text-brandMuted hover:text-white hover:underline hover:underline-offset-8 decoration-brandAccent decoration-2 transition-all duration-200 premium-focus py-2">Casos de Éxito</a>
-                <a href="#asistente-ia" class="text-xs font-semibold text-brandAccent hover:text-white flex items-center gap-1.5 transition-all duration-200 bg-brandAccent/10 px-3 py-1.5 rounded-full border border-brandAccent/20 premium-focus">
+            <!-- Navegación Escritorio -->
+            <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-brandMuted">
+                <a href="#inicio" class="hover:text-white transition-colors">Inicio</a>
+                <a href="#propuesta" class="hover:text-white transition-colors">Propuesta</a>
+                <a href="#servicios" class="hover:text-white transition-colors">Servicios</a>
+                <a href="#portafolio" class="hover:text-white transition-colors">Casos de Éxito</a>
+                <a href="#planes" class="hover:text-white transition-colors">Planes</a>
+                <a href="#asistente-ia" class="text-brandAccent bg-brandAccent/10 px-3 py-1.5 rounded-full border border-brandAccent/20 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 bg-brandAccent rounded-full animate-ping"></span>
-                    <span data-i18n="nav_ia">Estrategia IA</span>
+                    <span>Estrategia IA</span>
                 </a>
             </nav>
 
-            <div class="flex items-center gap-4">
-                <button type="button" onclick="PublikloAudio.toggleMute()" id="sound-toggle-btn" class="inline-flex justify-center items-center rounded-xl border border-white/10 bg-white/[0.03] p-2.5 text-brandText hover:bg-white/[0.08] transition-all premium-focus" title="Control de audio">
-                    <i data-lucide="volume-2" id="sound-icon-on" class="w-4 h-4 text-brandAccent"></i>
-                    <i data-lucide="volume-x" id="sound-icon-off" class="w-4 h-4 text-brandMuted hidden"></i>
-                </button>
-
-                <div class="relative inline-block text-left" id="language-switcher-container">
-                    <button type="button" onclick="PublikloUI.toggleLangDropdown()" class="inline-flex justify-center items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-brandText hover:bg-white/[0.08] transition-all premium-focus">
-                        <i data-lucide="languages" class="w-4 h-4 text-brandAccent"></i>
-                        <span id="active-lang-label">ES</span>
-                        <i data-lucide="chevron-down" class="w-3 h-3 text-brandMuted"></i>
-                    </button>
-                    <div id="lang-dropdown" class="absolute right-0 z-50 mt-2 w-32 origin-top-right rounded-xl border border-white/10 bg-brandCard shadow-2xl focus:outline-none hidden">
-                        <div class="py-1">
-                            <button onclick="PublikloUI.setLanguage('es')" class="w-full text-left px-4 py-2 text-xs text-brandText hover:bg-white/5 flex items-center gap-2">🇪🇸 <span>Español</span></button>
-                            <button onclick="PublikloUI.setLanguage('en')" class="w-full text-left px-4 py-2 text-xs text-brandText hover:bg-white/5 flex items-center gap-2">🇺🇸 <span>English</span></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hidden sm:block">
-                    <a href="https://wa.me/584141255891?text=Hola%20Publi-K-Lo,%20quiero%20conversar%20con%20un%20asesor%20para%20un%20proyecto." 
-                       target="_blank" id="header-cta" rel="noopener noreferrer"
-                       class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-extrabold px-5 py-2.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 premium-focus">
-                        <i data-lucide="zap" class="w-3.5 h-3.5 mr-1.5 fill-current"></i>
-                        <span data-i18n="cta_direct">Contacto Directo</span>
-                    </a>
-                </div>
-
-                <button id="mobile-menu-btn" onclick="PublikloUI.toggleMobileMenu()" class="md:hidden text-brandText hover:text-white p-2.5 premium-focus rounded-xl bg-white/5 border border-white/5">
-                    <i data-lucide="menu" id="menu-icon-hamburger" class="w-6 h-6"></i>
-                    <i data-lucide="x" id="menu-icon-close" class="w-6 h-6 hidden"></i>
+            <!-- Acciones -->
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/584141255891?text=Hola%20Publi-K-Lo,%20quiero%20conversar%20con%20un%20asesor." target="_blank" rel="noopener" class="hidden sm:inline-flex items-center bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-brandAccent/20">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 mr-1.5 fill-current"></i> Contacto Directo
+                </a>
+                <button id="mobile-menu-btn" onclick="PublikloUI.toggleMobileMenu()" class="md:hidden text-white p-2.5 rounded-xl bg-white/5 border border-white/5">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-brandBg/95 backdrop-blur-lg border-b border-white/5 px-6 pt-2 pb-8 space-y-4">
-            <a href="#inicio" onclick="PublikloUI.toggleMobileMenu()" data-i18n="nav_home" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Inicio</a>
-            <a href="#propuesta" onclick="PublikloUI.toggleMobileMenu()" data-i18n="nav_propuesta" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Nuestra Propuesta</a>
-            <a href="#servicios" onclick="PublikloUI.toggleMobileMenu()" data-i18n="nav_servicios" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Servicios de la Agencia</a>
-            <a href="#portafolio" onclick="PublikloUI.toggleMobileMenu()" data-i18n="nav_case" class="block text-base font-medium text-brandMuted hover:text-white py-3 border-b border-white/5">Casos de Éxito</a>
-            <a href="#asistente-ia" onclick="PublikloUI.toggleMobileMenu()" data-i18n="nav_ia" class="block text-base font-semibold text-brandAccent hover:text-white py-3 border-b border-white/5">Estrategia IA</a>
-            <div class="pt-4 border-t border-white/5">
-                <a href="https://wa.me/584141255891?text=Hola%20Publi-K-Lo,%20quiero%20conversar%20con%20un%20asesor%20para%20un%20proyecto." 
-                   target="_blank" id="mobile-cta" rel="noopener noreferrer"
-                   class="w-full flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-base font-extrabold py-3.5 rounded-xl">
-                    <i data-lucide="message-square" class="w-5 h-5 mr-2"></i>
-                    <span data-i18n="cta_direct">Contacto Directo</span>
-                </a>
-            </div>
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brandBg border-b border-white/5 px-6 py-6 space-y-4">
+            <a href="#inicio" onclick="PublikloUI.toggleMobileMenu()" class="block text-sm text-brandMuted hover:text-white">Inicio</a>
+            <a href="#propuesta" onclick="PublikloUI.toggleMobileMenu()" class="block text-sm text-brandMuted hover:text-white">Propuesta</a>
+            <a href="#servicios" onclick="PublikloUI.toggleMobileMenu()" class="block text-sm text-brandMuted hover:text-white">Servicios</a>
+            <a href="#portafolio" onclick="PublikloUI.toggleMobileMenu()" class="block text-sm text-brandMuted hover:text-white">Casos de Éxito</a>
+            <a href="#planes" onclick="PublikloUI.toggleMobileMenu()" class="block text-sm text-brandMuted hover:text-white">Planes</a>
+            <a href="#asistente-ia" onclick="PublikloUI.toggleMobileMenu()" class="block text-sm text-brandAccent font-bold">Estrategia IA</a>
         </div>
     </header>
 
     <main class="flex-grow">
-        <section id="inicio" class="relative pt-12 pb-24 lg:py-28 overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-center items-center">
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brandAccent/10 rounded-full blur-[140px] -z-10 pointer-events-none animate-pulse-slow"></div>
-            
-            <div class="max-w-5xl mx-auto px-6 text-center space-y-8 relative z-10">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brandAccent/10 border border-brandAccent/20 text-brandAccent text-xs font-mono font-bold animate-pulse">
-                    <span class="w-2 h-2 rounded-full bg-brandAccent"></span>
-                    <span>¿CANSADO DE PERDER CLIENTES POR WHATSAPP?</span>
+        
+        <section id="inicio" class="relative pt-16 pb-24 lg:py-28 text-center flex flex-col justify-center items-center">
+            <div class="max-w-4xl mx-auto px-6 space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brandAccent/10 border border-brandAccent/20 text-brandAccent text-xs font-mono font-bold">
+                    <span class="w-2 h-2 rounded-full bg-brandAccent animate-pulse"></span>
+                    <span>AUTOMATIZACIÓN DIGITAL ESTRATÉGICA</span>
                 </div>
-                <h1 data-i18n="hero_title" class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight font-montserrat">
+                
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight font-montserrat">
                     Automatiza tu operación diaria.<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandAccent via-orange-400 to-amber-500">
                         Vende en piloto automático.
                     </span>
                 </h1>
                 
-                <p data-i18n="hero_desc" class="text-base sm:text-xl text-brandMuted leading-relaxed max-w-3xl mx-auto font-light">
-                    Menos chats manuales agotadores, cero comisiones abusivas a terceros y más tiempo para crecer. Creamos sistemas interactivos a medida que atienden a tus clientes las 24 horas del día. Si tu proyecto es grande, ¡PUBLÍCALO!
+                <p class="text-base sm:text-xl text-brandMuted leading-relaxed max-w-2xl mx-auto font-light">
+                    Menos chats manuales agotadores, cero comisiones a terceros y más tiempo para hacer crecer tu negocio. Construimos sistemas interactivos a medida.
                 </p>
 
-                <div class="pt-6">
-                    <a href="#asistente-ia" 
-                       class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-lg sm:text-xl font-extrabold px-10 py-5 rounded-xl shadow-2xl shadow-brandAccent/20 transition-all duration-300 transform hover:-translate-y-1 premium-focus">
-                        <i data-lucide="sparkles" class="w-5 h-5 mr-3 fill-current animate-bounce"></i>
-                        <span data-i18n="hero_cta">Impulsa tu Marca Aquí</span>
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#asistente-ia" class="w-full sm:w-auto inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-base font-extrabold px-8 py-4 rounded-xl shadow-xl shadow-brandAccent/20 transition-all transform hover:-translate-y-0.5">
+                        <i data-lucide="sparkles" class="w-5 h-5 mr-2"></i> Crear Estrategia con IA
+                    </a>
+                    <a href="#portafolio" class="w-full sm:w-auto inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white text-base font-bold px-8 py-4 rounded-xl border border-white/10 transition-all">
+                        <i data-lucide="eye" class="w-5 h-5 mr-2"></i> Ver Casos Reales
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="propuesta" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center">
+        <section id="propuesta" class="py-20 bg-brandBg border-t border-white/5">
             <div class="max-w-5xl mx-auto px-6">
-                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
                     <div class="lg:col-span-5 space-y-4">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase border border-brandAccent/20">
-                            Diagnóstico Operativo
-                        </span>
-                        <h2 data-i18n="prop_title" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight font-montserrat">
-                            ¿Tu negocio sigue atrapado en Excel y cuadernos?
-                        </h2>
-                        <div class="h-1.5 w-20 bg-brandAccent rounded-full"></div>
+                        <div class="inline-flex items-center gap-2 text-brandAccent text-xs font-mono font-bold uppercase">
+                            <i data-lucide="shield-alert" class="w-4 h-4"></i> Diagnóstico Operativo
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-white font-montserrat">¿Tu negocio sigue atrapado en tareas manuales?</h2>
+                        <div class="h-1 w-16 bg-brandAccent rounded-full"></div>
                     </div>
-
-                    <div class="lg:col-span-7 space-y-6">
-                        <p data-i18n="prop_desc_1" class="text-lg sm:text-xl text-brandText leading-relaxed font-light">
-                            Sabemos el dolor que causa responder manualmente el mismo mensaje 50 veces al día por WhatsApp, cuadrar agendas médicas a mano, o ver cómo las aplicaciones de entrega se quedan con una tajada del 30% de tus ventas. 
-                        </p>
-                        <p data-i18n="prop_desc_2" class="text-base text-brandMuted leading-relaxed font-light">
-                            En Publi-K-Lo no te vendemos solo "código" o páginas web bonitas. Te construimos herramientas y flujos de automatización estratégica diseñadas específicamente para liberar tus horas de trabajo, retener el 100% de tus ingresos y dar una experiencia instantánea y sin fricción a tus clientes.
-                        </p>
+                    <div class="lg:col-span-7 space-y-4 text-brandMuted text-sm sm:text-base leading-relaxed font-light">
+                        <p>Responder el mismo mensaje 50 veces al día por WhatsApp o coordinar agendas a mano agota tu tiempo. En Publi-K-Lo no vendemos simples vitrinas web: diseñamos sistemas interactivos que reciben pedidos, agendan citas y atienden a tus clientes las 24 horas.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="servicios" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center">
-            <div class="max-w-7xl mx-auto px-6 w-full">
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase border border-brandAccent/20">
-                        Soluciones Empaquetadas
-                    </span>
-                    <h2 data-i18n="services_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">¿Cómo te devolvemos el control de tu tiempo?</h2>
+        <section id="servicios" class="py-24 bg-brandBg border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+                    <div class="inline-flex items-center gap-2 text-brandAccent text-xs font-mono font-bold uppercase">
+                        <i data-lucide="layers" class="w-4 h-4"></i> Soluciones Empaquetadas
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-montserrat">¿Cómo te devolvemos el tiempo?</h2>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
-                    <!-- Service 1 -->
-                    <div class="bg-brandCard border border-white/5 p-8 sm:p-10 rounded-3xl transition-all duration-300 flex flex-col justify-between group neon-glow-card relative overflow-hidden">
-                        <div class="space-y-6 relative z-10">
-                            <div class="w-14 h-14 rounded-2xl bg-brandAccent/10 flex items-center justify-center text-brandAccent border border-brandAccent/20">
-                                <i data-lucide="palette" class="w-7 h-7"></i>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Servicio 1 -->
+                    <div class="bg-brandCard border border-white/5 p-6 rounded-2xl flex flex-col justify-between hover:border-brandAccent/30 transition-all">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-brandAccent/10 text-brandAccent flex items-center justify-center">
+                                <i data-lucide="palette" class="w-6 h-6"></i>
                             </div>
-                            <h3 data-i18n="service_title_1" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Branding Estratégico</h3>
-                            <p data-i18n="service_desc_1" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                No solo diseñamos logotipos. Construimos manuales de identidad comercial, papelería y pautas visuales que imponen autoridad.
-                            </p>
+                            <h3 class="text-lg font-bold text-white font-montserrat">Branding Estratégico</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">Manuales de identidad visual y recursos gráficos que transmiten máxima autoridad.</p>
                         </div>
                     </div>
-
-                    <!-- Service 2 -->
-                    <div class="bg-brandCard border border-white/5 p-8 sm:p-10 rounded-3xl transition-all duration-300 flex flex-col justify-between group neon-glow-card relative overflow-hidden">
-                        <div class="space-y-6 relative z-10">
-                            <div class="w-14 h-14 rounded-2xl bg-brandAccent/10 flex items-center justify-center text-brandAccent border border-brandAccent/20">
-                                <i data-lucide="layout" class="w-7 h-7"></i>
+                    <!-- Servicio 2 -->
+                    <div class="bg-brandCard border border-white/5 p-6 rounded-2xl flex flex-col justify-between hover:border-brandAccent/30 transition-all">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-brandAccent/10 text-brandAccent flex items-center justify-center">
+                                <i data-lucide="layout" class="w-6 h-6"></i>
                             </div>
-                            <h3 data-i18n="service_title_2" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Diseño Digital y Publicitario</h3>
-                            <p data-i18n="service_desc_2" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Catálogos interactivos de productos, portafolios de servicios comerciales y material publicitario persuasivo.
-                            </p>
+                            <h3 class="text-lg font-bold text-white font-montserrat">Diseño Publicitario</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">Catálogos interactivos de productos y material gráfico enfocado en conversión.</p>
                         </div>
                     </div>
-
-                    <!-- Service 3 -->
-                    <div class="bg-brandCard border border-white/5 p-8 sm:p-10 rounded-3xl transition-all duration-300 flex flex-col justify-between group neon-glow-card relative overflow-hidden">
-                        <div class="space-y-6 relative z-10">
-                            <div class="w-14 h-14 rounded-2xl bg-brandAccent/10 flex items-center justify-center text-brandAccent border border-brandAccent/20">
-                                <i data-lucide="play-circle" class="w-7 h-7"></i>
+                    <!-- Servicio 3 -->
+                    <div class="bg-brandCard border border-white/5 p-6 rounded-2xl flex flex-col justify-between hover:border-brandAccent/30 transition-all">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-brandAccent/10 text-brandAccent flex items-center justify-center">
+                                <i data-lucide="video" class="w-6 h-6"></i>
                             </div>
-                            <h3 data-i18n="service_title_3" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Producción Audiovisual Persuasiva</h3>
-                            <p data-i18n="service_desc_3" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Comerciales dinámicos, videos corporativos y animaciones diseñadas para retener la atención desde el primer segundo.
-                            </p>
+                            <h3 class="text-lg font-bold text-white font-montserrat">Producción Audiovisual</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">Videos corporativos y animaciones cortas para captar clientes en redes sociales.</p>
                         </div>
                     </div>
-
-                    <!-- Service 4 -->
-                    <div class="bg-brandCard border-2 border-brandAccent p-8 sm:p-10 rounded-3xl transition-all duration-300 flex flex-col justify-between group neon-glow-orange relative overflow-hidden">
-                        <div class="space-y-6 relative z-10">
-                            <div class="w-14 h-14 rounded-2xl bg-brandAccent text-white flex items-center justify-center border border-brandAccent/30">
-                                <i data-lucide="code-2" class="w-7 h-7"></i>
+                    <!-- Servicio 4 -->
+                    <div class="bg-brandCard border-2 border-brandAccent p-6 rounded-2xl flex flex-col justify-between shadow-lg shadow-brandAccent/10">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-brandAccent text-white flex items-center justify-center">
+                                <i data-lucide="code-2" class="w-6 h-6"></i>
                             </div>
-                            <h3 data-i18n="service_title_4" class="text-2xl font-bold text-white group-hover:text-brandAccent transition-colors font-montserrat">Soluciones Digitales & Automatización</h3>
-                            <p data-i18n="service_desc_4" class="text-sm sm:text-base text-brandMuted leading-relaxed">
-                                Diseñamos sistemas interactivos donde tus clientes se auto-atienden en segundos. Tus pedidos llegan pre-armados a tu WhatsApp.
-                            </p>
+                            <h3 class="text-lg font-bold text-white font-montserrat">Apps Web & Automatización</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">Menús digitales y agendadores donde el cliente se atiende solo y el pedido llega a tu WhatsApp.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portafolio" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center">
-            <div class="max-w-7xl mx-auto px-6 w-full">
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase border border-brandAccent/20">
-                        Demostración en Tiempo Real
-                    </span>
-                    <h2 data-i18n="portfolio_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">Menos Palabras, Más Acción. Pruébalo Tú Mismo:</h2>
+        <section id="portafolio" class="py-24 bg-brandBg border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+                    <div class="inline-flex items-center gap-2 text-brandAccent text-xs font-mono font-bold uppercase">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> Demostración en Tiempo Real
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-montserrat">Casos de Éxito e Integraciones</h2>
                 </div>
 
-                <!-- Dynamic Portfolio Container -->
-                <div id="portfolio-items-container" class="space-y-12">
-                    <!-- Dynamic rendering via JS -->
+                <!-- Lista Dinámica de Casos de Éxito -->
+                <div id="portfolio-container" class="space-y-8">
+                    <!-- Se renderiza reactivamente vía JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="planes" class="py-24 bg-brandBg border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+                    <div class="inline-flex items-center gap-2 text-brandAccent text-xs font-mono font-bold uppercase">
+                        <i data-lucide="tag" class="w-4 h-4"></i> Inversión Transparente
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-montserrat">Planes de Desarrollo</h2>
                 </div>
 
-                <!-- Plans Investment Section -->
-                <div class="mt-28 space-y-8">
-                    <div class="text-center max-w-2xl mx-auto space-y-3">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase border border-brandAccent/20">
-                            Inversión Transparente
-                        </span>
-                        <h3 data-i18n="plans_title" class="text-2xl sm:text-4xl font-extrabold text-white font-montserrat">Planes de Desarrollo y Diseño</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Plan 1 -->
+                    <div class="bg-brandCard border border-white/5 p-8 rounded-3xl flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-montserrat">Identidad & Marca</h3>
+                            <div id="price-plan-1" class="text-4xl font-black text-brandAccent font-mono">$199</div>
+                            <p class="text-xs text-brandMuted">Para marcas nuevas que necesitan proyectar imagen profesional desde el primer día.</p>
+                            <ul class="space-y-2 text-xs text-brandText pt-4 border-t border-white/5">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brandAccent"></i> Diseños de Logotipos Comerciales</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brandAccent"></i> Manual de Identidad Visual</li>
+                            </ul>
+                        </div>
+                        <button onclick="PublikloUI.requestPlan('Identidad & Marca', 'plan_1')" class="w-full bg-white/5 hover:bg-brandAccent hover:text-white text-white text-xs font-bold py-3.5 rounded-xl transition-all font-mono">
+                            SOLICITAR PLAN
+                        </button>
                     </div>
 
-                    <div class="grid md:grid-cols-3 gap-6 pt-4">
-                        <div class="bg-brandCard border border-white/5 p-8 rounded-3xl flex flex-col justify-between">
-                            <div class="space-y-4">
-                                <h4 data-i18n="plan_1_title" class="text-xl font-bold text-white font-montserrat">Identidad & Marca</h4>
-                                <div class="text-3xl font-black text-brandAccent font-mono" id="plan-1-price-val">$199</div>
-                                <p data-i18n="plan_1_desc" class="text-xs text-brandMuted">Ideal para marcas que nacen y necesitan verse sumamente profesionales.</p>
-                            </div>
-                            <div class="pt-8">
-                                <button onclick="PublikloUI.requestPlan('Identidad & Marca', 'plan_1')" class="w-full bg-white/5 hover:bg-brandAccent hover:text-white text-white text-xs font-bold py-3.5 rounded-xl transition-all font-mono">
-                                    SOLICITAR PLAN
-                                </button>
-                            </div>
+                    <!-- Plan 2 -->
+                    <div class="bg-brandCard border-2 border-brandAccent p-8 rounded-3xl flex flex-col justify-between space-y-6 relative shadow-xl shadow-brandAccent/5">
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brandAccent text-white text-[10px] font-mono font-bold uppercase px-3 py-1 rounded-full">POPULAR</div>
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-montserrat">Web Corporativa</h3>
+                            <div id="price-plan-2" class="text-4xl font-black text-brandAccent font-mono">$399</div>
+                            <p class="text-xs text-brandMuted">La mejor opción para captar clientes constantes y posicionar tu empresa en Google.</p>
+                            <ul class="space-y-2 text-xs text-brandText pt-4 border-t border-white/5">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brandAccent"></i> Landing Page Autoadministrable</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brandAccent"></i> Sección de Estrategia IA Integrada</li>
+                            </ul>
                         </div>
+                        <button onclick="PublikloUI.requestPlan('Web Corporativa', 'plan_2')" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold py-3.5 rounded-xl transition-all font-mono">
+                            SOLICITAR PLAN
+                        </button>
+                    </div>
 
-                        <div class="bg-brandCard border-2 border-brandAccent p-8 rounded-3xl flex flex-col justify-between relative">
-                            <div class="space-y-4">
-                                <h4 data-i18n="plan_2_title" class="text-xl font-bold text-white font-montserrat">Web Corporativa</h4>
-                                <div class="text-3xl font-black text-brandAccent font-mono" id="plan-2-price-val">$399</div>
-                                <p data-i18n="plan_2_desc" class="text-xs text-brandMuted">La mejor opción para captar clientes constantes y posicionarte en Google.</p>
-                            </div>
-                            <div class="pt-8">
-                                <button onclick="PublikloUI.requestPlan('Web Corporativa', 'plan_2')" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-extrabold py-3.5 rounded-xl transition-all font-mono">
-                                    SOLICITAR PLAN
-                                </button>
-                            </div>
+                    <!-- Plan 3 -->
+                    <div class="bg-brandCard border border-white/5 p-8 rounded-3xl flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-montserrat">E-commerce Automatizado</h3>
+                            <div id="price-plan-3" class="text-4xl font-black text-brandAccent font-mono">$699</div>
+                            <p class="text-xs text-brandMuted">Automatización total: catálogo dinámico, carrito de compras y comandas directo a WhatsApp.</p>
+                            <ul class="space-y-2 text-xs text-brandText pt-4 border-t border-white/5">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brandAccent"></i> Tienda en Línea Completa</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brandAccent"></i> Envíos de Pedidos a WhatsApp</li>
+                            </ul>
                         </div>
-
-                        <div class="bg-brandCard border border-white/5 p-8 rounded-3xl flex flex-col justify-between">
-                            <div class="space-y-4">
-                                <h4 data-i18n="plan_3_title" class="text-xl font-bold text-white font-montserrat">E-commerce Automatizado</h4>
-                                <div class="text-3xl font-black text-brandAccent font-mono" id="plan-3-price-val">$699</div>
-                                <p data-i18n="plan_3_desc" class="text-xs text-brandMuted">Automatización total: catálogo de productos y pedidos directos.</p>
-                            </div>
-                            <div class="pt-8">
-                                <button onclick="PublikloUI.requestPlan('E-commerce Automatizado', 'plan_3')" class="w-full bg-white/5 hover:bg-brandAccent hover:text-white text-white text-xs font-bold py-3.5 rounded-xl transition-all font-mono">
-                                    SOLICITAR PLAN
-                                </button>
-                            </div>
-                        </div>
+                        <button onclick="PublikloUI.requestPlan('E-commerce Automatizado', 'plan_3')" class="w-full bg-white/5 hover:bg-brandAccent hover:text-white text-white text-xs font-bold py-3.5 rounded-xl transition-all font-mono">
+                            SOLICITAR PLAN
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="asistente-ia" class="py-28 bg-brandBg border-t border-white/5 relative flex flex-col justify-center">
-            <div class="max-w-7xl mx-auto px-6 w-full">
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase border border-brandAccent/20">
+        <section id="asistente-ia" class="py-24 bg-brandBg border-t border-white/5">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center space-y-3 mb-12">
+                    <div class="inline-flex items-center gap-2 text-brandAccent text-xs font-mono font-bold uppercase">
                         // Consultoría Digital Neural
-                    </span>
-                    <h2 data-i18n="ia_title" class="text-3xl sm:text-5xl font-extrabold text-white font-montserrat">Crea tu Ruta de Crecimiento con IA</h2>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-white font-montserrat">Estrategia Personalizada con IA</h2>
                 </div>
 
-                <div class="grid lg:grid-cols-12 gap-8 items-stretch">
-                    <div class="lg:col-span-5 bg-brandCard border border-white/5 rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
-                        <div class="space-y-6">
-                            <h3 class="text-xl font-bold text-white font-montserrat">Datos de tu Negocio</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-white mb-2 font-mono">Nombre de la Empresa</label>
-                                    <input type="text" id="ai-business-name" placeholder="Ej. Pizzería Don Giovanni" class="w-full bg-[#070707] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandAccent">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-white mb-2 font-mono">Sector Comercial</label>
-                                    <select id="ai-business-sector" class="w-full bg-[#070707] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandAccent">
-                                        <option value="Restaurantes y Gastronomía">Restaurantes y Gastronomía</option>
-                                        <option value="Salud y Clínicas">Salud y Clínicas</option>
-                                        <option value="E-commerce y Comercio">E-commerce y Comercio</option>
-                                        <option value="Servicios Profesionales">Servicios Profesionales</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-white mb-2 font-mono">Objetivo Principal</label>
-                                    <select id="ai-business-goal" class="w-full bg-[#070707] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandAccent">
-                                        <option value="Atraer nuevos clientes">Atraer nuevos clientes</option>
-                                        <option value="Modernizar mi marca">Modernizar mi marca</option>
-                                        <option value="Crear tienda en línea">Crear tienda en línea</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="bg-brandCard border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-mono text-brandMuted mb-2">Nombre del Negocio</label>
+                            <input type="text" id="ai-business-name" placeholder="Ej. Pizzería Don Giovanni" class="w-full bg-[#070707] border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brandAccent">
                         </div>
-                        <div class="mt-8 pt-6 border-t border-white/5">
-                            <button onclick="PublikloAI.generatePlan()" id="ai-generate-btn" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-base font-extrabold py-4 px-6 rounded-xl transition-all">
-                                Generar Plan Estratégico IA
-                            </button>
+                        <div>
+                            <label class="block text-xs font-mono text-brandMuted mb-2">Sector o Rubro</label>
+                            <select id="ai-business-sector" class="w-full bg-[#070707] border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brandAccent">
+                                <option value="Gastronomía">Gastronomía</option>
+                                <option value="Salud y Medicina">Salud y Medicina</option>
+                                <option value="E-commerce y Moda">E-commerce y Moda</option>
+                                <option value="Servicios Profesionales">Servicios Profesionales</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-7 bg-[#0f0f0f] border border-white/5 rounded-3xl p-6 sm:p-10 flex flex-col justify-between min-h-[400px]">
-                        <div id="ai-output-empty" class="flex-grow flex flex-col items-center justify-center text-center space-y-4">
-                            <i data-lucide="brain" class="w-12 h-12 text-brandAccent/60"></i>
-                            <h4 class="font-bold text-white text-lg">Listo para Analizar</h4>
-                            <p class="text-sm text-brandMuted max-w-sm">Introduce el nombre y objetivo de tu negocio a la izquierda para generar una propuesta.</p>
-                        </div>
+                    <button onclick="PublikloAI.generatePlan()" class="w-full bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold font-mono py-4 rounded-xl transition-all">
+                        GENERAR PLAN ESTRATÉGICO
+                    </button>
 
-                        <div id="ai-output-loading" class="hidden flex-grow flex flex-col items-center justify-center text-center space-y-4">
-                            <div class="w-10 h-10 border-4 border-brandAccent/20 border-t-brandAccent rounded-full animate-spin"></div>
-                            <h4 id="ai-loader-text" class="font-bold text-white text-base font-mono">Analizando datos...</h4>
-                        </div>
-
-                        <div id="ai-output-success" class="hidden space-y-6">
-                            <div class="border-b border-white/10 pb-4">
-                                <h4 id="ai-output-slogan" class="text-2xl font-bold text-white font-montserrat italic"></h4>
-                            </div>
-                            <div>
-                                <h5 class="text-xs font-bold text-brandAccent font-mono mb-2">PROPUESTA DE VALOR:</h5>
-                                <p id="ai-output-value-prop" class="text-sm text-brandText leading-relaxed"></p>
-                            </div>
-                            <div class="pt-4">
-                                <a id="ai-whatsapp-cta" href="#" target="_blank" class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-sm font-bold px-6 py-3 rounded-xl">
-                                    Enviar Plan a WhatsApp
-                                </a>
-                            </div>
-                        </div>
+                    <div id="ai-result-box" class="hidden bg-[#070707] border border-white/10 rounded-2xl p-6 space-y-4">
+                        <div id="ai-result-content" class="text-xs text-brandText leading-relaxed space-y-3"></div>
+                        <a id="ai-whatsapp-btn" href="#" target="_blank" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-5 py-3 rounded-xl font-mono">
+                            Enviar Plan a WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-20 bg-brandBg border-t border-white/5">
-            <div class="max-w-4xl mx-auto px-6 space-y-8">
-                <div class="text-center space-y-3">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase border border-brandAccent/20">
-                        Objeciones Resueltas
-                    </span>
-                    <h3 class="text-2xl sm:text-4xl font-extrabold text-white font-montserrat">Preguntas Frecuentes</h3>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="bg-brandCard border border-white/5 rounded-2xl overflow-hidden">
-                        <button onclick="PublikloUI.toggleFaq(1)" class="w-full flex items-center justify-between p-6 text-left">
-                            <span class="text-sm sm:text-base font-bold text-white">¿Necesito saber de programación para administrar mi web?</span>
-                            <i data-lucide="plus" id="faq-icon-1" class="w-5 h-5 text-brandAccent transition-transform"></i>
-                        </button>
-                        <div id="faq-ans-1" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-white/5 pt-4">
-                            No. Diseñamos un panel sumamente amigable e intuitivo. Te capacitamos a ti y a tu equipo en menos de una hora.
-                        </div>
-                    </div>
-
-                    <div class="bg-brandCard border border-white/5 rounded-2xl overflow-hidden">
-                        <button onclick="PublikloUI.toggleFaq(2)" class="w-full flex items-center justify-between p-6 text-left">
-                            <span class="text-sm sm:text-base font-bold text-white">¿Cómo se conecta mi agenda o catálogo con WhatsApp?</span>
-                            <i data-lucide="plus" id="faq-icon-2" class="w-5 h-5 text-brandAccent transition-transform"></i>
-                        </button>
-                        <div id="faq-ans-2" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-white/5 pt-4">
-                            Integramos un flujo directo que estructura la solicitud del cliente y la envía a tu número oficial en un formato claro.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer class="bg-[#070707] border-t border-white/5 py-16">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="flex items-center gap-3">
-                <span class="text-lg font-black text-white font-montserrat">Publi<span class="text-brandAccent">K</span>lo</span>
-                <span class="text-xs text-brandMuted">© 2026 Todos los derechos reservados.</span>
-            </div>
-            <div>
-                <button onclick="PublikloUI.toggleAdminModal(true)" class="text-xs font-mono text-brandMuted hover:text-brandAccent flex items-center gap-1.5">
+    <footer class="bg-[#050507] border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-brandMuted">
+            <div>&copy; 2026 Publi-K-Lo. Todos los derechos reservados.</div>
+            <div class="flex items-center gap-4">
+                <button onclick="PublikloUI.toggleAdminModal(true)" class="hover:text-brandAccent font-mono text-[11px] flex items-center gap-1.5 transition-colors">
                     <i data-lucide="key" class="w-3.5 h-3.5"></i> Consola Admin
                 </button>
             </div>
         </div>
     </footer>
 
-    <!-- Toast container -->
-    <div id="toast-container" class="fixed top-24 right-6 z-[100] space-y-3 pointer-events-none"></div>
-
-    <!-- Modal Admin -->
     <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md hidden">
-        <div class="bg-brandCard border border-white/10 rounded-3xl p-8 max-w-2xl w-full relative">
+        <div class="bg-brandCard border border-white/10 rounded-3xl p-8 max-w-2xl w-full max-h-[85vh] overflow-y-auto relative shadow-2xl">
             <button onclick="PublikloUI.toggleAdminModal(false)" class="absolute top-4 right-4 text-brandMuted hover:text-brandAccent">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-            <h3 class="text-xl font-bold text-white font-montserrat mb-6">Consola de Administración</h3>
+            <h3 class="text-xl font-bold text-white font-montserrat mb-6 flex items-center gap-2">
+                <i data-lucide="key" class="w-5 h-5 text-brandAccent"></i> Consola de Administración
+            </h3>
             
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <h4 class="text-xs font-mono text-brandAccent uppercase">Modificar Precios</h4>
+            <div class="space-y-8">
+                <!-- Sección 1: Precios -->
+                <div class="space-y-4 bg-white/[0.02] p-5 rounded-2xl border border-white/5">
+                    <h4 class="text-xs font-mono text-brandAccent uppercase font-bold tracking-wider">1. Modificar Precios de Planes ($)</h4>
                     <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label class="text-[10px] text-brandMuted block mb-1">Plan 1 ($)</label>
-                            <input type="number" id="admin-p1" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2 text-xs text-white">
+                            <input type="number" id="admin-p1" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent font-mono">
                         </div>
                         <div>
                             <label class="text-[10px] text-brandMuted block mb-1">Plan 2 ($)</label>
-                            <input type="number" id="admin-p2" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2 text-xs text-white">
+                            <input type="number" id="admin-p2" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent font-mono">
                         </div>
                         <div>
                             <label class="text-[10px] text-brandMuted block mb-1">Plan 3 ($)</label>
-                            <input type="number" id="admin-p3" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2 text-xs text-white">
+                            <input type="number" id="admin-p3" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent font-mono">
                         </div>
                     </div>
-                    <button onclick="PublikloUI.savePricesFromAdmin()" class="bg-brandAccent text-white text-xs font-mono px-4 py-2 rounded-xl">Guardar Precios</button>
+                    <button onclick="PublikloUI.savePricesFromAdmin()" class="bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-mono px-5 py-2.5 rounded-xl transition-all font-bold">
+                        Guardar Precios
+                    </button>
+                </div>
+
+                <!-- Sección 2: Agregar Caso de Éxito -->
+                <div class="space-y-4 bg-white/[0.02] p-5 rounded-2xl border border-white/5">
+                    <h4 class="text-xs font-mono text-brandAccent uppercase font-bold tracking-wider">2. Agregar Caso de Éxito al Portafolio</h4>
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[10px] text-brandMuted block mb-1">Categoría / Badge</label>
+                                <input type="text" id="admin-case-badge" placeholder="Ej. Caso Gastronómico" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-brandMuted block mb-1">Texto de Botón</label>
+                                <input type="text" id="admin-case-linktext" placeholder="Ej. Ver App en Vivo" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-brandMuted block mb-1">Título del Proyecto</label>
+                            <input type="text" id="admin-case-title" placeholder="Ej. Sistema de Pedidos Burger Club" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-brandMuted block mb-1">Descripción Breve</label>
+                            <textarea id="admin-case-desc" rows="2" placeholder="Ej. Menú interactivo con envío de comanda automatizada a WhatsApp." class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-brandMuted block mb-1">Enlace Demo (URL)</label>
+                            <input type="text" id="admin-case-link" placeholder="Ej. https://mi-app.vercel.app" class="w-full bg-[#070707] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brandAccent font-mono">
+                        </div>
+                        <button onclick="PublikloUI.addPortfolioFromAdmin()" class="bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-mono px-5 py-2.5 rounded-xl transition-all font-bold">
+                            + Agregar Caso de Éxito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sección 3: Lista de Casos Activos -->
+                <div class="space-y-4 bg-white/[0.02] p-5 rounded-2xl border border-white/5">
+                    <h4 class="text-xs font-mono text-brandAccent uppercase font-bold tracking-wider">3. Casos Activos en Línea</h4>
+                    <div id="admin-portfolio-list" class="space-y-2">
+                        <!-- Lista dinámica -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, collection, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDIyM_QKSMDSrijxRH1d3DjZzhcaiOJAV4",
-            authDomain: "publiklo-web.firebaseapp.com",
-            projectId: "publiklo-web",
-            storageBucket: "publiklo-web.firebasestorage.app",
-            messagingSenderId: "236778062456",
-            appId: "1:236778062456:web:218caf64858ae1bbd3638d"
-        };
-
-        const appId = 'publiklo-app-production-v2';
-        let db = null;
-
-        (async () => {
-            if (firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("REEMPLAZA")) {
-                try {
-                    const app = initializeApp(firebaseConfig);
-                    db = getFirestore(app);
-                    const auth = getAuth(app);
-                    await signInAnonymously(auth);
-
-                    onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'prices'), (snapshot) => {
-                        if (snapshot.exists()) {
-                            const data = snapshot.data();
-                            if (data && typeof data.plan_1 === 'number') {
-                                window.PublikloState.prices = {
-                                    plan_1: Math.max(0, parseInt(data.plan_1) || 199),
-                                    plan_2: Math.max(0, parseInt(data.plan_2) || 399),
-                                    plan_3: Math.max(0, parseInt(data.plan_3) || 699)
-                                };
-                                window.PublikloUI?.updatePrices();
-                            }
-                        }
-                    });
-
-                    onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'portfolio'), (snapshot) => {
-                        const list = [];
-                        snapshot.forEach(d => {
-                            const item = d.data();
-                            if (item && item.title) {
-                                list.push({ id: d.id, ...item });
-                            }
-                        });
-                        if (list.length > 0) {
-                            window.PublikloState.portfolio = list;
-                            window.PublikloUI?.updatePortfolio();
-                        }
-                    });
-                } catch (e) {
-                    console.warn("Firebase operando en modo local fallback:", e);
-                }
-            }
-        })();
-
-        window.PublikloDb = {
-            async savePrices(prices) {
-                const sanitizedPrices = {
-                    plan_1: Math.max(0, parseInt(prices.plan_1) || 199),
-                    plan_2: Math.max(0, parseInt(prices.plan_2) || 399),
-                    plan_3: Math.max(0, parseInt(prices.plan_3) || 699)
-                };
-                window.PublikloState.prices = sanitizedPrices;
-                PublikloUI.updatePrices();
-
-                if (db) {
-                    try {
-                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'prices'), sanitizedPrices);
-                    } catch (e) {
-                        console.error("Error al guardar precios en Firestore:", e);
-                    }
-                } else {
-                    localStorage.setItem('pk_prices', JSON.stringify(sanitizedPrices));
-                }
-            },
-            async addPortfolioItem(item) {
-                if (!item || !item.id || !item.title) return;
-                const sanitized = {
-                    id: sanitizeText(item.id),
-                    badge: sanitizeText(item.badge || 'Caso de Éxito'),
-                    title: sanitizeText(item.title),
-                    desc: sanitizeText(item.desc),
-                    link: sanitizeText(item.link || '#'),
-                    linkText: sanitizeText(item.linkText || 'Ver App en Vivo'),
-                    mockupTitle: sanitizeText(item.mockupTitle || 'Proyecto'),
-                    mockupDesc: sanitizeText(item.mockupDesc || 'Solución digital.'),
-                    icon: sanitizeText(item.icon || 'globe')
-                };
-                window.PublikloState.portfolio.push(sanitized);
-                PublikloUI.updatePortfolio();
-
-                if (db) {
-                    try {
-                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio', sanitized.id), sanitized);
-                    } catch (e) {
-                        console.error("Error al guardar proyecto en Firestore:", e);
-                    }
-                } else {
-                    localStorage.setItem('pk_portfolio', JSON.stringify(window.PublikloState.portfolio));
-                }
-            },
-            async deletePortfolioItem(id) {
-                if (typeof id !== 'string') return;
-                window.PublikloState.portfolio = window.PublikloState.portfolio.filter(p => p.id !== id);
-                PublikloUI.updatePortfolio();
-
-                if (db) {
-                    try {
-                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'portfolio', id));
-                    } catch (e) {
-                        console.error("Error al borrar en Firestore:", e);
-                    }
-                } else {
-                    localStorage.setItem('pk_portfolio', JSON.stringify(window.PublikloState.portfolio));
-                }
-            }
-        };
-    </script>
-
     <script>
         const PublikloAudio = {
-            synth: null,
-            init() {
-                if (window.PublikloState.muted) return;
-                try {
-                    if (!this.synth && window.Tone) {
-                        this.synth = new Tone.Synth().toDestination();
-                        this.synth.volume.value = -18;
-                    }
-                } catch (e) {}
-            },
             playClick() {
-                if (window.PublikloState.muted) return;
                 try {
-                    this.init();
-                    if (this.synth) this.synth.triggerAttackRelease("C5", "8n");
-                } catch (e) {}
-            },
-            toggleMute() {
-                window.PublikloState.muted = !window.PublikloState.muted;
-                const iconOn = document.getElementById('sound-icon-on');
-                const iconOff = document.getElementById('sound-icon-off');
-                if (window.PublikloState.muted) {
-                    iconOn?.classList.add('hidden');
-                    iconOff?.classList.remove('hidden');
-                } else {
-                    iconOn?.classList.remove('hidden');
-                    iconOff?.classList.add('hidden');
-                    this.playClick();
-                }
+                    if (window.Tone && Tone.context.state === 'running') {
+                        const synth = new Tone.Synth().toDestination();
+                        synth.triggerAttackRelease("C5", "16n");
+                    }
+                } catch(e){}
             }
         };
 
         const PublikloUI = {
             toggleMobileMenu() {
-                PublikloAudio.playClick();
                 const menu = document.getElementById('mobile-menu');
-                const hamburger = document.getElementById('menu-icon-hamburger');
-                const close = document.getElementById('menu-icon-close');
-                menu?.classList.toggle('hidden');
-                hamburger?.classList.toggle('hidden');
-                close?.classList.toggle('hidden');
-            },
-            toggleLangDropdown() {
-                PublikloAudio.playClick();
-                document.getElementById('lang-dropdown')?.classList.toggle('hidden');
-            },
-            setLanguage(lang) {
-                PublikloAudio.playClick();
-                window.PublikloState.lang = lang;
-                document.getElementById('active-lang-label').innerText = lang.toUpperCase();
-                document.getElementById('lang-dropdown')?.classList.add('hidden');
-            },
-            updatePrices() {
-                const prices = window.PublikloState.prices;
-                if (!prices) return;
-                const p1 = document.getElementById('plan-1-price-val');
-                const p2 = document.getElementById('plan-2-price-val');
-                const p3 = document.getElementById('plan-3-price-val');
-                if (p1) p1.innerText = '$' + prices.plan_1;
-                if (p2) p2.innerText = '$' + prices.plan_2;
-                if (p3) p3.innerText = '$' + prices.plan_3;
-            },
-            updatePortfolio() {
-                const container = document.getElementById('portfolio-items-container');
-                if (!container) return;
-                container.innerHTML = '';
-
-                window.PublikloState.portfolio.forEach((item) => {
-                    const card = document.createElement('div');
-                    card.className = 'bg-brandCard border border-white/5 p-8 rounded-3xl flex flex-col md:flex-row gap-6 items-center justify-between';
-                    card.innerHTML = 
-                        '<div class="space-y-3 max-w-xl">' +
-                            '<span class="text-xs font-mono text-brandAccent uppercase">' + sanitizeText(item.badge) + '</span>' +
-                            '<h3 class="text-2xl font-bold text-white font-montserrat">' + sanitizeText(item.title) + '</h3>' +
-                            '<p class="text-sm text-brandMuted leading-relaxed">' + sanitizeText(item.desc) + '</p>' +
-                        '</div>' +
-                        '<div>' +
-                            '<a href="' + sanitizeText(item.link) + '" target="_blank" class="inline-flex items-center justify-center bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold px-6 py-3 rounded-xl transition-all">' +
-                                sanitizeText(item.linkText || 'Ver App en Vivo') +
-                            '</a>' +
-                        '</div>';
-                    container.appendChild(card);
-                });
-
-                if (window.lucide) window.lucide.createIcons();
-            },
-            toggleFaq(id) {
-                PublikloAudio.playClick();
-                const ans = document.getElementById('faq-ans-' + id);
-                const icon = document.getElementById('faq-icon-' + id);
-                if (ans) {
-                    ans.classList.toggle('hidden');
-                    icon?.classList.toggle('rotate-45');
-                }
+                if (menu) menu.classList.toggle('hidden');
             },
             toggleAdminModal(show) {
                 PublikloAudio.playClick();
@@ -777,21 +473,110 @@
                         document.getElementById('admin-p1').value = window.PublikloState.prices.plan_1;
                         document.getElementById('admin-p2').value = window.PublikloState.prices.plan_2;
                         document.getElementById('admin-p3').value = window.PublikloState.prices.plan_3;
+                        this.renderAdminPortfolioList();
                     }
                 }
             },
+            renderAdminPortfolioList() {
+                const container = document.getElementById('admin-portfolio-list');
+                if (!container) return;
+                container.innerHTML = '';
+                const items = window.PublikloState.portfolio || [];
+                if (items.length === 0) {
+                    container.innerHTML = '<p class="text-xs text-brandMuted italic">No hay proyectos registrados.</p>';
+                    return;
+                }
+                items.forEach((item) => {
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between bg-[#070707] p-3 rounded-xl border border-white/5 text-xs';
+                    row.innerHTML = 
+                        '<div>' +
+                            '<span class="font-bold text-white block">' + sanitizeText(item.title) + '</span>' +
+                            '<span class="text-[10px] text-brandMuted font-mono">' + sanitizeText(item.badge) + '</span>' +
+                        '</div>' +
+                        '<button onclick="PublikloUI.deletePortfolioFromAdmin(\'' + sanitizeText(item.id) + '\')" class="text-red-400 hover:text-red-300 text-xs font-mono bg-red-500/10 hover:bg-red-500/20 px-3 py-1.5 rounded-lg border border-red-500/20 transition-all">' +
+                            'Borrar' +
+                        '</button>';
+                    container.appendChild(row);
+                });
+            },
+            addPortfolioFromAdmin() {
+                PublikloAudio.playClick();
+                const badge = document.getElementById('admin-case-badge').value.trim();
+                const titleInput = document.getElementById('admin-case-title');
+                const title = titleInput.value.trim();
+                const desc = document.getElementById('admin-case-desc').value.trim();
+                const link = document.getElementById('admin-case-link').value.trim();
+                const linkText = document.getElementById('admin-case-linktext').value.trim();
+
+                if (!title) {
+                    titleInput.classList.add('border-red-500');
+                    setTimeout(() => titleInput.classList.remove('border-red-500'), 2000);
+                    return;
+                }
+
+                const id = 'case-' + Date.now();
+                window.PublikloDb.addPortfolioItem({
+                    id,
+                    badge: badge || 'Caso de Éxito',
+                    title,
+                    desc,
+                    link: link || '#',
+                    linkText: linkText || 'Ver App en Vivo'
+                });
+
+                document.getElementById('admin-case-badge').value = '';
+                titleInput.value = '';
+                document.getElementById('admin-case-desc').value = '';
+                document.getElementById('admin-case-link').value = '';
+                document.getElementById('admin-case-linktext').value = '';
+
+                this.renderAdminPortfolioList();
+            },
+            deletePortfolioFromAdmin(id) {
+                PublikloAudio.playClick();
+                window.PublikloDb.deletePortfolioItem(id);
+                this.renderAdminPortfolioList();
+            },
             savePricesFromAdmin() {
                 PublikloAudio.playClick();
-                const p1 = parseInt(document.getElementById('admin-p1').value) || 199;
-                const p2 = parseInt(document.getElementById('admin-p2').value) || 399;
-                const p3 = parseInt(document.getElementById('admin-p3').value) || 699;
+                const p1 = Math.max(0, parseInt(document.getElementById('admin-p1').value) || 0);
+                const p2 = Math.max(0, parseInt(document.getElementById('admin-p2').value) || 0);
+                const p3 = Math.max(0, parseInt(document.getElementById('admin-p3').value) || 0);
+
                 window.PublikloDb.savePrices({ plan_1: p1, plan_2: p2, plan_3: p3 });
                 this.toggleAdminModal(false);
             },
-            requestPlan(name, key) {
+            updatePricesUI() {
+                const prices = window.PublikloState.prices;
+                const el1 = document.getElementById('price-plan-1');
+                const el2 = document.getElementById('price-plan-2');
+                const el3 = document.getElementById('price-plan-3');
+                if (el1) el1.innerText = '$' + prices.plan_1;
+                if (el2) el2.innerText = '$' + prices.plan_2;
+                if (el3) el3.innerText = '$' + prices.plan_3;
+            },
+            updatePortfolioUI() {
+                const container = document.getElementById('portfolio-container');
+                if (!container) return;
+                container.innerHTML = '';
+                const items = window.PublikloState.portfolio || [];
+                
+                items.forEach((item) => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-brandCard border border-white/5 p-8 rounded-3xl space-y-4';
+                    card.innerHTML = 
+                        '<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandAccent/10 text-brandAccent text-xs font-mono font-bold uppercase">' + sanitizeText(item.badge) + '</div>' +
+                        '<h3 class="text-2xl font-bold text-white font-montserrat">' + sanitizeText(item.title) + '</h3>' +
+                        '<p class="text-xs text-brandMuted leading-relaxed max-w-2xl">' + sanitizeText(item.desc) + '</p>' +
+                        '<div class="pt-2"><a href="' + sanitizeText(item.link) + '" target="_blank" class="inline-flex items-center bg-brandAccent hover:bg-brandAccentDark text-white text-xs font-bold px-5 py-2.5 rounded-xl font-mono">' + sanitizeText(item.linkText || 'Ver App en Vivo') + '</a></div>';
+                    container.appendChild(card);
+                });
+            },
+            requestPlan(planName, planKey) {
                 PublikloAudio.playClick();
-                const price = window.PublikloState.prices[key] || 199;
-                const msg = encodeURIComponent('Hola Publi-K-Lo, deseo consultar sobre el plan ' + name + ' ($' + price + ').');
+                const price = window.PublikloState.prices[planKey] || 0;
+                const msg = encodeURIComponent('Hola Publi-K-Lo, quiero información sobre el plan ' + planName + ' ($' + price + ').');
                 window.open('https://wa.me/584141255891?text=' + msg, '_blank');
             }
         };
@@ -799,39 +584,118 @@
         const PublikloAI = {
             async generatePlan() {
                 PublikloAudio.playClick();
-                const name = document.getElementById('ai-business-name')?.value.trim();
-                const sector = document.getElementById('ai-business-sector')?.value;
-                const goal = document.getElementById('ai-business-goal')?.value;
+                const name = document.getElementById('ai-business-name').value.trim();
+                const sector = document.getElementById('ai-business-sector').value;
 
                 if (!name) return;
 
-                document.getElementById('ai-output-empty')?.classList.add('hidden');
-                document.getElementById('ai-output-success')?.classList.add('hidden');
-                document.getElementById('ai-output-loading')?.classList.remove('hidden');
+                const resultBox = document.getElementById('ai-result-box');
+                const resultContent = document.getElementById('ai-result-content');
+                const waBtn = document.getElementById('ai-whatsapp-btn');
+
+                resultContent.innerHTML = '<p class="animate-pulse text-brandAccent">Generando diagnóstico para ' + sanitizeText(name) + '...</p>';
+                resultBox.classList.remove('hidden');
 
                 setTimeout(() => {
-                    document.getElementById('ai-output-loading')?.classList.add('hidden');
-                    document.getElementById('ai-output-success')?.classList.remove('hidden');
+                    const text = 'Estrategia de Automatización para ' + name + ' (' + sector + '): Implementación de Landing Page con embudo directo a WhatsApp y catálogo interactivo sin comisiones.';
+                    resultContent.innerHTML = '<p class="font-bold text-white mb-2">Propuesta Generada:</p><p>' + sanitizeText(text) + '</p>';
+                    waBtn.href = 'https://wa.me/584141255891?text=' + encodeURIComponent('Hola, generé esta estrategia para mi negocio (' + name + '): ' + text);
+                }, 1200);
+            }
+        };
+    </script>
 
-                    const sloganEl = document.getElementById('ai-output-slogan');
-                    const valueEl = document.getElementById('ai-output-value-prop');
-                    const ctaEl = document.getElementById('ai-whatsapp-cta');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-                    if (sloganEl) sloganEl.innerText = '"Especialistas en la aceleración digital de ' + sanitizeText(name) + '"';
-                    if (valueEl) valueEl.innerText = 'Impulsamos tu negocio en el sector de ' + sanitizeText(sector) + ' mediante sistemas de captura directa por WhatsApp para lograr el objetivo de ' + sanitizeText(goal) + '.';
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIyM_QKSMDSrijxRH1d3DjZzhcaiOJAV4",
+            authDomain: "publiklo-web.firebaseapp.com",
+            projectId: "publiklo-web",
+            storageBucket: "publiklo-web.firebasestorage.app",
+            messagingSenderId: "236778062456",
+            appId: "1:236778062456:web:218caf64858ae1bbd3638d"
+        };
 
-                    if (ctaEl) {
-                        const msg = encodeURIComponent('Hola Publi-K-Lo, generé una propuesta de IA para mi empresa ' + name + ' y deseo agendar una llamada.');
-                        ctaEl.href = 'https://wa.me/584141255891?text=' + msg;
-                    }
-                }, 1500);
+        let db = null;
+        const appId = 'publiklo-app-v3';
+
+        window.PublikloDb = {
+            async savePrices(newPrices) {
+                window.PublikloState.prices = newPrices;
+                PublikloUI.updatePricesUI();
+                localStorage.setItem('publiklo_prices', JSON.stringify(newPrices));
+                if (db) {
+                    try {
+                        await setDoc(doc(db, 'artifacts', appId, 'config', 'prices'), newPrices);
+                    } catch(e){}
+                }
+            },
+            async addPortfolioItem(newItem) {
+                window.PublikloState.portfolio.push(newItem);
+                PublikloUI.updatePortfolioUI();
+                localStorage.setItem('publiklo_portfolio', JSON.stringify(window.PublikloState.portfolio));
+                if (db) {
+                    try {
+                        await setDoc(doc(db, 'artifacts', appId, 'portfolio', newItem.id), newItem);
+                    } catch(e){}
+                }
+            },
+            async deletePortfolioItem(id) {
+                window.PublikloState.portfolio = window.PublikloState.portfolio.filter(item => item.id !== id);
+                PublikloUI.updatePortfolioUI();
+                localStorage.setItem('publiklo_portfolio', JSON.stringify(window.PublikloState.portfolio));
+                if (db) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'portfolio', id));
+                    } catch(e){}
+                }
             }
         };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            PublikloUI.updatePrices();
-            PublikloUI.updatePortfolio();
-            if (window.lucide) window.lucide.createIcons();
+        (async () => {
+            // Cargar primero datos locales
+            const localPrices = localStorage.getItem('publiklo_prices');
+            if (localPrices) window.PublikloState.prices = JSON.parse(localPrices);
+            
+            const localPortfolio = localStorage.getItem('publiklo_portfolio');
+            if (localPortfolio) window.PublikloState.portfolio = JSON.parse(localPortfolio);
+
+            PublikloUI.updatePricesUI();
+            PublikloUI.updatePortfolioUI();
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                const auth = getAuth(app);
+                await signInAnonymously(auth);
+
+                // Escucha de precios en tiempo real
+                onSnapshot(doc(db, 'artifacts', appId, 'config', 'prices'), (snap) => {
+                    if (snap.exists()) {
+                        window.PublikloState.prices = snap.data();
+                        PublikloUI.updatePricesUI();
+                    }
+                });
+
+                // Escucha de portafolio en tiempo real
+                onSnapshot(collection(db, 'artifacts', appId, 'portfolio'), (snap) => {
+                    const items = [];
+                    snap.forEach(docSnap => items.push(docSnap.data()));
+                    if (items.length > 0) {
+                        window.PublikloState.portfolio = items;
+                        PublikloUI.updatePortfolioUI();
+                    }
+                });
+            } catch(e) {}
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
         });
     </script>
 </body>
